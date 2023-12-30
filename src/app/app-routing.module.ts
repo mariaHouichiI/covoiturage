@@ -8,8 +8,6 @@ import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
 
-
-
 const routes: Routes = [
   {path: "logo" , component:LogoComponent},
   {path: "login", component:LoginComponent},

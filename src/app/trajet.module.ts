@@ -1,4 +1,4 @@
-import { Utilisateur } from "../utilisateur/utilisateur.module";
+import { Utilisateur } from "./utilisateur.module";
 
 export interface Trajet {
   chauffeur:Utilisateur; 

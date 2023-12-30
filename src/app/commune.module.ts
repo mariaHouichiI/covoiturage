@@ -1,4 +1,4 @@
-import { Wilaya } from "../wilaya/wilaya.module";
+import { Wilaya } from "./wilaya.module";
 
 export interface Commune {
   nom: string;
