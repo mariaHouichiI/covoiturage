@@ -1,0 +1,70 @@
+/* your.component.css */
+:host {
+    display: block;
+    position: relative;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow: hidden; /* Empêche le défilement lorsque la barre latérale est ouverte */
+}
+
+h3{color: var(--WHITE, #FFF);
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 15%;
+margin-bottom: 20%;
+margin-left: 5%;}
+
+.top-bar h1 {
+    margin: 0; /* Remove default margin for the h1 element */
+}
+
+::ng-deep .p-sidebar-mask {
+    background-color: transparent !important;
+}
+
+::ng-deep .p-sidebar {
+    background-color: #11669e;
+    width: 20% !important; /* Set the desired width */
+    height: 100% !important; /* Set the desired height */
+    max-width: 35% !important; /* Optional: Set a maximum width */
+ }
+
+ /*::ng-deep .p-button.clicked {
+    width: 100%;
+margin-bottom: 3%;  
+border-radius: 6px;
+background: rgba(53, 167, 255, 0.24);
+color: var(--WHITE, #FFF);
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+white-space: nowrap;
+
+  }*/
+  ::ng-deep .p-button {
+    width: 100%;
+margin-bottom: 3%;  
+border: none;
+background:transparent;
+color: var(--WHITE, #FFF);
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+white-space: nowrap;
+
+  }
+  ::ng-deep .p-button svg{
+    margin-right: 1%;  
+      }
+    
+

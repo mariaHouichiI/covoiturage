@@ -1,0 +1,65 @@
+<div   style=" margin-left: -18%; margin-bottom: 2%; margin-top: 2%;   height: 25% ;
+width: 80%;">
+
+    <input style="   height: 25% ;width: 30%;" type="text" placeholder="Rechercher chauffeur..." pInputText [(ngModel)]="value" />
+
+</div>
+<div style="display: flex; justify-content: space-between;">
+
+    <div style="flex: 1; margin-left: 22%;">
+        <p>Depart:</p>
+        <p-dropdown [options]="wialays" [(ngModel)]="selectedwilaya" optionLabel="name" [showClear]="true" placeholder="Wilaya..."></p-dropdown>
+        <br>
+        <p-dropdown [options]="communes" [(ngModel)]="selectedcommune" optionLabel="name" [showClear]="true" placeholder="Commune..."></p-dropdown>
+    </div>
+
+    <div style="flex: 1; margin-left: -30px; ">
+        <p>Arrivé:</p>
+        <p-dropdown [options]="wialays" [(ngModel)]="selectedwilaya" optionLabel="name" [showClear]="true" placeholder="Wilaya..."></p-dropdown>
+        <br>
+        <p-dropdown [options]="communes" [(ngModel)]="selectedcommune" optionLabel="name" [showClear]="true" placeholder="Commune..."></p-dropdown>
+    </div>
+
+    <div style="flex: 1; margin-left: -30px;  ">
+        <br>
+        <form [formGroup]="formGroup">
+            <p-calendar formControlName="date"></p-calendar>
+        </form>
+
+        <form [formGroup]="formGroup">
+            <p-calendar formControlName="date" [showTime]="true" [timeOnly]="true" hourFormat="24"></p-calendar>
+        </form>
+    </div>
+    <div style="display: flex; justify-content: space-between;">
+    <div style="flex: 1;  ">
+        <br><br>
+        <p > Hebdomadaire       </p>
+    </div>    
+     <div style="flex: 1; ">
+        <br><br>
+        <input type="checkbox" id="myCheckbox" [(ngModel)]="isChecked" name="myCheckbox">
+   </div> </div>
+</div>
+
+
+<p-card [style]="styleOBJ">
+
+     <p class="name">Nom<p>
+  
+     <div style="display: flex; justify-content: space-between;">
+    
+      <p class="text-card"> Départ:</p> 
+
+      <p class="text-card">Arrivé:</p> 
+
+      <p class="text-card"> Heure De Départ:</p> 
+
+      <p class="text-card"> Date De Départ:</p> 
+  
+    <button pButton pRipple icon="pi pi-plus" style="margin-left: 45%;" class=" p-button-primary " ></button>
+
+    <button pButton pRipple icon="pi pi-pencil" class=" p-button-warning " ></button>
+
+    <button style="margin-right: 10px;" pButton pRipple icon="pi pi-times" class="p-button-danger" ></button>
+   </div>
+</p-card>
