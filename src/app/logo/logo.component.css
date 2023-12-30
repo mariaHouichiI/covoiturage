@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'inter', sans-serif;
+}
+.left-space {
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  display: flex;
+  height: 100vh;
+  padding: 30px;
+  margin: 200px;}
+  voitures {
+  display: flex;
+  justify-content: space-between; /* Espacement Ã©gal entre les voitures */
+  align-items: center; /* Centrer les voitures verticalement */
+  width: 240px; /* Largeur du rectangle */
+  margin-top: 20px; /* Espacement entre le rectangle et les voitures */
+}
+.left-space {
+  display: flex;
+  flex-direction: column;
+}
+.rectangle {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Centrer les bandes verticalement */
+}.bande {
+  flex: 1;
+
+  height: 169px; 
+}
+.content{
+  min-width: 120px;
+  min-height: 100px;
+
+}
+.texte-cadre {
+  border: 2px solid #000000; /* Bordure noire */
+  background-color: #F0F0F0; /* Couleur du texte noire */
+
+  box-sizing: border-box;
+  text-align: left ; /* Alignement du texte Ã  droite */
+  min-width:50px;
+  border-radius: 0; /* Pas de coins arrondis */
+  padding: 10px;
+  min-height: 230px;
+
+}
+.voiture {
+  width: 35px; /* Ajustez la taille des voitures selon vos besoins */
+  height: 35px; /* Ajustez la taille des voitures selon vos besoins */
+  margin-top: 10px;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.left-space {
+  display: flex;
+  flex-direction: column;
+}
+
+.right-space {
+  flex: 1;
+}
+
+.rectangle {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Centrer les bandes verticalement */
+}
+
+.bande {
+  flex: 1;
+
+  height: 169px; /* Ajustez la hauteur de la bande selon vos besoins */
+ /* Ajustez la hauteur de la bande selon vos besoins */
+}
+
+.bleu-nuit { background-color: #00288C; }
+.orange { background-color: #FFA500; }
+.blanc { background-color: #FFFFFF; }
+.bleu-ciel { background-color: #379BD8 ; }
+
+.texte {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.voitures {
+  display: flex;
+  justify-content: space-between; /* Espacement Ã©gal entre les voitures */
+  align-items: center; /* Centrer les voitures verticalement */
+  width: 240px; /* Largeur du rectangle */
+  margin-top: 20px; /* Espacement entre le rectangle et les voitures */
+}
+
+p {
+  font-size: 24px;
+}
