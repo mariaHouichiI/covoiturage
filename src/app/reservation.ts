@@ -1,5 +1,5 @@
-import { Trajet } from "./trajet.module";
-import { Utilisateur } from "./utilisateur.module";
+import { Trajet } from "./trajet";
+import { Utilisateur } from "./utilisateur";
 
 
 export interface Reservation {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FieldsetModule } from 'primeng/fieldset';
 import { wilaya } from '../wilaya';
-import { commune } from '../commune';
+import { Commune } from '../commune';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms'; 
 @Component({
   selector: 'app-chauffeur',
@@ -24,8 +24,8 @@ styledown = {'margin-bottom': '15%'};
   wialays!: wilaya[];
   value: string | undefined;
   selectedwilaya!: wilaya;
-  communes!: commune[];
-  selectedcommune!: commune;
+  communes!: Commune[];
+  selectedcommune!: Commune;
   isChecked: boolean = false;
   formGroup!: FormGroup;
   

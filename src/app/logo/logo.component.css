@@ -11,8 +11,9 @@ body {
   display: flex;
   height: 100vh;
   padding: 30px;
-  margin: 200px;}
-  voitures {
+  margin: 200px;
+}
+  .voitures {
   display: flex;
   justify-content: space-between; /* Espacement Ã©gal entre les voitures */
   align-items: center; /* Centrer les voitures verticalement */

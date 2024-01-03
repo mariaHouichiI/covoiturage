@@ -6,5 +6,5 @@ export interface Utilisateur {
   email: string;
   tel: string;
   password: string;
-  role: 'conducteur' | 'passager';
+  role: 'chauffeur' | 'passager';
 }
