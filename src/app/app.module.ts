@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { InputTextModule } from 'primeng/inputtext';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LogoComponent } from './logo/logo.component';
+import { LoginComponent } from './login/login.component';
+import { SingupComponent } from './singup/singup.component';
+import { HomeComponent } from './home/home.component';
+import { InputTextModule } from 'primeng/inputtext';
 import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { CardModule } from 'primeng/card';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -18,6 +22,10 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
+    LogoComponent,
+    LoginComponent,
+    SingupComponent,
+    HomeComponent,
     ChauffeurComponent,
     SidebarComponent
   ],
@@ -40,4 +48,5 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
