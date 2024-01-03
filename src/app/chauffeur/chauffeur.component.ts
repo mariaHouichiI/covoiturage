@@ -3,13 +3,19 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { wilaya } from '../wilaya';
 import { commune } from '../commune';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms'; 
+import { TrajetService } from '../trajet.service';
+import { Trajet } from '../trajet';
 @Component({
   selector: 'app-chauffeur',
   templateUrl: './chauffeur.component.html',
   styleUrls: ['./chauffeur.component.css']
 })
 export class ChauffeurComponent {
-
+  constructor(private trajetService: TrajetService) {
+  }
+  trajets: Trajet[] = [];
+  error = '';
+  success = '';
   
      styleOBJ = {
   borderRadius: '5px',
@@ -33,6 +39,15 @@ styledown = {'margin-bottom': '15%'};
     this.formGroup = new FormGroup({
         date: new FormControl<Date | null>(null)
     });
+  //  this.getTrajets()
   }
- 
+ /* getTrajets(): void {
+    this.trajetService.getAll().subscribe(
+      (data: Trajet[]) => {
+        this.trajets = data;
+        this.success = 'successful retrieval of the list';
+      },
+     
+    );
+  }*/
 }

@@ -40,26 +40,26 @@ width: 80%;">
         <input type="checkbox" id="myCheckbox" [(ngModel)]="isChecked" name="myCheckbox">
    </div> </div>
 </div>
+<div *ngFor="let trajet of trajets">
+    <p-card [style]="styleOBJ">
+        <div>{{trajet.chauffeur}}</div>
+        <p class="name">Nom</p>
 
+        <div style="display: flex; justify-content: space-between;">
 
-<p-card [style]="styleOBJ">
+            <p class="text-card">Départ:</p>
 
-     <p class="name">Nom<p>
-  
-     <div style="display: flex; justify-content: space-between;">
-    
-      <p class="text-card"> Départ:</p> 
+            <p class="text-card">Arrivé:</p>
 
-      <p class="text-card">Arrivé:</p> 
+            <p class="text-card">Heure De Départ:</p>
 
-      <p class="text-card"> Heure De Départ:</p> 
+            <p class="text-card">Date De Départ:</p>
 
-      <p class="text-card"> Date De Départ:</p> 
-  
-    <button pButton pRipple icon="pi pi-plus" style="margin-left: 45%;" class=" p-button-primary " ></button>
+            <button pButton pRipple icon="pi pi-plus" style="margin-left: 45%;" class="p-button-primary"></button>
 
-    <button pButton pRipple icon="pi pi-pencil" class=" p-button-warning " ></button>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-warning"></button>
 
-    <button style="margin-right: 10px;" pButton pRipple icon="pi pi-times" class="p-button-danger" ></button>
-   </div>
-</p-card>
+            <button style="margin-right: 10px;" pButton pRipple icon="pi pi-times" class="p-button-danger"></button>
+        </div>
+    </p-card>
+</div>
