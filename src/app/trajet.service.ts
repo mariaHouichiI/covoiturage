@@ -6,14 +6,10 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TrajetService {
-  //baseUrl = 'http://localhost/api';
+  apiUrl = 'http://localhost/liste_trajet.php';
   constructor(private http: HttpClient) { }
 
- /* getAll() {
-    return this.http.get(`${this.baseUrl}/liste_trajet`).pipe(
-      map((res: any) => {
-        return res['data'];
-      })
-    );
-  }*/
+  getAll(): Observable<any> {
+    return this.http.get(this.apiUrl);
+  }
 }

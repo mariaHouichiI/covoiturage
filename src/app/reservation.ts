@@ -3,7 +3,7 @@ import { Utilisateur } from "./utilisateur";
 
 
 export interface Reservation {
-  passager: Utilisateur; 
-  trajet: Trajet; 
+  Passagere: Utilisateur; 
+  Trajet: Trajet; 
   approuvé : boolean;
 }

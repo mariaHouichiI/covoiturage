@@ -1,10 +1,10 @@
 
 export interface Utilisateur {
-  id: number;
-  nom: string;
-  prenom: string;
-  email: string;
-  tel: string;
-  password: string;
-  role: 'chauffeur' | 'passager';
+  Matrecule: number;
+  Nom: string;
+  Prenom: string;
+  Email: string;
+  Telephone: string;
+  Password: string;
+  Role: 'chauffeur' | 'passager';
 }

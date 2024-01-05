@@ -1,8 +1,9 @@
 import { wilaya } from "./wilaya";
 
 export interface Commune {
-  nom: string;
-  coordonneeX: number;
-  coordonneeY: number;
-  wilaya: wilaya; 
+  id_commune:number;
+  Nom_Commune: string;
+  Coordonne_X: number;
+  Coordonne_Y: number;
+  Wilaya: string; 
 }

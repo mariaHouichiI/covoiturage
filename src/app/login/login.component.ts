@@ -7,5 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+goToSingup() {
+  this.router.navigate(["/singup"])
+}
   constructor(private router: Router){}
 }

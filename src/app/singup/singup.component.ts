@@ -9,4 +9,7 @@ import { Router } from '@angular/router';
 export class SingupComponent {
   constructor(private router: Router){}
 
+  goToLogin(){
+    this.router.navigate(["/login"])
+  }
 }

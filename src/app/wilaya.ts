@@ -1,3 +1,3 @@
 export interface wilaya {
-    nom:string
+    Nom_wilaya:string
 }

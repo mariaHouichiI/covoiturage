@@ -9,10 +9,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },  
+  {path : "home" , component:HomeComponent},
   {path: "logo" , component:LogoComponent},
   {path: "login", component:LoginComponent},
   {path: "singup", component:SingupComponent},
-  {path : "home" , component:HomeComponent},
   {path:"chauffeur",component:ChauffeurComponent},
   {path:"sidebar",component:SidebarComponent},
 ];
