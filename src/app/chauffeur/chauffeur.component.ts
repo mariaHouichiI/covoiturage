@@ -3,15 +3,23 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { wilaya } from '../wilaya';
 import { Commune } from '../commune';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms'; 
-import { Trajet } from '../trajet';
 import { TrajetService } from '../trajet.service';
+import { Trajet } from '../trajet';
+import { WilayaCommuneService } from '../wilaya-commune.service';
 @Component({
   selector: 'app-chauffeur',
   templateUrl: './chauffeur.component.html',
   styleUrls: ['./chauffeur.component.css']
 })
 export class ChauffeurComponent {
-
+  selectedcommune1!: Commune;
+  selectedwilaya1!: wilaya;
+  constructor(private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService ) {
+  }
+  wilayas: wilaya[] = [];
+  trajets: Trajet[]=[];
+  error = '';
+  success = '';
   
      styleOBJ = {
   borderRadius: '5px',
@@ -30,15 +38,18 @@ styledown = {'margin-bottom': '15%'};
   selectedcommune!: Commune;
   isChecked: boolean = false;
   formGroup!: FormGroup;
-  success: string | undefined;
-  trajets!: Trajet[];
-  constructor(private trajetService : TrajetService){}
+
+
+ 
   ngOnInit() {
     this.formGroup = new FormGroup({
         date: new FormControl<Date | null>(null)
     });
+  this.getTrajets()
+  this.getWilaya()
+  this.getCommune()
   }
-  getTrajets(): void {
+ getTrajets(): void {
     this.trajetService.getAll().subscribe(
       (data: Trajet[]) => {
         this.trajets = data;
@@ -48,5 +59,38 @@ styledown = {'margin-bottom': '15%'};
      
     );
   }
- 
+
+  getWilaya(): void {
+    this.commune_wilayaServive.getAllWilaya().subscribe(
+      (data: wilaya[]) => {
+        this.wilayas = data; 
+        console.log(this.wilayas); 
+        this.success = 'successful retrieval of the list';
+      },
+      (error) => {
+        this.error = 'Error retrieving wilayas: ' + error;
+      }
+    );
+  }
+
+  filterWilayas() {
+    if (this.selectedwilaya && this.selectedwilaya.Nom_wilaya) {
+      return this.communes.filter(commune => commune.Wilaya === this.selectedwilaya.Nom_wilaya);
+    } else {
+      return this.communes;
+    }
+  }
+  
+getCommune(): void {
+  this.commune_wilayaServive.getAllCommune().subscribe(
+    (data: Commune[]) => {
+      this.communes = data; 
+      console.log(this.communes); 
+      this.success = 'successful retrieval of the list';
+    },
+    (error) => {
+      this.error = 'Error retrieving communes: ' + error;
+    }
+  );
+}
 }

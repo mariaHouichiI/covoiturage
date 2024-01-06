@@ -18,6 +18,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { ReactiveFormsModule } from '@angular/forms'; 
+<<<<<<< HEAD
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './Interceptor.service';
 import { MessageService } from 'primeng/api';
@@ -25,6 +26,9 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
+=======
+import { HttpClientModule } from '@angular/common/http';
+>>>>>>> 922d35dd99c384ca4b9614c6c9c9a6742ed96fea
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +45,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     HttpClientModule,
     BrowserModule,
     InputTextModule,
+    HttpClientModule,
     AppRoutingModule,
     CalendarModule,
     CardModule,
