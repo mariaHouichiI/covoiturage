@@ -1,7 +1,17 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.logo {
+  display: flex;
+  align-items: center;
+}
   body {
     font-family: 'inter', sans-serif;
     margin: 0;
+    display: flex;
   }
   
   .container {
@@ -73,6 +83,7 @@
   li {
     display: inline;
     margin-right: 10px;
+
   }
   
   li a {
@@ -125,4 +136,27 @@
   }
   
   
-  
+/* Ajoutez ces styles pour les tailles d'écran plus petites */
+@media screen and (max-width: 768px) {
+  .logo h1 {
+      margin-right: 0;
+      font-size: 1.5em; /* Ajustez la taille de la police selon vos besoins */
+  }
+
+  nav ul {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  nav ul li {
+      margin: 5px 0;
+  }
+
+  .explore-button,
+  .enroll-button {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 1.2em; /* Ajustez la taille de la police selon vos besoins */
+  }
+}

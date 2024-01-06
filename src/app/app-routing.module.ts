@@ -6,15 +6,17 @@ import { SingupComponent } from './singup/singup.component';
 import { HomeComponent } from './home/home.component';
 import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 const routes: Routes = [
   {path: "logo" , component:LogoComponent},
   {path: "login", component:LoginComponent},
-  {path: "singup", component:SingupComponent},
+  {path: "signup", component:SingupComponent},
   {path : "home" , component:HomeComponent},
   {path:"chauffeur",component:ChauffeurComponent},
   {path:"sidebar",component:SidebarComponent},
+  {path:"reset",component:ResetPasswordComponent},
 ];
 
 @NgModule({

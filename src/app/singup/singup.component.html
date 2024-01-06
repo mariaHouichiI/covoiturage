@@ -2,16 +2,17 @@
   <div class="container-login100">
     <div class="wrap-login100">
 
-      <form class="login100-form validate-form">
+    <!--  <form class="login100-form validate-form" (ngSubmit)="inscrireUtilisateur()">-->
+        <form class="login100-form validate-form" (ngSubmit)="inscrireUtilisateur()" #signupForm="ngForm">
+
         <span class="login100-form-title">
           Join Us !
         </span>
-
         <div class="row">
           <!-- Première colonne à gauche -->
           <div class="col-md-6">
             <div class="wrap-input100 validate-input" data-validate="First Name is required">
-              <input class="input100" type="text" name="firstname" placeholder="First Name">
+              <input class="input100" type="text" name="firstname" placeholder="First Name" [(ngModel)]="utilisateurData.prenom">
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -19,7 +20,7 @@
             </div>
 
             <div class="wrap-input100 validate-input" data-validate="Last Name is required">
-              <input class="input100" type="text" name="lastname" placeholder="Last Name">
+              <input class="input100" type="text" name="lastname" placeholder="Last Name"[(ngModel)]="utilisateurData.nom">
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -27,7 +28,7 @@
             </div>
 
             <div class="wrap-input100 validate-input" data-validate="Phone Number is required">
-              <input class="input100" type="text" name="phonenumber" placeholder="Phone Number">
+              <input class="input100" type="text" name="phonenumber" placeholder="Phone Number" [(ngModel)]="utilisateurData.tlf">
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="fa fa-phone" aria-hidden="true"></i>
@@ -38,7 +39,7 @@
           <!-- Deuxième colonne à droite -->
           <div class="col-md-6">
             <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-              <input class="input100" type="text" name="email" placeholder="Email">
+              <input class="input100" type="text" name="email" placeholder="Email" [(ngModel)]="utilisateurData.email">
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -46,7 +47,7 @@
             </div>
 
             <div class="wrap-input100 validate-input" data-validate="Password is required">
-              <input class="input100" type="password" name="pass" placeholder="Password">
+              <input class="input100" type="password" name="pass" placeholder="Password" [(ngModel)]="utilisateurData.psw">
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="fa fa-lock input-icon" aria-hidden="true"></i>
@@ -54,7 +55,7 @@
             </div>
 
             <div class="wrap-input100 validate-input" data-validate="Confirm Password is required">
-              <input class="input100" type="password" name="confirmpass" placeholder="Confirm Password">
+              <input class="input100" type="password" name="confirmpass" placeholder="Confirm Password"[(ngModel)]="confirmpass" required>
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="fa fa-lock input-icon" aria-hidden="true"></i>
@@ -64,13 +65,20 @@
         </div>
 
         <div class="container-login100-form-btn">
-          <button class="login100-form-btn">
-            Sing up
+         <!-- <button class="login100-form-btn" type="submit">
+            Sign up
+          </button>-->
+           
+          
+           <button class="login100-form-btn" type="submit" [disabled]="!signupForm.valid">
+            Sign up
           </button>
+          
         </div>
 
         <div style="text-align:droite;" class="text-center p-t-12">
-            <a  style="margin-right:300px" class="txt2"  href="#">
+            <a  style="margin-right:300px ;cursor: pointer;" class="txt2"  (click)="Gotologin()">
+             
               You already have an account
               <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
             </a>
