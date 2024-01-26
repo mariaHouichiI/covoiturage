@@ -47,7 +47,9 @@ styledown = {'margin-bottom': '15%'};
   selectedcommune!: Commune;
   isChecked: boolean = false;
   formGroup!: FormGroup;
-  
+
+
+ 
   ngOnInit() {
     this.formGroup = new FormGroup({
         date: new FormControl<Date | null>(null)

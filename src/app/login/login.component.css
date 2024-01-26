@@ -3,12 +3,21 @@
   padding: 0px; 
   box-sizing: border-box;
 }
-
+.has-error {
+  border: 1px solid orange;  
+}
 body, html {
   font-family: 'inter', sans-serif;
   height: 100%;
   
 }
+.custom-messages {
+  size: 10cm;
+  margin-left: 70%;
+  position: fixed;
+  /* Ajoutez d'autres styles au besoin */
+}
+
 
 /*---------------------------------------------*/
 a {
@@ -212,7 +221,16 @@ iframe {
   border-radius: 25px;
   padding: 0 30px 0 68px;
 }
-
+.form-control{font-size: 15px;
+  line-height: 1.5;
+  color: #666666;
+  display: block;
+  border-color: #35A7FF;
+  width: 100%;
+  background: #e6e6e6;
+  height: 50px;
+  border-radius: 25px;
+  padding: 0 30px 0 68px;}
 
 /*------------------------------------------------------------------
 [ Focus ]*/

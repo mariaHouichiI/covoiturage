@@ -18,18 +18,30 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { ReactiveFormsModule } from '@angular/forms'; 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './Interceptor.service';
+import { MessageService } from 'primeng/api';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
+    ChauffeurComponent,
     LogoComponent,
     LoginComponent,
     SingupComponent,
     HomeComponent,
-    ChauffeurComponent,
-    SidebarComponent
+    SidebarComponent,
+    ResetPasswordComponent,
+ 
   ],
   imports: [
+    FormsModule,
+    HttpClientModule,
     BrowserModule,
     InputTextModule,
     HttpClientModule,
@@ -43,9 +55,18 @@ import { HttpClientModule } from '@angular/common/http';
     MatToolbarModule,
     DropdownModule,
     FormsModule,
+    MessagesModule,
+    MessageModule
+    
    
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }, 
+     
+  MessageService],
   bootstrap: [AppComponent]
 })
 

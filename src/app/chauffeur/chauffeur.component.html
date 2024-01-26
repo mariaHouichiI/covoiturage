@@ -94,7 +94,7 @@ width: 80%;">
 
         <p-dropdown [options]="wilayas"  [(ngModel)]="selectedwilaya" id="drop" [filter]="true" placeholder=" Wilaya...">
             <ng-template  let-wilaya pTemplate="selectedItem">
-              <div  >{{selectedwilaya?.Nom_wilaya}} </div>
+              <div>{{selectedwilaya.Nom_wilaya}}</div>
             </ng-template>
             <ng-template  let-wilaya pTemplate="item">
               <div  >{{wilaya.Nom_wilaya}}</div>
@@ -105,7 +105,7 @@ width: 80%;">
 
         <p-dropdown [options]="filterWilayas()"  [(ngModel)]="selectedcommune" id="drop" [filter]="true" placeholder="Commune...">
             <ng-template let-commune pTemplate="selectedItem">
-              <div>{{selectedcommune?.Nom_Commune}}</div>
+              <div>{{selectedcommune.Nom_Commune}}</div>
             </ng-template>
             <ng-template let-commune pTemplate="item">
               <div>{{commune?.Nom_Commune}} </div>
@@ -118,7 +118,7 @@ width: 80%;">
         <p>Arrivé:</p>
         <p-dropdown [options]="wilayas"  [(ngModel)]="selectedwilaya1" id="drop" [filter]="true" placeholder="Wilaya...">
             <ng-template  let-wilaya pTemplate="selectedItem">
-              <div  >{{selectedwilaya1?.Nom_wilaya}} </div>
+              <div  >{{selectedwilaya1.Nom_wilaya}} </div>
             </ng-template>
             <ng-template  let-wilaya pTemplate="item">
               <div  >{{wilaya.Nom_wilaya}}</div>
@@ -128,7 +128,7 @@ width: 80%;">
 
    <p-dropdown [options]="filterWilayas1()"  [(ngModel)]="selectedcommune1" id="drop" [filter]="true" placeholder="Commune...">
             <ng-template let-commune pTemplate="selectedItem">
-              <div>{{selectedcommune1?.Nom_Commune}}</div>
+              <div>{{selectedcommune1.Nom_Commune}}</div>
             </ng-template>
             <ng-template let-commune pTemplate="item">
               <div>{{commune?.Nom_Commune}} </div>
