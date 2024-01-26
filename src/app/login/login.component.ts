@@ -61,10 +61,9 @@ export class LoginComponent implements OnInit {
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Message, MessageService } from 'primeng/api';
-
-
+import { MessagesModule } from 'primeng/messages';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -72,19 +71,22 @@ import { Message, MessageService } from 'primeng/api';
   providers: [MessageService],
 })
 export class LoginComponent implements OnInit {
-reset(){
-this.router.navigate(["/reset"])} 
-
-
+  messages!: Message[] | [];
+  message!: string;
   formGroup!: FormGroup;
+ 
   passwordFieldType = 'password';
   passwordVisible: boolean = false;
-  messages: Message[] = [];
 
-  constructor(private router: Router, private authService: AuthService,private messageService: MessageService) {}
+  constructor(private router: Router, private formBuilder: FormBuilder ,private authService: AuthService,private messageService : MessageService) {}
 
   ngOnInit(): void {
-    this.initForm();
+    this.formGroup = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+
+    //this.initForm();
   }
 
   initForm(): void {
@@ -93,45 +95,57 @@ this.router.navigate(["/reset"])}
       password: new FormControl('', [Validators.required])
     });
   }
+  reset()  {
+    this.router.navigate(["/reset"])} 
 
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;
   }
+
   signup() {
     this.router.navigate(["/signup"])}
   login(): void {
-
       if (this.formGroup.valid) {
         const email = this.formGroup.get('email')?.value;
         const password = this.formGroup.get('password')?.value;
-
+    
         if (email === '' || password === '') {
-          this.messages.push({ severity: 'error', summary: 'error', detail: 'you should enter you password '});
-            if (email === '') {
-              this.messages.push({ severity: 'error', summary: 'error', detail: 'you should enter your mail' });
-            }
-            if (password === '') {
-
-              this.messages.push({ severity: 'error', summary: 'error', detail: 'you should enter your password' });
-              
-            }
-            return;
+          this.messages = [
+            { severity: 'error', summary: 'error', detail: 'You should enter your email and password' }];
+          if (email === '') {
+            this.messages.push({ severity: 'error', summary: 'error', detail: 'You should enter your email' });
+          }
+          if (password === '') {
+            this.messages.push({ severity: 'error', summary: 'error', detail: 'You should enter your password' });
+          }
+          return;
         }
-
-      this.authService.login(email, password).subscribe(response => {
-        if (response['success']) {
-          this.messageService.add({ severity: 'succes', summary: 'success', detail: 'Login successfull' });
-         
-          console.log('Login successful');
-          const token = response['token'];
-          this.authService.setToken(token); // Stocker le token dans le stockage local
-          this.router.navigate(['/chauffeur']);
-        } else {
-          console.error('Login failed');
-        }
-      });
+    
+        this.authService.login(email, password).subscribe(response => {
+          // Si la requête est réussie (200 OK) avec un succès de l'API
+          if (response['success']) {
+            this.messages = [
+              { severity: 'success', summary: 'Success', detail: 'Login successful' }];
+            console.log('Login successful');
+            const token = response['token'];
+            this.authService.setToken(token); // Stocker le token dans le stockage local
+            this.router.navigate(['/chauffeur']);
+          } else {
+            // Si la requête est réussie (200 OK) mais l'API signale une erreur
+            this.messages = [
+              { severity: 'error', summary: 'Error', detail: 'Login failed, check your email and password' }];
+            console.error('Login failed', response);
+          }
+        }, error => {
+          // Si la requête échoue (erreur HTTP différente de 200 OK)
+          this.messages = [
+            { severity: 'error', summary: 'Error', detail: 'Login failed,  email or password incorrect' }];
+          console.error('Login failed', error);
+        });
+      }
     }
-  }
+    
+    
 }
 
 /*if (this.formGroup.valid) {

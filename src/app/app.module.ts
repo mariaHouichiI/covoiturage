@@ -26,6 +26,7 @@ import {MessageModule} from 'primeng/message';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     SingupComponent,
     HomeComponent,
     SidebarComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+ 
   ],
   imports: [
     FormsModule,

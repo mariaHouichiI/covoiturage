@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ResetService {
-  private apiUrl = 'http://localhost/api/auth/Reset/reset.php'; 
+  private apiUrl = 'http://localhost/bddcouvoiturage/api/auth/Reset/reset.php'; 
 
   constructor(private http: HttpClient) { }
   

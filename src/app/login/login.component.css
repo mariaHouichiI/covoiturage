@@ -4,13 +4,20 @@
   box-sizing: border-box;
 }
 .has-error {
-  border: 1px solid red;  /* Ajoutez d'autres styles selon vos préférences */
+  border: 1px solid orange;  
 }
 body, html {
   font-family: 'inter', sans-serif;
   height: 100%;
   
 }
+.custom-messages {
+  size: 10cm;
+  margin-left: 70%;
+  position: fixed;
+  /* Ajoutez d'autres styles au besoin */
+}
+
 
 /*---------------------------------------------*/
 a {

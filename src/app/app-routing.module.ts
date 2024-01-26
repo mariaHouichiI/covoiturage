@@ -13,6 +13,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent },  
   {path : "home" , component:HomeComponent},
   {path: "logo" , component:LogoComponent},
+
+
   {path: "login", component:LoginComponent},
   {path: "signup", component:SingupComponent},
   {path : "home" , component:HomeComponent},
