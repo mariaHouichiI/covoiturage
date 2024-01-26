@@ -14,6 +14,15 @@ import { WilayaCommuneService } from '../wilaya-commune.service';
 export class ChauffeurComponent {
   selectedcommune1!: Commune;
   selectedwilaya1!: wilaya;
+  selectedcommune2!: Commune;
+  selectedwilaya2!: wilaya;
+  selectedcommune3!: Commune;
+  selectedwilaya3!: wilaya;
+  departs:string []=[];
+  communes1:Commune[] = [];
+  communes2:Commune[] = [];
+  communes3:Commune[] = [];
+
   constructor(private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService ) {
   }
   wilayas: wilaya[] = [];
@@ -51,11 +60,17 @@ styledown = {'margin-bottom': '15%'};
     this.trajetService.getAll().subscribe(
       (data: Trajet[]) => {
         this.trajets = data;
+        for (const trajet of this.trajets) {
+        //  this.departs.push(trajet.Lieu_depart.Nom_Commune);
+              }
         console.log(this.trajets)
         this.success = 'successful retrieval of the list';
       },
      
     );
+  }
+  getDepart(){
+
   }
 
   getWilaya(): void {
@@ -71,11 +86,33 @@ styledown = {'margin-bottom': '15%'};
     );
   }
 
+  
   filterWilayas() {
     if (this.selectedwilaya && this.selectedwilaya.Nom_wilaya) {
       return this.communes.filter(commune => commune.Wilaya === this.selectedwilaya.Nom_wilaya);
     } else {
       return this.communes;
+    }
+  }
+  filterWilayas1() {
+    if (this.selectedwilaya1 && this.selectedwilaya1.Nom_wilaya) {
+      return this.communes.filter(commune => commune.Wilaya === this.selectedwilaya1.Nom_wilaya);
+    } else {
+      return this.communes1;
+    }
+  }
+  filterWilayas2() {
+    if (this.selectedwilaya2 && this.selectedwilaya2.Nom_wilaya) {
+      return this.communes.filter(commune => commune.Wilaya === this.selectedwilaya2.Nom_wilaya);
+    } else {
+      return this.communes2;
+    }
+  }
+  filterWilayas3() {
+    if (this.selectedwilaya3 && this.selectedwilaya3.Nom_wilaya) {
+      return this.communes.filter(commune => commune.Wilaya === this.selectedwilaya3.Nom_wilaya);
+    } else {
+      return this.communes3;
     }
   }
   

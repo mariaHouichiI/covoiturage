@@ -1,8 +1,89 @@
 <app-sidebar></app-sidebar>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter Trajet</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Lieu De Depart:</p>
+
+
+        <p-dropdown [options]="wilayas"  [(ngModel)]="selectedwilaya2" id="drop" [filter]="true" placeholder=" Wilaya...">
+            <ng-template  let-wilaya pTemplate="selectedItem">
+              <div  >{{selectedwilaya2?.Nom_wilaya}} </div>
+            </ng-template>
+            <ng-template  let-wilaya pTemplate="item">
+              <div  >{{wilaya.Nom_wilaya}}</div>
+            </ng-template>
+          </p-dropdown>
+        
+        <br>
+
+        <p-dropdown [options]="filterWilayas2()"  [(ngModel)]="selectedcommune2" id="drop" [filter]="true" placeholder="Commune...">
+            <ng-template let-commune pTemplate="selectedItem">
+              <div>{{selectedcommune2?.Nom_Commune}}</div>
+            </ng-template>
+            <ng-template let-commune pTemplate="item">
+              <div>{{commune?.Nom_Commune}} </div>
+            </ng-template>
+          </p-dropdown>
+
+          <p>Lieu D'arrivé:</p>
+          <p-dropdown [options]="wilayas"  [(ngModel)]="selectedwilaya3" id="drop" [filter]="true" placeholder="Wilaya...">
+              <ng-template  let-wilaya pTemplate="selectedItem">
+                <div  >{{selectedwilaya3?.Nom_wilaya}} </div>
+              </ng-template>
+              <ng-template  let-wilaya pTemplate="item">
+                <div  >{{wilaya.Nom_wilaya}}</div>
+              </ng-template>
+            </p-dropdown>       
+             <br>
+  
+     <p-dropdown [options]="filterWilayas3()"  [(ngModel)]="selectedcommune3" id="drop" [filter]="true" placeholder="Commune...">
+              <ng-template let-commune pTemplate="selectedItem">
+                <div>{{selectedcommune3?.Nom_Commune}}</div>
+              </ng-template>
+              <ng-template let-commune pTemplate="item">
+                <div>{{commune?.Nom_Commune}} </div>
+              </ng-template>
+            </p-dropdown> 
+
+            <input type="number" style=" margin-bottom: 5%;margin-right: 1%; flex-shrink: 0;border-radius: 9px;border: 0.5px solid #8A8A8A;background: var(--WHITE, #FFF);box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);height: 25%;
+            width: 80%;" ngModel=""  name="NbR_place_max" class="form-control"  placeholder="nombre de places max">
+
+<div style="flex: 1; ">
+  <p > Date De Depart       </p>
+  <form [formGroup]="formGroup">
+      <p-calendar formControlName="date"></p-calendar>
+  </form>
+  <p > Heure De Depart      </p>
+  <form [formGroup]="formGroup">
+      <p-calendar formControlName="date" [showTime]="true" [timeOnly]="true" hourFormat="24"></p-calendar>
+  </form>
+</div>
+
+            <p > Hebdomadaire</p>
+             
+              <input  type="checkbox" id="myCheckbox2" [(ngModel)]="isChecked" name="myCheckbox">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div   style=" margin-left: -18%; margin-bottom: 2%; margin-top: 2%;   height: 25% ;
 width: 80%;">
 
-    <input style="   height: 25% ;width: 30%;" type="text" placeholder="Rechercher chauffeur..." pInputText [(ngModel)]="value" />
+    <input class="classInput" style="   height: 25% ;width: 30%;" type="text" placeholder="Rechercher chauffeur..." pInputText [(ngModel)]="value" />
 
 </div>
 <div style="display: flex; justify-content: space-between;">
@@ -45,7 +126,7 @@ width: 80%;">
           </p-dropdown>       
            <br>
 
-   <p-dropdown [options]="filterWilayas()"  [(ngModel)]="selectedcommune1" id="drop" [filter]="true" placeholder="Commune...">
+   <p-dropdown [options]="filterWilayas1()"  [(ngModel)]="selectedcommune1" id="drop" [filter]="true" placeholder="Commune...">
             <ng-template let-commune pTemplate="selectedItem">
               <div>{{selectedcommune1?.Nom_Commune}}</div>
             </ng-template>
@@ -71,9 +152,15 @@ width: 80%;">
     </div>    
      <div style="flex: 1; ">
         <br><br>
-        <input type="checkbox" id="myCheckbox" [(ngModel)]="isChecked" name="myCheckbox">
-   </div> </div>
+        <input class="classInput" type="checkbox" id="myCheckbox" [(ngModel)]="isChecked" name="myCheckbox">
+        <button pButton pRipple icon="pi pi-plus" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-left: 45%;" class="p-button-primary"></button>
+
+   </div>        
+
+  </div>
+   
 </div>
+
 <div *ngFor="let trajet of trajets">
     <p-card [style]="styleOBJ">
 
@@ -89,7 +176,6 @@ width: 80%;">
 
             <p class="text-card">Date De Départ:{{trajet.Date_depart}}</p>
 
-            <button pButton pRipple icon="pi pi-plus" style="margin-left: 45%;" class="p-button-primary"></button>
 
             <button pButton pRipple icon="pi pi-pencil" class="p-button-warning"></button>
 
