@@ -66,7 +66,7 @@ login(email: string, password: string): Observable<any> {
     localStorage.removeItem('token');
   }
 
-  // Fonction pour récupérer les détails de l'utilisateur depuis le token
+//Fonction pour récupérer les détails de l'utilisateur depuis le token
   getUserDetails(): any {
     const token = localStorage.getItem('token');
     if (token) {
@@ -76,3 +76,5 @@ login(email: string, password: string): Observable<any> {
     return null;
   }*/
 }
+
+

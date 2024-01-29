@@ -60,11 +60,11 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     
    
   ],
-  providers: [ {
+  providers: [/* {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }, 
+  }, */
      
   MessageService],
   bootstrap: [AppComponent]

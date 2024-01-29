@@ -1,12 +1,13 @@
 import { Utilisateur } from "./utilisateur";
 
 export interface Trajet {
-    id_trajet:number;
-    Chauffeur:Utilisateur; 
-  Lieu_depart: string;
-  Lieu_arrive: string;
-  Date_depart: Date;
-  Heur_depart: string;
-  NbR_place_max: number;
-  hebdomadaire: boolean;
+    id:number;
+    chauffeur:number; 
+  commune_depart: number;
+  commune_arrive: number;
+  date_depart: string;
+  heure_depart: string;
+  nbr_place: number;
+  hebdomadaire: number;
+ 
 }

@@ -2,16 +2,55 @@ import { Component } from '@angular/core';
 import { FieldsetModule } from 'primeng/fieldset';
 import { wilaya } from '../wilaya';
 import { Commune } from '../commune';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms'; 
+import { FormBuilder, FormGroup, FormControl, NgForm, Validators } from '@angular/forms'; 
 import { TrajetService } from '../trajet.service';
 import { Trajet } from '../trajet';
 import { WilayaCommuneService } from '../wilaya-commune.service';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-chauffeur',
   templateUrl: './chauffeur.component.html',
   styleUrls: ['./chauffeur.component.css']
 })
 export class ChauffeurComponent {
+
+ 
+
+addTrajet(addForm: NgForm) {
+console.log("tokkkkkkkkkkkkkkkkkkn",localStorage.getItem('token'))
+const newTrajet: Trajet ={
+  nbr_place: 2,
+  commune_arrive:1,
+  commune_depart:2,
+  heure_depart:"10:00:00",
+  date_depart:"2022-10-10" ,
+  hebdomadaire:1 ,
+  chauffeur:1,
+  id: 1
+}
+
+console.log("trajet recupere",newTrajet)
+
+this.trajetService.addTrajet(newTrajet).subscribe(
+  response => {
+    if (response) {
+      console.log('Trip added successfully:', response);
+      // Handle success, if needed
+    } 
+  },
+  error => {
+    console.error('HTTP error:', error);
+    // Handle HTTP error, if needed
+  }
+ 
+);
+
+
+}
+
+
+
+
   selectedcommune1!: Commune;
   selectedwilaya1!: wilaya;
   selectedcommune2!: Commune;
@@ -22,9 +61,15 @@ export class ChauffeurComponent {
   communes1:Commune[] = [];
   communes2:Commune[] = [];
   communes3:Commune[] = [];
+  addForm: FormGroup;
 
-  constructor(private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService ) {
-  }
+constructor(private fb: FormBuilder, private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
+  this.addForm = this.fb.group({
+    date: [null, Validators.required],
+    heure: [null, Validators.required],
+    // Ajoutez d'autres champs du formulaire au besoin
+  });
+}
   wilayas: wilaya[] = [];
   trajets: Trajet[]=[];
   error = '';
