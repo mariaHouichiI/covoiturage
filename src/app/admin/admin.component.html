@@ -43,7 +43,7 @@ width: 80%;">
         ></path></g></g></g>
       </svg>
 
-      <p-button label="Gérer les paramètres" (click)="onListeTrajetsClick()"></p-button>
+      <p-button label="Gérer les paramètres" ></p-button>
   </div>
   <div style="display: flex; align-items: center;">
     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAClklEQVR4nO2YT4hNURzHj/+RIYPShJIsZPFiYWchs9BEshNNaVATzYjizTTKlJrVw0IJyZ/8Kys7CxuxsjARNTPxhKVCWfgzxUen93v5zZnr3uved+87k/upU/fP9/7e99x7zu/8zjOmoKCgoMA3gBZgJ3BEmj1uMb4DLAROA9+YjL1WARYYHwFWAC+J5gWw3PgEMA945hh9CpyRNuzcs+dzjS8AJ52hsidA0wl8V7oTxgeA2cBnZWx/iLZb6T4Bs/J1G2xqizL1Gpgeop0BVJV+c75ug00dUoYuxNBfVPqD+bgMN9SvDA3F0A8pfX8+LsMNHVCGbsbQ31b6ffm4DDe0Xhn6CMyPWKHt5K1TytdtsKlpwCtl6lyI9rzSjdlnjQ/YvM9ELgNL1P2lwBVHs8v4hDO2LeOy4g7LseaG8Q1qC9p1orlqtcZXgG3AY+CnMm2PHwEdZqoAtAIbpLU228//A7VNzSZgB7AX2A1sB9YBM42PABuBs5Lbf4VMYFtOPwAOA4t9MN4OPCEZb+0urpnD5M5fjI3LbuyepMy7koHeKc1DvdBZ7DlwTNqEew0FWA28cUz/AK4BW4E5Ic+uAbqCtpNAj4rXk5X5VcB7x/wtYGWCWCV5ERXZbo6qmKNyrSKaUqNWWjs09N43cT0T8BXDqDaiA6ecbNKeMp59u3GppDW/CPiiAvamCvjnXwo9h44DbdLKcq1OZ9ofO6qCPU9Tx0u26QVGVMxygM52os6IPJMsOzlVZqp9LDDAZNoCdPZLuAwk/dFB0tPRzA4sAz6k7EDXPw6hvoAhlLz8ANYC94GvCTtwKWISlzObxFmQaxrNgtwXskYjpUQ1RilR9eL/oyjIo5jLEmrZaVBa8zc7BQVmavAbuE/0tJjBV+MAAAAASUVORK5CYII=" width="25" height="25">
@@ -217,13 +217,13 @@ width: 80%;">
 
         <div style="display: flex; justify-content: space-between;">
 
-            <p class="text-card">Départ: {{trajet.commune_depart}}</p>
+            <p class="text-card">Départ: {{trajet.Lieu_depart}}</p>
 
-            <p class="text-card">Arrivé:{{trajet.commune_arrive}}</p>
+            <p class="text-card">Arrivé:{{trajet.Lieu_arrive}}</p>
 
-            <p class="text-card">Heure De Départ:{{trajet.heure_depart}}</p>
+            <p class="text-card">Heure De Départ:{{trajet.Heure_depart}}</p>
 
-            <p class="text-card">Date De Départ:{{trajet.date_depart}}</p>
+            <p class="text-card">Date De Départ:{{trajet.Date_depart}}</p>
 
 
             <button style="margin-left: 30em;height: 1cm;width: 1cm;" pButton pRipple icon="pi pi-pencil" class="p-button-warning"></button>
