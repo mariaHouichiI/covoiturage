@@ -9,7 +9,6 @@ import { WilayaCommuneService } from '../wilaya-commune.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
-import * as jwtDecode from 'jwt-decode';
 import { GetUserService } from '../get-user.service';
 import { Utilisateur } from '../utilisateur';
 
