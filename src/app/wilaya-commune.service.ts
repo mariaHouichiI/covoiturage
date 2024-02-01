@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class WilayaCommuneService {
-  apiUrl = 'http://localhost/bddcouvoiturage/api';
+  apiUrl = 'http://localhost/api/commune';
 
   constructor(private http: HttpClient) { }
   getAllCommune(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/commune/liste_commune.php`);  }
+    return this.http.get(`${this.apiUrl}/liste_commune.php`);  }
   getAllWilaya(): Observable<any> {
-    return this.http.get( `${this.apiUrl}/wilaya/liste_wilaya.php`);  }
+    return this.http.get( `${this.apiUrl}/liste_wilaya.php`);  }
 }

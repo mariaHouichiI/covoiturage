@@ -7,68 +7,33 @@ import { TrajetService } from '../trajet.service';
 import { Trajet } from '../trajet';
 import { WilayaCommuneService } from '../wilaya-commune.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { AuthService } from '../auth.service';
+import * as jwtDecode from 'jwt-decode';
+import { GetUserService } from '../get-user.service';
+import { Utilisateur } from '../utilisateur';
+
 @Component({
   selector: 'app-chauffeur',
   templateUrl: './chauffeur.component.html',
   styleUrls: ['./chauffeur.component.css']
 })
 export class ChauffeurComponent {
-
- 
-
-addTrajet(addForm: NgForm) {
-console.log("tokkkkkkkkkkkkkkkkkkn",localStorage.getItem('token'))
-const newTrajet: Trajet ={
-  nbr_place: 2,
-  commune_arrive:1,
-  commune_depart:2,
-  heure_depart:"10:00:00",
-  date_depart:"2022-10-10" ,
-  hebdomadaire:1 ,
-  chauffeur:1,
-  id: 1
-}
-
-console.log("trajet recupere",newTrajet)
-
-this.trajetService.addTrajet(newTrajet).subscribe(
-  response => {
-    if (response) {
-      console.log('Trip added successfully:', response);
-      // Handle success, if needed
-    } 
-  },
-  error => {
-    console.error('HTTP error:', error);
-    // Handle HTTP error, if needed
-  }
- 
-);
-
-
-}
-
-
-
-
   selectedcommune1!: Commune;
   selectedwilaya1!: wilaya;
   selectedcommune2!: Commune;
   selectedwilaya2!: wilaya;
   selectedcommune3!: Commune;
   selectedwilaya3!: wilaya;
-  departs:string []=[];
+  departs: { Wilaya: string, Nom_Commune: string, id: number }[] = [];
+  arrives: { Wilaya: string, Nom_Commune: string, id: number }[] = [];
   communes1:Commune[] = [];
   communes2:Commune[] = [];
   communes3:Commune[] = [];
-  addForm: FormGroup;
+  currentUser!: Utilisateur;
 
-constructor(private fb: FormBuilder, private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
-  this.addForm = this.fb.group({
-    date: [null, Validators.required],
-    heure: [null, Validators.required],
-    // Ajoutez d'autres champs du formulaire au besoin
-  });
+constructor(private getUser :GetUserService,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
+ 
 }
   wilayas: wilaya[] = [];
   trajets: Trajet[]=[];
@@ -88,37 +53,89 @@ styledown = {'margin-bottom': '15%'};
   wialays!: wilaya[];
   value: string | undefined;
   selectedwilaya!: wilaya;
-  communes!: Commune[];
+  communes: Commune[]= [];;
   selectedcommune!: Commune;
   isChecked: boolean = false;
   formGroup!: FormGroup;
-
+  token = localStorage.getItem('token');
 
  
   ngOnInit() {
+ 
+
     this.formGroup = new FormGroup({
         date: new FormControl<Date | null>(null)
     });
+   this.getCommune()
   this.getTrajets()
   this.getWilaya()
-  this.getCommune()
+ 
+  this.getUserCurrent()
   }
- getTrajets(): void {
-    this.trajetService.getAll().subscribe(
-      (data: Trajet[]) => {
-        this.trajets = data;
-        for (const trajet of this.trajets) {
-        //  this.departs.push(trajet.Lieu_depart.Nom_Commune);
-              }
-        console.log(this.trajets)
+
+  getUserCurrent(): void {
+    
+    this.getUser.getUser(this.token).subscribe(
+      (data: Utilisateur) => {
+        this.currentUser = data;
+       
+        console.log("useeeeeeeeeeer",this.currentUser)
         this.success = 'successful retrieval of the list';
       },
      
     );
   }
-  getDepart(){
 
+  getTrajets(): void {
+ 
+    this.trajetService.getAll().subscribe(
+    
+      (data: Trajet[]) => {
+        this.trajets = data;
+
+        for (const trajet of this.trajets) {
+         
+          for (const commune of this.communes) {
+           
+            if (trajet.Lieu_depart === commune.id) { 
+             
+              const trajetInfoDepart = {
+                Wilaya: commune.Wilaya,        // Assurez-vous que commune a une propriété Wilaya
+                Nom_Commune: commune.Nom_Commune,  // Assurez-vous que commune a une propriété Nom_Commune
+                id: trajet.id   
+
+              };
+              this.departs.push(trajetInfoDepart);
+            }
+          }
+        }
+        for (const trajet of this.trajets) {
+         
+          for (const commune of this.communes) {
+           
+            if (trajet.Lieu_arrive === commune.id) { 
+             
+              const trajetInfoArrive = {
+                Wilaya: commune.Wilaya,        // Assurez-vous que commune a une propriété Wilaya
+                Nom_Commune: commune.Nom_Commune,  // Assurez-vous que commune a une propriété Nom_Commune
+                id: trajet.id   
+
+              };
+              this.arrives.push(trajetInfoArrive);
+            }
+          }
+        }
+        
+        console.log("deeeeeeeeeeeeeeeep",this.departs);
+        this.success = 'successful retrieval of the list';
+      },
+      error => {
+        // Gérer les erreurs ici
+      }
+    );
   }
+  
+
 
   getWilaya(): void {
     this.commune_wilayaServive.getAllWilaya().subscribe(
@@ -175,4 +192,40 @@ getCommune(): void {
     }
   );
 }
+
+
+addTrajet(addForm: NgForm) {
+  console.log("tokkkkkkkkkkkkkkkkkkn",localStorage.getItem('token'))
+  addForm.value.date_depart = this.datePipe.transform(addForm.value.date, 'yyyy-MM-dd');
+  addForm.value.heure_depart = this.datePipe.transform(addForm.value.heure, 'HH.mm.ss');
+  const newTrajet: Trajet ={
+    nbr_place: addForm.value.nbr_place,
+    Lieu_arrive: this.selectedcommune3.id,
+    Lieu_depart: this.selectedcommune2.id,
+    Heure_depart:addForm.value.heure_depart,
+    Date_depart: addForm.value.date_depart,
+    hebdomadaire:1 ,
+    Chauffeur:this.currentUser?.id,
+    id: 1
+  }
+  
+  console.log("trajet recupere",newTrajet)
+  
+  this.trajetService.addTrajet(newTrajet).subscribe(
+    (response: Trajet) => {
+      console.log(response);
+      const bouton= document.getElementById('annu');
+      if (bouton ){bouton.click()}
+     
+    },
+    (error: HttpErrorResponse) => {
+     // addForm.reset();
+    }
+  );
+  
+  
+  }
+  
 }
+
+

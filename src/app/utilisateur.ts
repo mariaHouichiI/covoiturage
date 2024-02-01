@@ -1,10 +1,10 @@
 
 export interface Utilisateur {
   id: number;
-  firstname: string;
-  lastname: string;
-  email: string;
-  telephone: string;
-  password: string;
-  role: boolean;
+  nom: string;
+  prenom: string;
+  Email: string;
+  Telephone: string;
+  Password: string;
+  Admin: boolean;
 }

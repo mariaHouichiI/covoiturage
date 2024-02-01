@@ -8,7 +8,7 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost/bddcouvoiturage/api/auth/login/index.php';
+  private apiUrl = 'http://localhost/api/auth/login/index.php';
                   
 
   constructor(private http: HttpClient) {}

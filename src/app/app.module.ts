@@ -24,7 +24,7 @@ import { MessageService } from 'primeng/api';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -65,7 +65,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     useClass: AuthInterceptor,
     multi: true
   }, */
-     
+  DatePipe,
   MessageService],
   bootstrap: [AppComponent]
 })
