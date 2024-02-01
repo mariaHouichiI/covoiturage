@@ -1,0 +1,211 @@
+<head> <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<div style=" size: 10cm;margin-left: 70%;"   class="card">
+    <p-messages style="position: fixed;" [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false"></p-messages>
+  </div>
+<form class="form-inline my-2 my-lg-0" style=" margin-bottom: 2%; margin-top: 2%; height: 25%; padding: 2em;margin-left: 75%;">
+    <input class="classInput" style="margin-top: 20px;margin-bottom: 5em;height: 3em;width: 15em;" type="search" style="margin-top: 20px;" (ngModelChange)="searchUtilisateurs(key.value)" #key="ngModel" ngModel
+     name="key" id="searchName" class="form-control mr-sm-2" placeholder="Rechercher chauffeur..." required>
+ </form>
+
+
+
+ 
+ <button pButton pRipple icon="pi pi-plus" data-bs-toggle="modal" data-bs-target="#addUserModal"  class="p-button-primary"></button>
+
+
+<div *ngFor="let utilisateur of utilisateurs">
+    <p-card [style]="styleOBJ">
+        <p style="font-weight: bold; font-size: 1.2em;" class="name">chauffeur : {{utilisateur.id}} </p>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+
+            <div class="text-card" style="flex: 1;">
+                <p style="font-weight: bold; font-size: 1em;">Nom :</p>
+                <p>{{utilisateur.Nom}}</p>
+            </div>
+
+            <div class="text-card" style="flex: 1;">
+                <p style="font-weight: bold; font-size: 1em;">Prénom :</p>
+                <p>{{utilisateur.Prenom}}</p>
+            </div>
+
+            <div class="text-card" style="flex: 1;">
+                <p style="font-weight: bold; font-size: 1em;">Email :</p>
+                <p>{{utilisateur.Email}}</p>
+            </div>
+
+            <div class="text-card" style="flex: 1;">
+                <p style="font-weight: bold; font-size: 1em;">Téléphone :</p>
+                <p>{{utilisateur.Telephone}}</p>
+            </div>
+
+            <div class="text-card" style="flex: 1;">
+                <!-- <button (click)="initEditUser(utilisateur)" data-bs-toggle="modal" data-bs-target="#updateUserModal" style="height: 1cm;width: 1cm;margin-left: 5em;margin-right: 4px;" pButton pRipple icon="pi pi-pencil" class="p-button-warning"></button>
+
+              --> <button (click)="initEditUser(utilisateur)" data-bs-toggle="modal" data-bs-target="#updateUserModal"style="height: 1cm;width: 1cm;margin-left: 5em;margin-right: 4px;"  pButton pRipple icon="pi pi-pencil" class="p-button-warning"></button>
+                <button  (click)="confirm(utilisateur.id)"  style="height: 1cm; width: 1cm;" pButton pRipple icon="pi pi-times" class="p-button-danger" (click)="openDeleteUserModal(utilisateur.id)"></button>
+
+            </div>
+
+        </div>
+    </p-card>
+</div>
+<!--delete user  -->
+<div  class="card flex justify-content-center">
+    <p-toast></p-toast>
+    <p-confirmDialog #cd>
+        <ng-template pTemplate="headless" let-message>
+            <div style="    width: 30em;" class="flex flex-column align-items-center p-5 surface-overlay border-round">
+                <div  class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8">
+                    <i class="pi pi-question text-5xl"></i>
+                </div>
+                <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+                <p class="mb-0">{{ message.message }}</p>
+                <div class="flex align-items-center gap-2 mt-4">
+                    <button pButton label="Save" (click)="cd.accept()" class="w-8rem"></button>
+                    <button pButton label="Cancel" (click)="cd.reject()" class="p-button-outlined w-8rem "></button>
+                </div>
+            </div>
+        </ng-template>
+    </p-confirmDialog>
+  
+</div>
+ <!-- Edit Modal
+<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier Utilisateur {{editUtilisateur.Nom}}</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+<form #editForm="ngForm">
+    <div class="form-group">
+       <label for="nom">Nom</label>
+       <input type="text" [(ngModel)]="editUtilisateur.Nom" name="nom" class="form-control" id="nom" placeholder="Nom" readonly>
+    </div>
+ 
+    <div class="form-group">
+       <label for="prenom">Prénom </label>
+       <input type="text" [(ngModel)]="editUtilisateur.Prenom" name="prenom" class="form-control" id="prenom" placeholder="Prénom" readonly>
+    </div>
+ 
+    <div class="form-group">
+       <label for="email">Email </label>
+       <input type="text" [(ngModel)]="editUtilisateur.Email" name="email" class="form-control" id="email" placeholder="Email">
+    </div>
+ 
+    <div class="modal-footer">
+       <button type="button" data-dismiss="modal" class="btn btn-secondary">Fermer</button>
+       <button (click)="onUpdateUser(editForm.value)" data-dismiss="modal" class="btn btn-primary">Sauvegarder modification</button>
+    </div>
+ </form>
+</div>
+</div>
+</div>
+-->
+<!--Add User Modal  -->  
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="updateEmployeeModalLabel">Create a new account </h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <form #editForm="ngForm">
+                <div class="form-group">
+                   <label for="nom">Nom</label>
+                   <input type="text" ngModel name="nom" class="form-control" id="nom"  placeholder="nom" >
+                </div>
+                <div class="form-group">
+                   <label for="lastname">Prénom </label>
+                   <input type="text" ngModel name="prenom" class="form-control" id="prenom" placeholder="prenom" >
+                </div>
+                <div class="form-group">
+                   <label for="email">Email</label>
+                   <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="tlf">Telephone </label>
+                    <input type="tel" ngModel name="tlf" class="form-control" id="tlf" placeholder="Telephone">
+                 </div>
+                <div class="form-group">
+                  <label for="psw">Mot de passe </label>
+                  <input type="password" ngModel name="psw" class="form-control" id="psw" placeholder="password">
+              </div>
+                
+             <!--   <div class="form-group">
+                <label style="margin-left: 5px;" for="admin">Admin</label>
+                <input style="margin-left: 20px;" type="checkbox" [(ngModel)]="utilisateur.admin" name="admin" class="form-check-input" id="admin" />
+              </div>--> 
+              
+                  <div class="modal-footer">
+                 
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                   <button (click)="onAddUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Sauvgarder modification </button>
+                </div>
+             </form>
+          </div>
+       </div>
+    </div>
+<!--edit-->
+<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier Utilisateur {{editUtilisateur?.Nom}}</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <form #editForm="ngForm">
+                <div class="form-group">
+                   <label for="nom">Nom</label>
+                   <input type="text" ngModel="{{editUtilisateur?.Nom}}" value="{{editUtilisateur?.Nom}}" name="nom" class="form-control" id="nom"  placeholder="nom" readonly>
+                </div>
+  
+                <div class="form-group">
+                   <label for="prenom">prenom </label>
+                   <input type="text" ngModel="{{editUtilisateur?.Prenom}}" value="{{editUtilisateur?.Prenom}}" name="prenom" class="form-control" id="prenom" placeholder="prenom" readonly>
+                </div>
+  
+                 <div class="form-group">
+                   <label for="fonction">Email </label>
+                   <input type="text" ngModel="{{editUtilisateur?.Email}}" value="{{editUtilisateur?.Email}}" name="email" class="form-control" id="email" placeholder="fonction">
+                 </div>
+               
+                <input type="hidden" ngModel="{{editUtilisateur?.password}}" name="password" class="form-control" id="password" placeholder="password">
+                <input type="hidden" ngModel="{{editUtilisateur?.Telephone}}" name="Telephone" class="form-control" id="Telephone" placeholder="Telephone">
+                 <div class="modal-footer">
+                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Fermer</button>
+                   <button (click)="onUpdateUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Sauvgarder modification </button>
+                </div>
+             </form>
+          </div>
+       </div>
+    </div> 
+ 
+
+
+
+
+
+
+<!-- Notification for no users -->
+<div *ngIf="utilisateurs?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">NO USERS!</h4>
+      <p>No utilisateurs were found.</p>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

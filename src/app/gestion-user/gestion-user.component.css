@@ -1,0 +1,23 @@
+  .classInput{ 
+    margin-top: 20px;
+    margin-bottom: 10em;
+    /* height: max-content; */
+    height: 3em;
+    width: 15em;
+
+  } 
+
+  #searchName
+  {
+    margin-top: 20px;margin-bottom: 3em;height: 3em;width: 15em;
+  }
+        
+  .p-button-primary {
+        
+    background-color: #35A7FF;
+    height: 1cm;
+    width: 1cm;
+    margin-left: 80%;
+    margin-bottom: 1em;
+    color: white; /* Pour assurer un bon contraste de texte */
+}

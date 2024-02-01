@@ -24,8 +24,11 @@ import { MessageService } from 'primeng/api';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-
-
+import { AdminComponent } from './admin/admin.component';
+import { GestionUserComponent } from './gestion-user/gestion-user.component';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -37,10 +40,14 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     HomeComponent,
     SidebarComponent,
     ResetPasswordComponent,
+    AdminComponent,
+    GestionUserComponent,
  
   ],
   imports: [
     FormsModule,
+    ConfirmDialogModule,
+    ToastModule,
     HttpClientModule,
     BrowserModule,
     InputTextModule,
@@ -56,11 +63,12 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     DropdownModule,
     FormsModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    ButtonModule,
     
    
   ],
-  providers: [/* {
+  providers: [ConfirmationService,/* {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

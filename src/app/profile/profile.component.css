@@ -1,0 +1,26 @@
+body {
+    background-color: #c983fc; /* Change background color to violet */
+}
+
+.bg-c-lite-blue {
+ 
+    background: rgba(98, 161, 255, 0.717);
+}
+
+.user-card-full .img-radius {
+    border-radius: 50%;
+    border: 2px solid #fff; 
+}
+
+.edit-btn {
+
+    background: rgb(240, 202, 132);
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.edit-btn:hover {
+    background-color: #99bbee; 
+}

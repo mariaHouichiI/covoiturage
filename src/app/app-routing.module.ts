@@ -7,18 +7,22 @@ import { HomeComponent } from './home/home.component';
 import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AdminComponent } from './admin/admin.component';
+import { ProfileComponent } from './profile/profile.component';
+import { GestionUserComponent } from './gestion-user/gestion-user.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },  
   {path : "home" , component:HomeComponent},
   {path: "logo" , component:LogoComponent},
-
-
+  {path: "admin" , component:AdminComponent},
+  {path: "profile" , component:ProfileComponent},
   {path: "login", component:LoginComponent},
   {path: "signup", component:SingupComponent},
   {path : "home" , component:HomeComponent},
   {path:"chauffeur",component:ChauffeurComponent},
+  {path:"utilisateur",component:GestionUserComponent},
   {path:"sidebar",component:SidebarComponent},
   {path:"reset",component:ResetPasswordComponent},
 ];

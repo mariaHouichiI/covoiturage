@@ -7,7 +7,8 @@ import { TrajetService } from '../trajet.service';
 })
 export class SidebarComponent {
   sidebarVisible!: boolean;
-  topSidebarVisible!:boolean
+  topSidebarVisible!:boolean;
+
   constructor(private trajetService: TrajetService) { }
   ngOnInit() {
    this.sidebarVisible= true;

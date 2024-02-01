@@ -7,15 +7,21 @@ import { TrajetService } from '../trajet.service';
 import { Trajet } from '../trajet';
 import { WilayaCommuneService } from '../wilaya-commune.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Route, Router } from '@angular/router';
+
 @Component({
-  selector: 'app-chauffeur',
-  templateUrl: './chauffeur.component.html',
-  styleUrls: ['./chauffeur.component.css']
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.css']
 })
-export class ChauffeurComponent {
-
- 
-
+export class AdminComponent {
+GoToGestionUser() {
+  this.router.navigate(['/utilisateur']);
+}
+  sidebarVisible!: boolean;
+  topSidebarVisible!:boolean;
+  
+  
 addTrajet(addForm: NgForm) {
 console.log("tokkkkkkkkkkkkkkkkkkn",localStorage.getItem('token'))
 const newTrajet: Trajet ={
@@ -44,8 +50,6 @@ this.trajetService.addTrajet(newTrajet).subscribe(
   }
  
 );
-
-
 }
   selectedcommune1!: Commune;
   selectedwilaya1!: wilaya;
@@ -59,7 +63,7 @@ this.trajetService.addTrajet(newTrajet).subscribe(
   communes3:Commune[] = [];
   addForm: FormGroup;
 
-constructor(private fb: FormBuilder, private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
+constructor(private router: Router,private fb: FormBuilder, private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
   this.addForm = this.fb.group({
     date: [null, Validators.required],
     heure: [null, Validators.required],
@@ -71,7 +75,7 @@ constructor(private fb: FormBuilder, private trajetService: TrajetService, priva
   error = '';
   success = '';
   
-  styleOBJ = {
+     styleOBJ = {
   borderRadius: '5px',
   border: '0.5px solid #DDD',
   background: '#FBFBFB',
@@ -98,6 +102,7 @@ styledown = {'margin-bottom': '15%'};
   this.getTrajets()
   this.getWilaya()
   this.getCommune()
+  this.sidebarVisible= true;
   }
  getTrajets(): void {
     this.trajetService.getAll().subscribe(
@@ -171,4 +176,43 @@ getCommune(): void {
     }
   );
 }
+
+  onSidebarShow() {
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when the sidebar is open
+  }
+
+  onSidebarHide() {
+    document.body.style.overflow = ''; // Allow scrolling when the sidebar is closed
+  }
+  
+
+  onListeTrajetsClick(): void {
+    this.trajetService.getAll().subscribe(
+      (data) => {
+        // Traitement des données ici
+        console.log(data);
+      },
+      (error) => {
+        // Gestion des erreurs ici
+        console.error(error);
+      }
+    );
+    
+  }
+ /* onListeUsersClick(): void {
+    this.utilisateurService.getAll().subscribe(
+      (data) => {
+        // Traitement des données ici
+        console.log(data);
+      },
+      (error) => {
+        // Gestion des erreurs ici
+        console.error(error);
+      }
+    );
+    
+  }*/
+
+ 
 }
+

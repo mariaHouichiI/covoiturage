@@ -12,20 +12,6 @@ export class AuthService {
                   
 
   constructor(private http: HttpClient) {}
-
-  /*login(email: string, password: string): Observable<any> {
-    const formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
-
-    return this.http.post(this.apiUrl, formData).pipe(
-      catchError((error: HttpErrorResponse) => {
-        console.error(error);
-        return throwError('Login failed');
-      })
-    );
-  }*/
-  // auth.service.ts
 login(email: string, password: string): Observable<any> {
     const formData = new FormData();
     formData.append('email', email);
@@ -39,7 +25,7 @@ login(email: string, password: string): Observable<any> {
         tap((response: any) => {
             if (response.success) {
                 console.log('Login successful');
-                console.log('Token:', response.token); // Affiche le token dans la console
+                console.log('Token:', response.token); 
             }
         })
     );
@@ -53,6 +39,9 @@ login(email: string, password: string): Observable<any> {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+   logout(): void {
+    localStorage.removeItem('token');
+  }
   /*
 
   // Fonction pour vérifier si l'utilisateur est connecté
@@ -62,9 +51,7 @@ login(email: string, password: string): Observable<any> {
   }
 
   // Fonction pour déconnecter l'utilisateur
-  logout(): void {
-    localStorage.removeItem('token');
-  }
+ 
 
 //Fonction pour récupérer les détails de l'utilisateur depuis le token
   getUserDetails(): any {
