@@ -9,8 +9,8 @@ import { Trajet } from './trajet';
   providedIn: 'root'
 })
 export class TrajetService {
-  apiUrl = 'http://localhost/bddcouvoiturage/api';
-  apiUrll = 'http://localhost/bddcouvoiturage/api/trajet/index.php';
+  apiUrl = 'http://localhost/api';
+  apiUrll = 'http://localhost/api/trajet/index.php';
 
   constructor(private http: HttpClient) { }
 
@@ -19,11 +19,11 @@ export class TrajetService {
   }
   addTrajet(newTrajet: Trajet): Observable<any> {
     const formData = new FormData();
-    formData.append('chauffeur', `${newTrajet.chauffeur}`);
-    formData.append('heure_depart', `${newTrajet.heure_depart}`);
-    formData.append('date_depart', `${newTrajet.date_depart}`);
-    formData.append('commune_arrive', `${newTrajet.commune_depart}`);
-    formData.append('commune_depart', `${newTrajet.commune_depart}`);
+    formData.append('chauffeur', `${newTrajet.Chauffeur}`);
+    formData.append('heure_depart', `${newTrajet.Heure_depart}`);
+    formData.append('date_depart', `${newTrajet.Date_depart}`);
+    formData.append('commune_arrive', `${newTrajet.Lieu_arrive}`);
+    formData.append('commune_depart', `${newTrajet.Lieu_depart}`);
     formData.append('nbr_place', `${newTrajet.nbr_place}`);
     formData.append('hebdomadaire', `${newTrajet.hebdomadaire}`);
     formData.forEach((value, key) => {

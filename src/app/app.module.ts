@@ -29,6 +29,8 @@ import { GestionUserComponent } from './gestion-user/gestion-user.component';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -73,7 +75,7 @@ import { ConfirmationService } from 'primeng/api';
     useClass: AuthInterceptor,
     multi: true
   }, */
-     
+  DatePipe,
   MessageService],
   bootstrap: [AppComponent]
 })
