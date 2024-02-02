@@ -25,6 +25,7 @@ import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { DatePipe } from '@angular/common';
+import { ClientComponent } from './client/client.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { DatePipe } from '@angular/common';
     HomeComponent,
     SidebarComponent,
     ResetPasswordComponent,
+    ClientComponent,
  
   ],
   imports: [

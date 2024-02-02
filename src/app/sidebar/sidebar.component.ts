@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TrajetService } from '../trajet.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -8,7 +9,7 @@ import { TrajetService } from '../trajet.service';
 export class SidebarComponent {
   sidebarVisible!: boolean;
   topSidebarVisible!:boolean
-  constructor(private trajetService: TrajetService) { }
+  constructor(private router: Router,private trajetService: TrajetService) { }
   ngOnInit() {
    this.sidebarVisible= true;
  }
@@ -33,6 +34,12 @@ export class SidebarComponent {
       }
     );
     
+  }
+  goToListeTrajet(){
+    this.router.navigate(["/client"])
+  }
+  goToMesTrajet(){
+    this.router.navigate(["/chauffeur"])
   }
 
  

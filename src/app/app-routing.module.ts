@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ClientComponent } from './client/client.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path : "home" , component:HomeComponent},
   {path: "logo" , component:LogoComponent},
 
+  {path: "client", component:ClientComponent},
 
   {path: "login", component:LoginComponent},
   {path: "signup", component:SingupComponent},

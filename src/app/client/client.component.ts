@@ -1,24 +1,22 @@
 import { Component } from '@angular/core';
-import { FieldsetModule } from 'primeng/fieldset';
 import { wilaya } from '../wilaya';
 import { Commune } from '../commune';
-import { FormBuilder, FormGroup, FormControl, NgForm, Validators } from '@angular/forms'; 
+import { FormBuilder, FormGroup, FormControl, NgForm } from '@angular/forms'; 
 import { TrajetService } from '../trajet.service';
 import { Trajet } from '../trajet';
 import { WilayaCommuneService } from '../wilaya-commune.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
-import * as jwtDecode from 'jwt-decode';
 import { GetUserService } from '../get-user.service';
 import { Utilisateur } from '../utilisateur';
 
 @Component({
-  selector: 'app-chauffeur',
-  templateUrl: './chauffeur.component.html',
-  styleUrls: ['./chauffeur.component.css']
+  selector: 'app-client',
+  templateUrl: './client.component.html',
+  styleUrls: ['./client.component.css']
 })
-export class ChauffeurComponent {
+export class ClientComponent {
 affectTrajetUpdate(trajet: Trajet) {
 
   for (const trajet of this.trajets) {
@@ -311,6 +309,8 @@ addTrajet(addForm: NgForm) {
   
 
   }
+
+
 
 
 
