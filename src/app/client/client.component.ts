@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { GetUserService } from '../get-user.service';
 import { Utilisateur } from '../utilisateur';
+import { UtilisateurService } from '../utilisateur.service';
 
 @Component({
   selector: 'app-client',
@@ -17,65 +18,8 @@ import { Utilisateur } from '../utilisateur';
   styleUrls: ['./client.component.css']
 })
 export class ClientComponent {
-affectTrajetUpdate(trajet: Trajet) {
-
-  for (const trajet of this.trajets) {
-         
-    for (const arrive of this.arrives) {
-     
-      if (trajet.id === arrive.id) { 
-       
-        const trajetInfoArriveUpdate = {
-          Wilaya: arrive.Wilaya,        // Assurez-vous que commune a une propriété Wilaya
-          Nom_Commune: arrive.Nom_Commune,  // Assurez-vous que commune a une propriété Nom_Commune
-          id: trajet.id   
-
-        };
-       
-        this.trajetUpdateDepart=trajetInfoArriveUpdate; 
-        const wil = {
-            Nom_wilaya:   this.trajetUpdateDepart.Wilaya,  
-        };
-        this.selectedwilaya3 = wil;
-      }
-    }
-  }
-  for (const trajet of this.trajets) {
-         
-    for (const depart of this.departs) {
-     
-      if (trajet.id === depart.id) { 
-       
-        const trajetInfoDepartUpdate = {
-          Wilaya: depart.Wilaya,        // Assurez-vous que commune a une propriété Wilaya
-          Nom_Commune: depart.Nom_Commune,  // Assurez-vous que commune a une propriété Nom_Commune
-          id: trajet.id   
-
-        };
-       
-        this.trajetUpdateDepart=trajetInfoDepartUpdate; 
-        const wil = {
-            Nom_wilaya:   this.trajetUpdateDepart.Wilaya,  
-        };
-        this.selectedwilaya2 = wil;
-      }
-    }
-  }
-  for (const commune of this.communes)
-  {if (trajet.Lieu_arrive===commune.id)
-      this.selectedcommune2=commune
-  }
-  for (const commune of this.communes)
-  {if (trajet.Lieu_depart===commune.id)
-      this.selectedcommune3=commune
-  }
-
-  this.dateDepart= new Date(trajet.Date_depart);
-  this.heureDepart = new Date('1970-01-01T' + trajet.Heure_depart);this.trajetUpdate=trajet
-console.log("trajet  a  ypdate ",this.trajetUpdate)
 
 
-}
 heureDepart!: Date;
   dateDepart!: Date;
   trajetUpdateDepart!: { Wilaya: string; Nom_Commune: string; id: number; };
@@ -89,12 +33,14 @@ trajetUpdateArrive!:{ Wilaya: string, Nom_Commune: string, id: number }
   selectedwilaya3!: wilaya;
   departs: { Wilaya: string, Nom_Commune: string, id: number }[] = [];
   arrives: { Wilaya: string, Nom_Commune: string, id: number }[] = [];
+  users: { nomUser: string, prenomUser: string, id: number }[] = [];
   communes1:Commune[] = [];
   communes2:Commune[] = [];
   communes3:Commune[] = [];
+  utilisateurs : Utilisateur[] = [];
   currentUser!: Utilisateur;
   deleteError: string | undefined;
-constructor(private getUser :GetUserService,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
+constructor(private getUser :GetUserService,private datePipe: DatePipe, private authService: AuthService,private utilisateurService:UtilisateurService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
  
 }
   wilayas: wilaya[] = [];
@@ -123,16 +69,30 @@ styledown = {'margin-bottom': '15%'};
 
  
   ngOnInit() {
- 
-
     this.formGroup = new FormGroup({
         date: new FormControl<Date | null>(null)
-    });
+    }); 
+    this.getUsers()
    this.getCommune()
   this.getTrajets()
   this.getWilaya()
- 
+
   this.getUserCurrent()
+  }
+
+  getUsers(): void {
+    this.utilisateurService.getAll().subscribe(
+      (data: Utilisateur[]) => {
+        console.log("les users recupere",data);
+        this.utilisateurs = data;
+        for (const trajet of this.utilisateurs) {
+        //  this.departs.push(trajet.Lieu_depart.Nom_Commune);
+              }
+        console.log(this.utilisateurs)
+        this.success = 'successful retrieval of the list';
+      },
+     
+    );
   }
 
   getUserCurrent(): void {
@@ -154,7 +114,23 @@ styledown = {'margin-bottom': '15%'};
     
       (data: Trajet[]) => {
         this.trajets = data;
+        for (const trajet of this.trajets) {
+         
+          for (const user of this.utilisateurs) {
+           
+            if (trajet.Chauffeur === user.id) { 
+             
+              const trajetInfoUser = {
+                nomUser: user.nom,        // Assurez-vous que commune a une propriété Wilaya
+                prenomUser: user.prenom,  // Assurez-vous que commune a une propriété Nom_Commune
+                id: trajet.id   
 
+              };
+              this.users.push(trajetInfoUser);
+            }
+          }
+        }
+console.log("useeeeeeeeers",this.users)
         for (const trajet of this.trajets) {
          
           for (const commune of this.communes) {
@@ -256,57 +232,7 @@ getCommune(): void {
 }
 
 
-addTrajet(addForm: NgForm) {
-  console.log("tokkkkkkkkkkkkkkkkkkn",localStorage.getItem('token'))
-  addForm.value.date_depart = this.datePipe.transform(addForm.value.date, 'yyyy-MM-dd');
-  addForm.value.heure_depart = this.datePipe.transform(addForm.value.heure, 'HH.mm.ss');
-  const newTrajet: Trajet ={
-    nbr_place: addForm.value.nbr_place,
-    Lieu_arrive: this.selectedcommune3.id,
-    Lieu_depart: this.selectedcommune2.id,
-    Heure_depart:addForm.value.heure_depart,
-    Date_depart: addForm.value.date_depart,
-    hebdomadaire:1 ,
-    Chauffeur:this.currentUser?.id,
-    id: 1
-  }
-  
-  console.log("trajet recupere",newTrajet)
-  
-  this.trajetService.addTrajet(newTrajet).subscribe(
-    (response: Trajet) => {
-      console.log(response);
-      const bouton= document.getElementById('annu');
-      if (bouton ){bouton.click()}
-     
-    },
-    (error: HttpErrorResponse) => {
-     // addForm.reset();
-    }
-  );
-  
-  
-  }
-  updateTrajet(updateForm: NgForm){}
-  deleteTrajet(idTrajet: number) {
-    this.trajetService.deleteTrajet(this.currentUser.id, idTrajet).subscribe(
-      response => {
-        // Gérer la réponse de l'API ici
-        console.log(response);
-        // Supprimer le trajet du tableau trajets
-        this.trajets = this.trajets.filter(trajet => trajet.id !== idTrajet);
-        // Réinitialiser l'erreur en cas de succès
-      
-      },
-      error => {
-        // Gérer les erreurs ici
-        console.error(error);
-        // Afficher l'erreur à l'utilisateur
-        this.deleteError = 'Erreur lors de la suppression du trajet.';
-      }
-    );
-  }
-  
+
 
   }
 

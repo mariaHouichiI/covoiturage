@@ -81,10 +81,11 @@ width: 80%;">
 </div>
 
 <div *ngFor="let trajet of trajets">
-    <div *ngIf="trajet.Chauffeur !=currentUser.id">
+    <div *ngIf="trajet.Chauffeur != currentUser.id">
   <p-card [style]="styleOBJ">
-    <p class="name">{{currentUser.nom}} {{currentUser.prenom}}</p>
-    
+    <ng-container *ngFor="let user of users">
+    <p   *ngIf="user.id === trajet.Chauffeur" class="name">{{user.nomUser}} {{user.prenomUser}}</p>
+    </ng-container>
     <div style="display: flex; justify-content: space-between;">
 
       <ng-container *ngFor="let depart of departs">

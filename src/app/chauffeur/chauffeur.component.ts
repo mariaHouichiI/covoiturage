@@ -94,18 +94,17 @@ trajetUpdateArrive!:{ Wilaya: string, Nom_Commune: string, id: number }
   communes1:Commune[] = [];
   communes2:Commune[] = [];
   communes3:Commune[] = [];
-
-  currentUser!: Utilisateur;
-  deleteError: string | undefined;
-constructor(private getUser :GetUserService,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
-
-constructor(private getUser :GetUserService,private router : Router,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
- 
-}
   wilayas: wilaya[] = [];
   trajets: Trajet[]=[];
   error = '';
   success = '';
+  currentUser!: Utilisateur;
+  deleteError: string | undefined;
+
+constructor(private getUser :GetUserService,private router : Router,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
+ 
+}
+
   
   styleOBJ = {
   borderRadius: '5px',
@@ -314,12 +313,12 @@ addTrajet(addForm: NgForm) {
     );
   }
   
-
-  }
-
   logout() {
     this.authService.logout();
   }
-}
+
+  }
+
+
 
 
