@@ -24,10 +24,18 @@ import { MessageService } from 'primeng/api';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AdminComponent } from './admin/admin.component';
+import { GestionUserComponent } from './gestion-user/gestion-user.component';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { ClientComponent } from './client/client.component';
 
 
+import {CheckboxModule} from 'primeng/checkbox';
+import { ParametreComponent } from './parametre/parametre.component';  
+import { AuthGuard } from './auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,10 +47,16 @@ import { ClientComponent } from './client/client.component';
     SidebarComponent,
     ResetPasswordComponent,
     ClientComponent,
+    AdminComponent,
+    GestionUserComponent,
+    ParametreComponent,
  
   ],
   imports: [
+    ReactiveFormsModule,
     FormsModule,
+    ConfirmDialogModule,
+    ToastModule,
     HttpClientModule,
     BrowserModule,
     InputTextModule,
@@ -58,11 +72,20 @@ import { ClientComponent } from './client/client.component';
     DropdownModule,
     FormsModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    ButtonModule,
+    BrowserModule,
+    FormsModule , 
+    ReactiveFormsModule,
+    ButtonModule,
+    CheckboxModule,
     
    
   ],
-  providers: [/* {
+  exports:[FormsModule],
+  providers: [ConfirmationService, 
+    AuthGuard,
+    /* {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

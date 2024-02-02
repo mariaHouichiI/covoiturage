@@ -1,69 +1,11 @@
-/*import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
-})
-export class LoginComponent implements OnInit {
-  formGroup!: FormGroup;
-
-  passwordFieldType = 'password';
-  passwordVisible: boolean = false;
-
-  constructor(private router: Router, private authService: AuthService) {}
-
-  ngOnInit(): void {
-    this.initForm();
-  }
-
-  initForm(): void {
-    this.formGroup = new FormGroup({
-      email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
-    });
-  }
-
-  togglePasswordVisibility(): void {
-    this.passwordVisible = !this.passwordVisible;
-  }
-
-  login(): void {
-    if (this.formGroup.valid) {
-      const email = this.formGroup.get('email')?.value;
-      const password = this.formGroup.get('password')?.value;
-
-      this.authService.login(email, password).subscribe(response => {
-        if (response['success']) {
-          console.log('Login successful');
-          // Afficher le token dans la console
-          console.log('Token:', response['body']['token']);
-          
-          // Enregistrer le token dans le stockage local
-          this.authService.setTokenInLocalStorage(response['body']['token']);
-
-          // Utiliser le token pour les futures requêtes
-          const headers = this.authService.includeTokenInHeaders();
-          
-          // Rediriger
-          this.router.navigate(['/chauffeur']);
-        } else {
-          console.error('Login failed');
-        }
-      });
-    }
-  }
-}*/
-// login.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Message, MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
+import { GetUserService } from '../get-user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -78,7 +20,7 @@ export class LoginComponent implements OnInit {
   passwordFieldType = 'password';
   passwordVisible: boolean = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder ,private authService: AuthService,private messageService : MessageService) {}
+  constructor(private router: Router,private getUserCurrent : GetUserService, private formBuilder: FormBuilder ,private authService: AuthService,private messageService : MessageService) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
@@ -128,6 +70,7 @@ export class LoginComponent implements OnInit {
               { severity: 'success', summary: 'Success', detail: 'Login successful' }];
             console.log('Login successful');
             const token = response['token'];
+            this.getUserCurrent.getUser(token);
             this.authService.setToken(token); // Stocker le token dans le stockage local
             this.router.navigate(['/chauffeur']);
           } else {

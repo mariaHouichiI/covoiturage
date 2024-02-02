@@ -8,6 +8,11 @@ import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ClientComponent } from './client/client.component';
+import { AdminComponent } from './admin/admin.component';
+import { ProfileComponent } from './profile/profile.component';
+import { GestionUserComponent } from './gestion-user/gestion-user.component';
+import { ParametreComponent } from './parametre/parametre.component';
+import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
@@ -18,10 +23,15 @@ const routes: Routes = [
   {path: "client", component:ClientComponent},
 
   {path: "login", component:LoginComponent},
+  {path: "admin" , component:AdminComponent  ,canActivate: [AuthGuard]},
+  {path: "profile" , component:ProfileComponent ,canActivate: [AuthGuard]},
+  {path: "parametre" , component:ParametreComponent  ,canActivate: [AuthGuard]},
+  {path: "login", component:LoginComponent },
   {path: "signup", component:SingupComponent},
   {path : "home" , component:HomeComponent},
-  {path:"chauffeur",component:ChauffeurComponent},
-  {path:"sidebar",component:SidebarComponent},
+  {path:"chauffeur",component:ChauffeurComponent, canActivate: [AuthGuard]},
+  {path:"utilisateur",component:GestionUserComponent ,canActivate: [AuthGuard]},
+  {path:"sidebar",component:SidebarComponent ,canActivate: [AuthGuard]},
   {path:"reset",component:ResetPasswordComponent},
 ];
 

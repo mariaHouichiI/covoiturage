@@ -1,0 +1,49 @@
+<app-sidebar></app-sidebar>
+<div class="profile-button" (click)="goToProfile()">
+    <button class="round-button">
+        <i class="pi pi-user cursor-pointer">  </i> 
+
+    </button>
+  </div>
+  
+  <div class="logout-button" (click)="logout()">
+    <button class="round-button">
+        <i class="pi pi-sign-out cursor-pointer">  </i> 
+
+    </button>
+  </div>
+<div  style="margin-top: 5em;" class="custom-card">
+    <p-card [style]="styleOBJ">
+        <p style="font-weight: bold; font-size: 1.2em;" class="name">Limiter le nombre de place :  </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <div class="text-card" style="flex: 1;">
+                <p style="font-weight: bold; font-size: 1em;">Le nombre de place maximum est:</p>
+            </div>
+            <div class="text-card" style="flex: 1;">
+                <button  data-bs-toggle="modal" data-bs-target="#updateUserModal"style="height: 1cm;width: 1cm;margin-left: 30em;margin-right: 4px;"  pButton pRipple icon="pi pi-pencil" class="p-button-warning"></button>
+            </div>
+        </div>
+    </p-card>
+</div>
+<div  class="custom-card">
+    <p-card [style]="styleOBJ">
+        <p style="font-weight: bold; font-size: 1.2em;" class="name"> Limiter le nombre de trajet :  </p>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+
+            <div class="text-card" style="flex: 1;">
+                <p style="font-weight: bold; font-size: 1em;">Le nombre de trajet a ne pas dépasser est :</p>
+              
+            </div>
+
+            
+
+            <div class="text-card" style="flex: 1;">
+
+                <button  data-bs-toggle="modal" data-bs-target="#updateUserModal"style="height: 1cm;width: 1cm;margin-left: 30em;margin-right: 4px;"  pButton pRipple icon="pi pi-pencil" class="p-button-warning"></button>
+          
+            </div>
+
+        </div>
+    </p-card>
+</div>

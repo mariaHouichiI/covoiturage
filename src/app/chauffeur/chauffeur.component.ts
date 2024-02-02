@@ -9,9 +9,9 @@ import { WilayaCommuneService } from '../wilaya-commune.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
-import * as jwtDecode from 'jwt-decode';
 import { GetUserService } from '../get-user.service';
 import { Utilisateur } from '../utilisateur';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chauffeur',
@@ -94,9 +94,12 @@ trajetUpdateArrive!:{ Wilaya: string, Nom_Commune: string, id: number }
   communes1:Commune[] = [];
   communes2:Commune[] = [];
   communes3:Commune[] = [];
+
   currentUser!: Utilisateur;
   deleteError: string | undefined;
 constructor(private getUser :GetUserService,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
+
+constructor(private getUser :GetUserService,private router : Router,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
  
 }
   wilayas: wilaya[] = [];
@@ -104,7 +107,7 @@ constructor(private getUser :GetUserService,private datePipe: DatePipe, private 
   error = '';
   success = '';
   
-     styleOBJ = {
+  styleOBJ = {
   borderRadius: '5px',
   border: '0.5px solid #DDD',
   background: '#FBFBFB',
@@ -149,7 +152,9 @@ styledown = {'margin-bottom': '15%'};
      
     );
   }
-
+  goToProfile() {
+    this.router.navigate(['/profile']);
+  }
   getTrajets(): void {
  
     this.trajetService.getAll().subscribe(
@@ -312,5 +317,9 @@ addTrajet(addForm: NgForm) {
 
   }
 
+  logout() {
+    this.authService.logout();
+  }
+}
 
 

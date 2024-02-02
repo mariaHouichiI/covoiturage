@@ -1,0 +1,33 @@
+body {
+    background-color: #c983fc; }
+
+.bg-c-lite-blue {
+ 
+    background: rgba(148, 87, 235, 0.717); /* Violet avec une opacité similaire à l'exemple bleu */
+}
+
+.user-card-full .img-radius {
+    border-radius: 50%;
+    border: 2px solid #fff; 
+}
+
+.edit-btn {
+    background: rgba(153, 24, 213, 0.717);
+   
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.edit-btn:hover {
+    background: rgba(148, 87, 235, 0.717);
+}
+.bg-c-lite-violet {
+    background: rgba(148, 87, 235, 0.717); /* Violet avec une opacité similaire à l'exemple bleu */
+  }
+  
+  .edit-btn i {
+    color: #3366cc; /* Couleur bleue pour l'icône du crayon */
+  }
+  

@@ -1,0 +1,66 @@
+  .classInput{ 
+    margin-top: 20px;
+    margin-bottom: 10em;
+    /* height: max-content; */
+    height: 3em;
+    width: 15em;
+   
+
+  } 
+
+  #searchName
+  {
+    margin-top: 20px;;height: 3em;width: 15em;
+  }
+        
+  .p-button-primary {
+        
+    background-color: #35A7FF;
+    height: 1cm;
+    width: 1cm;
+    margin-left: 90%;
+    margin-right: 2em;
+    margin-bottom: 1em;
+    color: white; /* Pour assurer un bon contraste de texte */
+}
+.custom-card {
+    margin-left: 10em;
+  }
+  
+  
+  .profile-button {
+    position: fixed;
+    top: 20px;
+    cursor: pointer;
+    right: 20px;
+    margin-right: 6em;
+  }
+  .logout-button{
+    position: fixed;
+    top: 20px;
+    cursor: pointer;
+    right: 20px;
+    margin-right: 2em;
+}
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  .round-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #6317ef; 
+    color: #ffffff; 
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .round-button:hover {
+    background-color:  #6f42c1;
+  }

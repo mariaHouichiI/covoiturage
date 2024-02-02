@@ -1,10 +1,21 @@
+
 <app-sidebar></app-sidebar>
 
+<div class="profile-button" (click)="goToProfile()">
+  <button class="round-button">
+      <i class="pi pi-user cursor-pointer">  </i> 
+
+  </button>
+</div>
+<div class="logout-button" (click)="logout()">
+  <button class="round-button">
+      <i class="pi pi-sign-out cursor-pointer">  </i> 
+
+  </button>
+</div>
 <div   style=" margin-left: -18%; margin-bottom: 2%; margin-top: 2%;   height: 25% ;
-width: 80%;">
-
+width: 80%;margin-right : 65%;">
     <input class="classInput" style="   height: 25% ;width: 30%;" type="text" placeholder="Rechercher chauffeur..." pInputText [(ngModel)]="value" />
-
 </div>
 <div style="display: flex; justify-content: space-between;">
 
@@ -55,16 +66,26 @@ width: 80%;">
             </ng-template>
           </p-dropdown>    </div>
 
-    <div style="flex: 1; margin-left: -30px;  ">
-        <br>
-        <form [formGroup]="formGroup">
-            <p-calendar formControlName="date"></p-calendar>
-        </form>
-
-        <form [formGroup]="formGroup">
-            <p-calendar formControlName="date" [showTime]="true" [timeOnly]="true" hourFormat="24"></p-calendar>
-        </form>
-    </div>
+          <div style="flex: 1; margin-left: -30px;">
+            <br>
+            <!-- Icône Calendrier -->
+            <form [formGroup]="formGroup">
+                <p-calendar formControlName="date" placeholder="Calendrier">
+                    <i class="pi pi-calendar custom-blue-icon"></i>
+                </p-calendar>
+            </form>
+        
+            <!-- Icône Horloge -->
+            <form [formGroup]="formGroup">
+                <p-calendar formControlName="date" [showTime]="true" [timeOnly]="true" hourFormat="24" placeholder="Horloge">
+                    <i class="pi pi-clock custom-blue-icon"></i>
+                </p-calendar>
+            </form>
+        </div>
+        
+        
+        
+        
     <div style="display: flex; justify-content: space-between;">
     <div style="flex: 1;  ">
         <br><br>
@@ -84,7 +105,9 @@ width: 80%;">
 <div  *ngFor="let trajet of trajets">
   <div *ngIf="trajet.Chauffeur === currentUser.id">
   <p-card [style]="styleOBJ">
-    <p class="name">{{currentUser.nom}} {{currentUser.prenom}}</p>
+    <p class="name" *ngIf="currentUser && currentUser.nom && currentUser.prenom">
+      {{ currentUser.nom }} {{ currentUser.prenom }}
+    </p>
     
     <div style="display: flex; justify-content: space-between;">
 
