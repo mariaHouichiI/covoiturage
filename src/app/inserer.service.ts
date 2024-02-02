@@ -6,7 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class InsererService {
-  private apiUrl = ' http://localhost/bddcouvoiturage/api/auth/signup/index.php';
+  private apiUrl = ' http://localhost/api/auth/signup/index.php';
 
  
 

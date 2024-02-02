@@ -33,12 +33,14 @@ arrives: { Wilaya: string, Nom_Commune: string, id: number }[] = [];
 communes1:Commune[] = [];
 communes2:Commune[] = [];
 communes3:Commune[] = [];
-currentUser!: Utilisateur;
+currentUser!: Utilisateur ;
 sidebarVisible!: boolean;
 topSidebarVisible!:boolean;
+
 constructor(private router: Router,private getUser :GetUserService,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
 
 }
+
 onSidebarShow() {
   document.body.style.overflow = 'hidden'; // Prevent scrolling when the sidebar is open
 }
@@ -50,6 +52,13 @@ onSidebarHide() {
 GoToGestionUser() {
   this.router.navigate(['/utilisateur']);
 }
+goToProfile() {
+  this.router.navigate(['/profile']);
+}
+logout() {
+  this.authService.logout();
+}
+
 wilayas: wilaya[] = [];
 trajets: Trajet[]=[];
 error = '';
@@ -84,7 +93,7 @@ ngOnInit() {
  this.getCommune()
 this.getTrajets()
 this.getWilaya()
-
+this.sidebarVisible= true;
 this.getUserCurrent()
 }
 

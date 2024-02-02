@@ -1,5 +1,5 @@
-<app-sidebar></app-sidebar>
 
+<app-sidebar></app-sidebar>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -19,7 +19,7 @@
 
         <p-dropdown [options]="wilayas"  name="wilaya" [(ngModel)]="selectedwilaya2" id="drop" [filter]="true" placeholder=" Wilaya...">
             <ng-template  let-wilaya pTemplate="selectedItem">
-              <div  >{{selectedwilaya2?.Nom_wilaya}} </div>
+              <div  >{{selectedwilaya2.Nom_wilaya}} </div>
             </ng-template>
             <ng-template  let-wilaya pTemplate="item">
               <div  >{{wilaya.Nom_wilaya}}</div>
@@ -30,7 +30,7 @@
 
         <p-dropdown [options]="filterWilayas2()"  name="commune"  [(ngModel)]="selectedcommune2" id="drop" [filter]="true" placeholder="Commune...">
             <ng-template let-commune pTemplate="selectedItem">
-              <div>{{selectedcommune2?.Nom_Commune}}</div>
+              <div>{{selectedcommune2.Nom_Commune}}</div>
             </ng-template>
             <ng-template let-commune pTemplate="item">
               <div>{{commune?.Nom_Commune}} </div>
@@ -40,7 +40,7 @@
           <p>Lieu D'arrivé:</p>
           <p-dropdown [options]="wilayas"  name="wilayaArr"  [(ngModel)]="selectedwilaya3" id="drop" [filter]="true" placeholder="Wilaya...">
               <ng-template  let-wilaya pTemplate="selectedItem">
-                <div  >{{selectedwilaya3?.Nom_wilaya}} </div>
+                <div  >{{selectedwilaya3.Nom_wilaya}} </div>
               </ng-template>
               <ng-template  let-wilaya pTemplate="item">
                 <div  >{{wilaya.Nom_wilaya}}</div>
@@ -50,7 +50,7 @@
   
      <p-dropdown [options]="filterWilayas3()"   name="communeArr"[(ngModel)]="selectedcommune3" id="drop" [filter]="true" placeholder="Commune...">
               <ng-template let-commune pTemplate="selectedItem">
-                <div>{{selectedcommune3?.Nom_Commune}}</div>
+                <div>{{selectedcommune3.Nom_Commune}}</div>
               </ng-template>
               <ng-template let-commune pTemplate="item">
                 <div>{{commune?.Nom_Commune}} </div>
@@ -161,12 +161,21 @@
     </div> 
   </div>
 </div>
+<div class="profile-button" (click)="goToProfile()">
+  <button class="round-button">
+      <i class="pi pi-user cursor-pointer">  </i> 
 
+  </button>
+</div>
+<div class="logout-button" (click)="logout()">
+  <button class="round-button">
+      <i class="pi pi-sign-out cursor-pointer">  </i> 
+
+  </button>
+</div>
 <div   style=" margin-left: -18%; margin-bottom: 2%; margin-top: 2%;   height: 25% ;
-width: 80%;">
-
+width: 80%;margin-right : 65%;">
     <input class="classInput" style="   height: 25% ;width: 30%;" type="text" placeholder="Rechercher chauffeur..." pInputText [(ngModel)]="value" />
-
 </div>
 <div style="display: flex; justify-content: space-between;">
 
@@ -217,16 +226,26 @@ width: 80%;">
             </ng-template>
           </p-dropdown>    </div>
 
-    <div style="flex: 1; margin-left: -30px;  ">
-        <br>
-        <form [formGroup]="formGroup">
-            <p-calendar formControlName="date"></p-calendar>
-        </form>
-
-        <form [formGroup]="formGroup">
-            <p-calendar formControlName="date" [showTime]="true" [timeOnly]="true" hourFormat="24"></p-calendar>
-        </form>
-    </div>
+          <div style="flex: 1; margin-left: -30px;">
+            <br>
+            <!-- Icône Calendrier -->
+            <form [formGroup]="formGroup">
+                <p-calendar formControlName="date" placeholder="Calendrier">
+                    <i class="pi pi-calendar custom-blue-icon"></i>
+                </p-calendar>
+            </form>
+        
+            <!-- Icône Horloge -->
+            <form [formGroup]="formGroup">
+                <p-calendar formControlName="date" [showTime]="true" [timeOnly]="true" hourFormat="24" placeholder="Horloge">
+                    <i class="pi pi-clock custom-blue-icon"></i>
+                </p-calendar>
+            </form>
+        </div>
+        
+        
+        
+        
     <div style="display: flex; justify-content: space-between;">
     <div style="flex: 1;  ">
         <br><br>
@@ -245,7 +264,9 @@ width: 80%;">
 
 <div *ngFor="let trajet of trajets">
   <p-card [style]="styleOBJ">
-    <p class="name">{{currentUser.Nom}} {{currentUser.Prenom}}</p>
+    <p class="name" *ngIf="currentUser && currentUser.nom && currentUser.prenom">
+      {{ currentUser.nom }} {{ currentUser.prenom }}
+    </p>
     
     <div style="display: flex; justify-content: space-between;">
 
@@ -263,4 +284,3 @@ width: 80%;">
     </div>
   </p-card>
 </div>
-

@@ -22,7 +22,7 @@ export class SingupComponent implements OnInit{
     email: '',
     psw: '',
     tlf: '',
-    admin: false 
+    admin: false
   };
   confirmpass: string | undefined;
 

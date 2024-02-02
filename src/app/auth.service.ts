@@ -3,6 +3,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class AuthService {
   private apiUrl = 'http://localhost/api/auth/login/index.php';
                   
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router : Router) {}
+  private isLoggedInVar = false;
 login(email: string, password: string): Observable<any> {
     const formData = new FormData();
     formData.append('email', email);
@@ -41,27 +43,17 @@ login(email: string, password: string): Observable<any> {
   }
    logout(): void {
     localStorage.removeItem('token');
+    this.router.navigate(['/home']);
+    this.isLoggedInVar = false;
   }
-  /*
-
-  // Fonction pour vérifier si l'utilisateur est connecté
   isLoggedIn(): boolean {
-    const token = localStorage.getItem('token');
-    return token != null;
+    this.isLoggedInVar = true;
+    const token = this.getToken();
+   // return token !== null && token !== undefined;
+      return this.isLoggedInVar;
   }
 
-  // Fonction pour déconnecter l'utilisateur
- 
 
-//Fonction pour récupérer les détails de l'utilisateur depuis le token
-  getUserDetails(): any {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // Utilisez la bibliothèque jsonwebtoken pour décoder le token
-      return jwt_decode(token);
-    }
-    return null;
-  }*/
 }
 
 

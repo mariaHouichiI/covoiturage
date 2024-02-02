@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class deleteUserService {
-  private apiUrl = 'http://localhost/bddcouvoiturage/utilisateur/supp_utilisateur.php'; 
+  private apiUrl = 'http://localhost/Utilisateur/supp_utilisateur.php'; 
 
   constructor(private http: HttpClient) { }
 

@@ -1,10 +1,9 @@
 body {
-    background-color: #c983fc; /* Change background color to violet */
-}
+    background-color: #c983fc; }
 
 .bg-c-lite-blue {
  
-    background: rgba(98, 161, 255, 0.717);
+    background: rgba(148, 87, 235, 0.717); /* Violet avec une opacité similaire à l'exemple bleu */
 }
 
 .user-card-full .img-radius {
@@ -13,8 +12,8 @@ body {
 }
 
 .edit-btn {
-
-    background: rgb(240, 202, 132);
+    background: rgba(153, 24, 213, 0.717);
+   
     border: none;
     padding: 5px;
     cursor: pointer;
@@ -22,5 +21,13 @@ body {
 }
 
 .edit-btn:hover {
-    background-color: #99bbee; 
+    background: rgba(148, 87, 235, 0.717);
 }
+.bg-c-lite-violet {
+    background: rgba(148, 87, 235, 0.717); /* Violet avec une opacité similaire à l'exemple bleu */
+  }
+  
+  .edit-btn i {
+    color: #3366cc; /* Couleur bleue pour l'icône du crayon */
+  }
+  

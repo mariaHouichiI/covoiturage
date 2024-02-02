@@ -1,20 +1,35 @@
+<app-sidebar></app-sidebar>
 <head> <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <div style=" size: 10cm;margin-left: 70%;"   class="card">
     <p-messages style="position: fixed;" [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false"></p-messages>
   </div>
-<form class="form-inline my-2 my-lg-0" style=" margin-bottom: 2%; margin-top: 2%; height: 25%; padding: 2em;margin-left: 75%;">
+
+
+ <div   style=" margin-left: -18%; margin-bottom: 2%; margin-top: 2%;   height: 25% ;
+ width: 80%;margin-left: 25%;">
     <input class="classInput" style="margin-top: 20px;margin-bottom: 5em;height: 3em;width: 15em;" type="search" style="margin-top: 20px;" (ngModelChange)="searchUtilisateurs(key.value)" #key="ngModel" ngModel
-     name="key" id="searchName" class="form-control mr-sm-2" placeholder="Rechercher chauffeur..." required>
- </form>
+    name="key" id="searchName" class="form-control mr-sm-2" placeholder="Rechercher chauffeur..." required>
+</div>
 
+ <div class="profile-button" (click)="goToProfile()">
+    <button class="round-button">
+        <i class="pi pi-user cursor-pointer">  </i> 
 
+    </button>
+  </div>
+  <div class="logout-button" (click)="logout()">
+    <button class="round-button">
+        <i class="pi pi-sign-out cursor-pointer">  </i> 
+
+    </button>
+  </div>
 
  
  <button pButton pRipple icon="pi pi-plus" data-bs-toggle="modal" data-bs-target="#addUserModal"  class="p-button-primary"></button>
 
 
-<div *ngFor="let utilisateur of utilisateurs">
+<div  *ngFor="let utilisateur of utilisateurs" class="custom-card">
     <p-card [style]="styleOBJ">
         <p style="font-weight: bold; font-size: 1.2em;" class="name">chauffeur : {{utilisateur.id}} </p>
 
@@ -22,22 +37,22 @@
 
             <div class="text-card" style="flex: 1;">
                 <p style="font-weight: bold; font-size: 1em;">Nom :</p>
-                <p>{{utilisateur.Nom}}</p>
+                <p>{{utilisateur.nom}}</p>
             </div>
 
             <div class="text-card" style="flex: 1;">
                 <p style="font-weight: bold; font-size: 1em;">Prénom :</p>
-                <p>{{utilisateur.Prenom}}</p>
+                <p>{{utilisateur.prenom}}</p>
             </div>
 
             <div class="text-card" style="flex: 1;">
                 <p style="font-weight: bold; font-size: 1em;">Email :</p>
-                <p>{{utilisateur.Email}}</p>
+                <p>{{utilisateur.email}}</p>
             </div>
 
             <div class="text-card" style="flex: 1;">
                 <p style="font-weight: bold; font-size: 1em;">Téléphone :</p>
-                <p>{{utilisateur.Telephone}}</p>
+                <p>{{utilisateur.telephone}}</p>
             </div>
 
             <div class="text-card" style="flex: 1;">
@@ -51,6 +66,7 @@
         </div>
     </p-card>
 </div>
+
 <!--delete user  -->
 <div  class="card flex justify-content-center">
     <p-toast></p-toast>
@@ -113,8 +129,8 @@
        <div class="modal-content">
           <div class="modal-header">
              <h5 class="modal-title" id="updateEmployeeModalLabel">Create a new account </h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            
              </button>
           </div>
           <div class="modal-body">
@@ -140,61 +156,71 @@
                   <input type="password" ngModel name="psw" class="form-control" id="psw" placeholder="password">
               </div>
                 
-             <!--   <div class="form-group">
-                <label style="margin-left: 5px;" for="admin">Admin</label>
-                <input style="margin-left: 20px;" type="checkbox" [(ngModel)]="utilisateur.admin" name="admin" class="form-check-input" id="admin" />
-              </div>--> 
+                <div class="form-group">
+                <label style="margin-left: 5px;" for="role">Admin</label>
+            <!--   <input style="margin-left: 20px;" type="checkbox" [(ngModel)]="utilisateur.admin" name="admin" class="form-check-input" id="admin" />
+                -->
+           
+                 <!--<input type="checkbox" [(ngModel)]="utilisateurNew.admin" (change)="admin(utilisateur)">-->   
+                 <input type="checkbox" ngModel name="admin" [checked]="utilisateurNew.admin" (change)="admin(utilisateur)">
+
+            </div>
               
                   <div class="modal-footer">
                  
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                   <button (click)="onAddUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Sauvgarder modification </button>
+                    <button type="button" id="annuler" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                   <button (click)="onAddUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" > Créer le compte</button>
                 </div>
              </form>
           </div>
        </div>
     </div>
+</div>
+ 
+
 <!--edit-->
 <div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier Utilisateur {{editUtilisateur?.Nom}}</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
+             <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier Utilisateur {{editUtilisateur?.nom}}</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            
              </button>
           </div>
           <div class="modal-body">
              <form #editForm="ngForm">
                 <div class="form-group">
                    <label for="nom">Nom</label>
-                   <input type="text" ngModel="{{editUtilisateur?.Nom}}" value="{{editUtilisateur?.Nom}}" name="nom" class="form-control" id="nom"  placeholder="nom" readonly>
+                   <input type="text" ngModel="{{editUtilisateur?.nom}}" value="{{editUtilisateur?.nom}}" name="nom" class="form-control" id="nom"  placeholder="nom" readonly>
                 </div>
   
                 <div class="form-group">
                    <label for="prenom">prenom </label>
-                   <input type="text" ngModel="{{editUtilisateur?.Prenom}}" value="{{editUtilisateur?.Prenom}}" name="prenom" class="form-control" id="prenom" placeholder="prenom" readonly>
+                   <input type="text" ngModel="{{editUtilisateur?.prenom}}" value="{{editUtilisateur?.prenom}}" name="prenom" class="form-control" id="prenom" placeholder="prenom" readonly>
                 </div>
   
                  <div class="form-group">
-                   <label for="fonction">Email </label>
-                   <input type="text" ngModel="{{editUtilisateur?.Email}}" value="{{editUtilisateur?.Email}}" name="email" class="form-control" id="email" placeholder="fonction">
+                   <label for="Email">Email </label>
+                   <input type="text" ngModel="{{editUtilisateur?.email}}" value="{{editUtilisateur?.email}}" name="email" class="form-control" id="email" placeholder="fonction">
                  </div>
+                
+                <div class="form-group">
+                    <label for="Email">Telephone</label>
+                    <input type="tel" ngModel="{{editUtilisateur?.telephone}}" name="Telephone" class="form-control" id="Telephone" placeholder="Telephone">
+                </div>
                
-                <input type="hidden" ngModel="{{editUtilisateur?.password}}" name="password" class="form-control" id="password" placeholder="password">
-                <input type="hidden" ngModel="{{editUtilisateur?.Telephone}}" name="Telephone" class="form-control" id="Telephone" placeholder="Telephone">
-                 <div class="modal-footer">
-                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Fermer</button>
-                   <button (click)="onUpdateUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Sauvgarder modification </button>
+                <div class="modal-footer">
+                    <button type="button" id="annuler" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button (click)="onUpdateUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Sauvgarder modification </button>
                 </div>
              </form>
           </div>
        </div>
     </div> 
- 
 
 
-
+</div>
 
 
 

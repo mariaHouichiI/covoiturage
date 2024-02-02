@@ -9,8 +9,8 @@ import { Trajet } from './trajet';
   providedIn: 'root'
 })
 export class UtilisateurService {
-  apiUrl = 'http://localhost/bddcouvoiturage';
-  apiUrll = 'http://localhost/bddcouvoiturage/api/trajet/index.php';
+  apiUrl = 'http://localhost';
+  apiUrll = 'http://localhost/api/trajet/index.php';
 
   constructor(private http: HttpClient) { }
 

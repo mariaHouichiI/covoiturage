@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { GetUserService } from '../get-user.service';
 import { Utilisateur } from '../utilisateur';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chauffeur',
@@ -31,7 +32,7 @@ export class ChauffeurComponent {
   communes3:Commune[] = [];
   currentUser!: Utilisateur;
 
-constructor(private getUser :GetUserService,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
+constructor(private getUser :GetUserService,private router : Router,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
  
 }
   wilayas: wilaya[] = [];
@@ -84,7 +85,9 @@ styledown = {'margin-bottom': '15%'};
      
     );
   }
-
+  goToProfile() {
+    this.router.navigate(['/profile']);
+  }
   getTrajets(): void {
  
     this.trajetService.getAll().subscribe(
@@ -224,7 +227,9 @@ addTrajet(addForm: NgForm) {
   
   
   }
-  
+  logout() {
+    this.authService.logout();
+  }
 }
 
 

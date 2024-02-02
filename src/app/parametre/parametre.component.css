@@ -1,4 +1,18 @@
-  .classInput{ 
+p-card {
+    margin-right: 3em;
+    margin-bottom: 0.5em;
+   margin-left :10em;
+   border-radius:5px ;
+  
+    border: '0.5px solid #DDD';
+    background: '#FBFBFB';
+    box-shadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)';
+    margin-left: '10em';
+   
+  };
+  
+.styledown {margin-bottom: '15%'}; 
+.classInput{ 
     margin-top: 20px;
     margin-bottom: 10em;
     /* height: max-content; */

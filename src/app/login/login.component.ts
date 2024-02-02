@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Message, MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
+import { GetUserService } from '../get-user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   passwordFieldType = 'password';
   passwordVisible: boolean = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder ,private authService: AuthService,private messageService : MessageService) {}
+  constructor(private router: Router,private getUserCurrent : GetUserService, private formBuilder: FormBuilder ,private authService: AuthService,private messageService : MessageService) {}
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
@@ -69,6 +70,7 @@ export class LoginComponent implements OnInit {
               { severity: 'success', summary: 'Success', detail: 'Login successful' }];
             console.log('Login successful');
             const token = response['token'];
+            this.getUserCurrent.getUser(token);
             this.authService.setToken(token); // Stocker le token dans le stockage local
             this.router.navigate(['/chauffeur']);
           } else {

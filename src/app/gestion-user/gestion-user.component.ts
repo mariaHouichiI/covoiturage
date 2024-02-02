@@ -16,6 +16,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmEventType } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { DialogService } from 'primeng/dynamicdialog';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-gestion-user',
   templateUrl: './gestion-user.component.html',
@@ -24,10 +26,11 @@ import { DialogService } from 'primeng/dynamicdialog';
 })
 export class GestionUserComponent {
 
-
+ 
 onUpdateUser(arg0: any) {
 throw new Error('Method not implemented.');
 }
+
 
       addForm: FormGroup;
       editForm: any;
@@ -36,18 +39,25 @@ throw new Error('Method not implemented.');
       messages: Message[] = [];
       utilisateur: any;
       public editUtilisateur: any;
-      
+      isChecked: boolean = false;
       utilisateurNew = {
-        // ... autres propriétés ...
-        admin: false,  // ou true selon votre logique par défaut
+      
+        admin: false, 
       };
-    constructor(private fb: FormBuilder ,private confirmationService: ConfirmationService,private messageService:MessageService, private utilisateurService: UtilisateurService, private commune_wilayaServive: WilayaCommuneService,private insererService : InsererService,private deleteUserService : deleteUserService) {
+    constructor(private authService : AuthService,private router : Router , private fb: FormBuilder ,private confirmationService: ConfirmationService,private messageService:MessageService, private utilisateurService: UtilisateurService, private commune_wilayaServive: WilayaCommuneService,private insererService : InsererService,private deleteUserService : deleteUserService) {
       this.addForm = this.fb.group({
         date: [null, Validators.required],
         heure: [null, Validators.required],
-        // Ajoutez d'autres champs du formulaire au besoin
+       
       });
     }
+    logout() {
+      this.authService.logout();
+    }
+    admin(Newutilisateur: Utilisateur): void {
+   
+      this.utilisateurNew.admin = !this.utilisateurNew.admin;
+  }
     initEditUser(utilisateur: any) {
       this.editUtilisateur = { ...utilisateur }; 
    }
@@ -58,8 +68,9 @@ throw new Error('Method not implemented.');
       success = '';
       
       styleOBJ = {
-      'margin-right': '10em',
-      'margin-bottom': '0.7em',
+      'margin-right': '3em',
+      'margin-bottom': '0.5em',
+     ' margin-left' :' 10em',
       borderRadius: '5px',
       border: '0.5px solid #DDD',
       background: '#FBFBFB',
@@ -72,6 +83,9 @@ throw new Error('Method not implemented.');
   //  isChecked: boolean = false;
     toggleAdmin() {
       this.utilisateurNew.admin = !this.utilisateurNew.admin;
+    }
+    goToProfile() {
+      this.router.navigate(['/profile']);
     }
       showConfirmation() {
         this.confirmationService.confirm({
@@ -135,10 +149,10 @@ throw new Error('Method not implemented.');
         const results: Utilisateur[] = [];
       
         for (const utilisateur of this.utilisateurs) {
-          if (utilisateur.Nom.toLowerCase().includes(key.toLowerCase()) ||
-              utilisateur.Prenom.toLowerCase().includes(key.toLowerCase()) ||
-              utilisateur.Email.toLowerCase().includes(key.toLowerCase()) ||
-              utilisateur.Telephone.toLowerCase().includes(key.toLowerCase())) {
+          if (utilisateur.nom.toLowerCase().includes(key.toLowerCase()) ||
+              utilisateur.prenom.toLowerCase().includes(key.toLowerCase()) ||
+              utilisateur.email.toLowerCase().includes(key.toLowerCase()) ||
+              utilisateur.telephone.toLowerCase().includes(key.toLowerCase())) {
             results.push(utilisateur);
           }
         }

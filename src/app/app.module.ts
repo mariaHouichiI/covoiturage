@@ -30,8 +30,9 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
-
-
+import {CheckboxModule} from 'primeng/checkbox';
+import { ParametreComponent } from './parametre/parametre.component';  
+import { AuthGuard } from './auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,9 +45,11 @@ import { DatePipe } from '@angular/common';
     ResetPasswordComponent,
     AdminComponent,
     GestionUserComponent,
+    ParametreComponent,
  
   ],
   imports: [
+    ReactiveFormsModule,
     FormsModule,
     ConfirmDialogModule,
     ToastModule,
@@ -67,10 +70,18 @@ import { DatePipe } from '@angular/common';
     MessagesModule,
     MessageModule,
     ButtonModule,
+    BrowserModule,
+    FormsModule , 
+    ReactiveFormsModule,
+    ButtonModule,
+    CheckboxModule,
     
    
   ],
-  providers: [ConfirmationService,/* {
+  exports:[FormsModule],
+  providers: [ConfirmationService, 
+    AuthGuard,
+    /* {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
