@@ -15,6 +15,7 @@ import { AuthGuard } from './auth.guard';
 import { ListeResComponent } from './liste-res/liste-res.component';
 import { DemResComponent } from './dem-res/dem-res.component';
 import { ProfilComponent } from './profil/profil.component';
+import { MapComponent } from './map/map.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: "client", component:ClientComponent},
   {path: "listeRes", component:ListeResComponent},
   {path: "demReser", component:DemResComponent},
+  {path: "map", component:MapComponent},
 
   {path: "login", component:LoginComponent},
   {path: "admin" , component:AdminComponent  ,canActivate: [AuthGuard]},

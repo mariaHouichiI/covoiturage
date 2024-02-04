@@ -16,6 +16,7 @@ import { ReservationService } from '../reservation.service';
 import { Reservation } from '../reservation';
 import { User1 } from '../user1';
 import { forkJoin } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-liste-res',
   templateUrl: './liste-res.component.html',
@@ -50,7 +51,7 @@ trajetUpdateArrive!:{ Wilaya: string, Nom_Commune: string, id: number }
   currentUser!: Utilisateur;
   deleteError: string | undefined;
   listeIdTrajets: number[]=[]
-constructor(private resService: ReservationService,private getUser :GetUserService,private datePipe: DatePipe, private authService: AuthService,private utilisateurService:UtilisateurService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
+constructor( private resService: ReservationService,private router : Router,private getUser :GetUserService,private datePipe: DatePipe, private authService: AuthService,private utilisateurService:UtilisateurService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
  
 }
   wilayas: wilaya[] = [];
@@ -91,7 +92,12 @@ styledown = {'margin-bottom': '15%'};
   this.getWilaya()
  
   }
-
+  logout() {
+    this.authService.logout();
+  }
+  goToProfile() {
+    this.router.navigate(['/profil']);
+  }
   isReservationEnAttente(trajetId: number): boolean {
     console.log("Current User ID:", this.currentUser.id);
     console.log("Reservations:", this.reservations);
