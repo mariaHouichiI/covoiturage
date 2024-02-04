@@ -60,6 +60,12 @@ success = '';
     );
     
   }
+  goToListeTrajet(){
+    this.router.navigate(["/client"])
+  }
+  goToMesTrajet(){
+    this.router.navigate(["/chauffeur"])
+  }
 
  
 }

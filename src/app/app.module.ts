@@ -30,6 +30,9 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
+import { ClientComponent } from './client/client.component';
+
+
 import {CheckboxModule} from 'primeng/checkbox';
 import { ParametreComponent } from './parametre/parametre.component';  
 import { AuthGuard } from './auth.guard';
@@ -44,6 +47,7 @@ import { ProfilComponent } from './profil/profil.component';
     HomeComponent,
     SidebarComponent,
     ResetPasswordComponent,
+    ClientComponent,
     AdminComponent,
     GestionUserComponent,
     ParametreComponent,

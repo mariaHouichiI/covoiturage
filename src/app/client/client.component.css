@@ -1,0 +1,91 @@
+p{ 
+   
+    color: #7B7B7B;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;}
+    
+    ::ng-deep  .p-card { 
+      margin-bottom: 3%;
+      border-radius: '5px';
+      border: '0.5px solid #DDD';
+      background: '#FBFBFB';
+      box-shadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)';
+      margin-left: '22%';
+      margin-right: '3%';
+    } 
+    
+    :host ::ng-deep .p-dropdown { 
+        margin-bottom: 5%;
+        margin-right: 1%;
+        flex-shrink: 0;
+        border-radius: 9px;
+        border: 0.5px solid #8A8A8A;
+        background: var(--WHITE, #FFF);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        height: 25%;
+        width: 80%;
+    } 
+    :host ::ng-deep  .p-calendar { 
+        height: 40px ;
+        width: 80%;
+        margin-top: 2%;
+        margin-bottom: 5%;
+        flex-shrink: 0;
+        border-radius: 9px;
+        border: 0.5px solid #8A8A8A;
+        background: var(--WHITE, #FFF);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    } 
+    ::ng-deep .p-datepicker table td {
+        padding: 0.2rem !important;
+      }
+      
+      ::ng-deep .p-datepicker table td > span {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      
+      ::ng-deep .p-datepicker table {
+        font-size: 9pt;
+        margin: -0.143rem 0;
+      }
+      
+      ::ng-deep .p-datepicker .p-datepicker-header {
+        padding: 0.2rem;
+      }
+    
+      .classInput {
+        margin-left: 50%;
+        border-radius: 5px;
+    border: 0.5px solid #8A8A8A;
+    
+    background: var(--WHITE, #FFF);
+    
+    box-shadow: 0px 3px 4.8px 0px rgba(0, 0, 0, 0.25);
+    
+      }
+      
+      .p-button-primary {
+        width: 15%;
+        background-color: #35A7FF;
+        color: white; /* Pour assurer un bon contraste de texte */
+    }
+    .text-card{color: var(--BLACK, #000);
+    
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;}
+    
+    .name{
+    color: var(--BLACK, #000);
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    }

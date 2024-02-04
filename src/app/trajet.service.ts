@@ -101,5 +101,14 @@ export class TrajetService {
     return this.http.put<Trajet>(this.apiUrll,trajet,httpOptions);
   }
   
+  deleteTrajet(idUser: number, trajetId: number): Observable<any> {
+    const url = `${this.apiUrll}?id=${idUser}&idT=${trajetId}`;
+    return this.http.delete<any>(url).pipe(
+      catchError((error: any) => {
+        console.error('Erreur lors de la suppression du trajet :', error);
+        throw error;  // Propagez l'erreur pour la gestion côté composant
+      })
+    );
+  }
   
 }

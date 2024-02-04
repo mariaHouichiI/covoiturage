@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ClientComponent } from './client/client.component';
 import { AdminComponent } from './admin/admin.component';
 import { GestionUserComponent } from './gestion-user/gestion-user.component';
 import { ParametreComponent } from './parametre/parametre.component';
@@ -18,6 +19,10 @@ const routes: Routes = [
   { path: '', component: HomeComponent },  
   {path : "home" , component:HomeComponent},
   {path: "logo" , component:LogoComponent},
+
+  {path: "client", component:ClientComponent},
+
+  {path: "login", component:LoginComponent},
   {path: "admin" , component:AdminComponent  ,canActivate: [AuthGuard]},
   {path: "profil" , component:ProfilComponent,canActivate: [AuthGuard] },
   {path: "parametre" , component:ParametreComponent  ,canActivate: [AuthGuard]},

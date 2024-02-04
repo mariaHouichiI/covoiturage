@@ -19,6 +19,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./chauffeur.component.css']
 })
 export class ChauffeurComponent {
+
+heureDepart!: Date;
+  dateDepart!: Date;
+  trajetUpdateDepart!: { Wilaya: string; Nom_Commune: string; id: number; };
+trajetUpdateArrive!:{ Wilaya: string, Nom_Commune: string, id: number }
+  trajetUpdate!: Trajet; 
   selectedcommune1!: Commune;
   selectedwilaya1!: wilaya;
   selectedcommune2!: Commune;
@@ -30,16 +36,17 @@ export class ChauffeurComponent {
   communes1:Commune[] = [];
   communes2:Commune[] = [];
   communes3:Commune[] = [];
-  currentUser!: Utilisateur;
-  nouveauNombre: any;
-
-constructor(private getUser :GetUserService,private router : Router,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
-  console.log('Service trajetService :', trajetService);
-}
   wilayas: wilaya[] = [];
   trajets: Trajet[]=[];
   error = '';
   success = '';
+  currentUser!: Utilisateur;
+  deleteError: string | undefined;
+
+constructor(private getUser :GetUserService,private router : Router,private datePipe: DatePipe, private authService: AuthService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
+ 
+}
+
   
   styleOBJ = {
   borderRadius: '5px',
@@ -63,10 +70,7 @@ styledown = {'margin-bottom': '15%'};
   isChecked: boolean = false;
   formGroup!: FormGroup;
   token = localStorage.getItem('token');
-  trajetUpdate!: Trajet;
-  heureDepart!: Date;
-  dateDepart!: Date;
-  trajetUpdateDepart!: { Wilaya: string; Nom_Commune: string; id: number; };
+
   ngOnInit() {
 
     this.formGroup = new FormGroup({
@@ -240,6 +244,26 @@ addTrajet(addForm: NgForm) {
   
   
   }
+
+  deleteTrajet(idTrajet: number) {
+    this.trajetService.deleteTrajet(this.currentUser.id, idTrajet).subscribe(
+      response => {
+        // Gérer la réponse de l'API ici
+        console.log(response);
+        // Supprimer le trajet du tableau trajets
+        this.trajets = this.trajets.filter(trajet => trajet.id !== idTrajet);
+        // Réinitialiser l'erreur en cas de succès
+      
+      },
+      error => {
+        // Gérer les erreurs ici
+        console.error(error);
+        // Afficher l'erreur à l'utilisateur
+        this.deleteError = 'Erreur lors de la suppression du trajet.';
+      }
+    );
+  }
+  
   logout() {
     this.authService.logout();
   }
