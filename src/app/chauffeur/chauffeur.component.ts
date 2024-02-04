@@ -19,15 +19,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./chauffeur.component.css']
 })
 export class ChauffeurComponent {
-
 heureDepart!: Date;
-  dateDepart!: Date;
-  trajetUpdateDepart!: { Wilaya: string; Nom_Commune: string; id: number; };
+dateDepart!: Date;
+trajetUpdateDepart!: { Wilaya: string; Nom_Commune: string; id: number; };
 trajetUpdateArrive!:{ Wilaya: string, Nom_Commune: string, id: number }
-  trajetUpdate!: Trajet; 
-  selectedcommune1!: Commune;
-  selectedwilaya1!: wilaya;
-  selectedcommune2!: Commune;
+trajetUpdate!: Trajet; 
+selectedcommune1!: Commune;
+selectedwilaya1!: wilaya;
+selectedcommune2!: Commune;
   selectedwilaya2!: wilaya;
   selectedcommune3!: Commune;
   selectedwilaya3!: wilaya;
@@ -82,7 +81,9 @@ styledown = {'margin-bottom': '15%'};
  
   this.getUserCurrent()
   }
-
+Array(n: number): number[] {
+   return Array.from({ length: n }, (_, index) => index + 1);
+  }
 
   getUserCurrent(): void {
     
