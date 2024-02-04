@@ -224,26 +224,36 @@ width: 80%;margin-left: 15%;">
    
 </div>
 <div *ngFor="let trajet of trajets">
-    <p-card [style]="styleOBJ">
-        <p class="name" *ngIf="currentUser && currentUser.nom && currentUser.prenom">
-            {{ currentUser.nom }} {{ currentUser.prenom }}
-          </p>
-          
-       
-      <div style="display: flex; justify-content: space-between;">
-  
-        <ng-container *ngFor="let depart of departs">
-          <p class="text-card" *ngIf="depart.id === trajet.id">Départ: {{ depart.Nom_Commune }}, {{ depart.Wilaya }}</p>
-        </ng-container>
-        <ng-container *ngFor="let arrive of arrives">
-          <p class="text-card" *ngIf="arrive.id === trajet.id">Arrivé: {{ arrive.Nom_Commune }}, {{ arrive.Wilaya }}</p>
+  <p-card [style]="styleOBJ">
+   
+      <p class="text-card" >Chauffeur: {{ trajet.Chauffeur }}  
+        <i class="pi pi-user" style="font-size: 1.5em; color: rgb(100, 99, 99); margin-left: 10px;margin-right: 2px;"></i>
+        <i class="pi pi-user" style="font-size: 1.5em; color: rgb(120, 120, 120);margin-right: 2px; "></i>
+        <i class="pi pi-user" style="font-size: 1.5em; color: rgb(120, 120, 120); margin-right: 2px;"></i>
+        <i class="pi pi-user" style="font-size: 1.5em; color: rgb(120, 120, 120); margin-right: 2px;"></i>
+      </p>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+     
+
+      <ng-container  *ngFor="let depart of departs">
+        <p class="text-card" *ngIf="depart.id === trajet.id">Départ: {{ depart.Nom_Commune }}, {{ depart.Wilaya }}</p>
       </ng-container>
-        <p class="text-card">Heure De Départ: {{trajet.Heure_depart}}</p>
-        <p class="text-card">Date De Départ: {{trajet.Date_depart}}</p>
-  
-        <button pButton pRipple icon="pi pi-pencil" class="p-button-warning"></button>
-        <button style="margin-right: 10px;" pButton pRipple icon="pi pi-times" class="p-button-danger"></button>
-      </div>
-    </p-card>
-  </div>
+
+      <i class="pi pi-arrow-right" style="font-size: 2em; color: rgb(255, 183, 0); margin: 0 10px; font-weight: bold;"></i>
+
+      <ng-container *ngFor="let arrive of arrives">
+        <p class="text-card" *ngIf="arrive.id === trajet.id">Arrivé: {{ arrive.Nom_Commune }}, {{ arrive.Wilaya }}</p>
+      </ng-container>
+
+      <p class="text-card">Heure De Départ: {{trajet.Heure_depart}}</p>
+      <p class="text-card">Date De Départ: {{trajet.Date_depart}}</p>
+
+      <button pButton pRipple icon="pi pi-pencil" class="p-button-warning"></button>
+      <button pButton pRipple icon="pi pi-times" class="p-button-danger"></button>
+    </div>
+  </p-card>
+</div>
+
+
 

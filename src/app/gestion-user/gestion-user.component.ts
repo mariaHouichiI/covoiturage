@@ -17,6 +17,7 @@ import { ConfirmEventType } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
+import { GetUserService } from '../get-user.service';
 
 @Component({
   selector: 'app-gestion-user',
@@ -26,25 +27,32 @@ import { Router } from '@angular/router';
 })
 export class GestionUserComponent {
 
- 
-onUpdateUser(arg0: any) {
-throw new Error('Method not implemented.');
-}
+  
+  token = localStorage.getItem('token');
+  error = '';
+  success = '';
+  addForm: FormGroup;
+  editForm: any;
+  formGroup!: FormGroup;
+  message!: string;
+  messages: Message[] = [];
+  utilisateur: any;
+  public editUtilisateur: any;
+  public editUser: any;
+  isChecked: boolean = false;
+  currentUser: Utilisateur | null = null;
 
-
-      addForm: FormGroup;
-      editForm: any;
-      formGroup!: FormGroup;
-      message!: string;
-      messages: Message[] = [];
-      utilisateur: any;
-      public editUtilisateur: any;
-      isChecked: boolean = false;
-      utilisateurNew = {
+  userId: number  | null = null;
+  utilisateurNew = {
       
         admin: false, 
       };
-    constructor(private authService : AuthService,private router : Router , private fb: FormBuilder ,private confirmationService: ConfirmationService,private messageService:MessageService, private utilisateurService: UtilisateurService, private commune_wilayaServive: WilayaCommuneService,private insererService : InsererService,private deleteUserService : deleteUserService) {
+  
+    
+      // ...
+    
+      
+    constructor(private getUserservice :GetUserService,private authService : AuthService,private router : Router , private fb: FormBuilder ,private confirmationService: ConfirmationService,private messageService:MessageService, private utilisateurService: UtilisateurService, private commune_wilayaServive: WilayaCommuneService,private insererService : InsererService,private deleteUserService : deleteUserService) {
       this.addForm = this.fb.group({
         date: [null, Validators.required],
         heure: [null, Validators.required],
@@ -58,14 +66,39 @@ throw new Error('Method not implemented.');
    
       this.utilisateurNew.admin = !this.utilisateurNew.admin;
   }
-    initEditUser(utilisateur: any) {
-      this.editUtilisateur = { ...utilisateur }; 
+  initAddUser() {
+    this.addForm.reset(); 
+  }
+ initEditUser(utilisateur: any) {
+      this.editUser = { ...utilisateur }; 
    }
-   
+ /*  initEditUser(utilisateur: any) {
+    this.editUtilisateur = { ...utilisateur };
+    this.editForm.patchValue({ 
+      id: this.editUtilisateur.id,
+      firstname: this.editUtilisateur.nom,
+      lastname: this.editUtilisateur.prenom,
+      email: this.editUtilisateur.email,
+      telephone: this.editUtilisateur.telephone,
+      password: this.editUtilisateur.password,
+      
+    });
+  }*/
+  /*initEditUser(utilisateur: any) {
+    this.editUtilisateur = { ...utilisateur };
+    this.editForm.reset(); // Réinitialisez le formulaire de mise à jour
+    this.editForm.patchValue({
+      id: this.editUtilisateur.id,
+      nom: this.editUtilisateur.nom,
+      prenom: this.editUtilisateur.prenom,
+      email: this.editUtilisateur.email,
+      telephone: this.editUtilisateur.telephone,
+      password: this.editUtilisateur.password,
+    });
+  }*/
       utilisateurs : Utilisateur[] = [];
      
-      error = '';
-      success = '';
+    
       
       styleOBJ = {
       'margin-right': '3em',
@@ -85,7 +118,7 @@ throw new Error('Method not implemented.');
       this.utilisateurNew.admin = !this.utilisateurNew.admin;
     }
     goToProfile() {
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/profil']);
     }
       showConfirmation() {
         this.confirmationService.confirm({
@@ -120,10 +153,30 @@ throw new Error('Method not implemented.');
   }
     
       ngOnInit() {
-        this.formGroup = new FormGroup({
-            date: new FormControl<Date | null>(null)
-        });
       this.getUsers()
+      this.getUserservice.getUser(this.token).subscribe(
+        (data: Utilisateur) => {
+          this.currentUser = data;
+          this.userId = this.currentUser?.id; // Enregistrez l'ID de l'utilisateur courant
+          console.log("user", this.currentUser);
+          this.success = 'successful retrieval of the list';
+  
+          // Utilisez l'ID pour récupérer l'utilisateur complet
+          if (this.userId) {
+            this.getUserservice.getUserById(this.userId).subscribe(
+              (userData: Utilisateur) => {
+                this.editUser = { ...userData };
+              },
+              (error) => {
+                console.error('Error retrieving user by ID:', error);
+              }
+            );
+          }
+        },
+        (error) => {
+          console.error('Error retrieving user:', error);
+        }
+      );
 
       }
      getUsers(): void {
@@ -241,6 +294,50 @@ error => {
 }
 );
 }
+public onUpdateUser(utilisateur: Utilisateur): void {
+  console.log(utilisateur)
+ //  const isAdmin = utilisateur.admin === true;
+   this.getUserservice.updateUser(utilisateur).subscribe(
+     response => {
+       console.log(response);
+       if (response.success) {
+        
+          
+         this.messages = [
+           { severity: 'success', summary: 'Success', detail: `${utilisateur.nom}  ${utilisateur.prenom}'s information was updated successfully` }]  
+          
+      // utilisateur.admin = isAdmin;
+       console.log(response);
+       this.utilisateurService.getAll();
+      } else {
+
+      this.messages = [
+         { severity: 'error', summary: 'Error', detail: 'failed to update your  account informations, retry again' },
+       ]
+         // Échec : affichez le message d'erreur
+         console.error(response.message);
+     }
+     const modalElement = document.getElementById('addUserModal');
+     if (modalElement) {
+       modalElement.classList.remove('show');
+       modalElement.style.display = 'none';
+       document.body.classList.remove('modal-open');
+       const modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
+       if (modalBackdrop) {
+         modalBackdrop.parentNode?.removeChild(modalBackdrop);
+       }
+     }
+    
+ },
+ error => {
+   console.error(error);
+   this.messages = [
+     { severity: 'error', summary: 'Error', detail: 'verifier vos information , and try again' },
+   ];
+}
+);
+}
+
 
 
 

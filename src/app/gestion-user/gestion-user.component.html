@@ -6,24 +6,23 @@
   </div>
 
 
- <div   style=" margin-left: -18%; margin-bottom: 2%; margin-top: 2%;   height: 25% ;
- width: 80%;margin-left: 25%;">
-    <input class="classInput" style="margin-top: 20px;margin-bottom: 5em;height: 3em;width: 15em;" type="search" style="margin-top: 20px;" (ngModelChange)="searchUtilisateurs(key.value)" #key="ngModel" ngModel
-    name="key" id="searchName" class="form-control mr-sm-2" placeholder="Rechercher chauffeur..." required>
+  <div class="search-bar">
+    <input class="classInput" type="search" (ngModelChange)="searchUtilisateurs(key.value)" #key="ngModel" ngModel name="key" id="searchName" class="form-control mr-sm-2" placeholder="Rechercher chauffeur..." required>
+    <div class="profile-buttons">
+        <div class="profile-button" (click)="goToProfile()">
+            <button class="round-button">
+                <i class="pi pi-user cursor-pointer"></i>
+            </button>
+        </div>
+
+        <div class="logout-button" (click)="logout()">
+            <button class="round-button">
+                <i class="pi pi-sign-out cursor-pointer"></i>
+            </button>
+        </div>
+    </div>
 </div>
 
- <div class="profile-button" (click)="goToProfile()">
-    <button class="round-button">
-        <i class="pi pi-user cursor-pointer">  </i> 
-
-    </button>
-  </div>
-  <div class="logout-button" (click)="logout()">
-    <button class="round-button">
-        <i class="pi pi-sign-out cursor-pointer">  </i> 
-
-    </button>
-  </div>
 
  
  <button pButton pRipple icon="pi pi-plus" data-bs-toggle="modal" data-bs-target="#addUserModal"  class="p-button-primary"></button>
@@ -134,7 +133,7 @@
              </button>
           </div>
           <div class="modal-body">
-             <form #editForm="ngForm">
+             <form #addForm="ngForm">
                 <div class="form-group">
                    <label for="nom">Nom</label>
                    <input type="text" ngModel name="nom" class="form-control" id="nom"  placeholder="nom" >
@@ -169,7 +168,7 @@
                   <div class="modal-footer">
                  
                     <button type="button" id="annuler" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                   <button (click)="onAddUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" > Créer le compte</button>
+                   <button (click)="onAddUser(addForm.value)" data-dismiss="modal" class="btn btn-primary" > Créer le compte</button>
                 </div>
              </form>
           </div>
@@ -183,7 +182,7 @@
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier Utilisateur {{editUtilisateur?.nom}}</h5>
+             <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier Utilisateur N° {{editUser?.id}}</h5>
              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             
              </button>
@@ -191,25 +190,33 @@
           <div class="modal-body">
              <form #editForm="ngForm">
                 <div class="form-group">
+                    <label for="id">Numero Identifiant</label>
+                    <input type="text" ngModel="{{editUser?.id}}" value="{{editUser?.id}}" name="id" class="form-control" id="nom"  placeholder="id" >
+                 </div>
+             
+                <div class="form-group">
                    <label for="nom">Nom</label>
-                   <input type="text" ngModel="{{editUtilisateur?.nom}}" value="{{editUtilisateur?.nom}}" name="nom" class="form-control" id="nom"  placeholder="nom" readonly>
+                   <input type="text" ngModel="{{editUser?.nom}}" value="{{editUser?.nom}}" name="nom" class="form-control" id="nom"  placeholder="nom" >
                 </div>
   
                 <div class="form-group">
                    <label for="prenom">prenom </label>
-                   <input type="text" ngModel="{{editUtilisateur?.prenom}}" value="{{editUtilisateur?.prenom}}" name="prenom" class="form-control" id="prenom" placeholder="prenom" readonly>
+                   <input type="text" ngModel="{{editUser?.prenom}}" value="{{editUser?.prenom}}" name="prenom" class="form-control" id="prenom" placeholder="prenom" >
                 </div>
   
                  <div class="form-group">
                    <label for="Email">Email </label>
-                   <input type="text" ngModel="{{editUtilisateur?.email}}" value="{{editUtilisateur?.email}}" name="email" class="form-control" id="email" placeholder="fonction">
+                   <input type="text" ngModel="{{editUser?.email}}" value="{{editUser?.email}}" name="email" class="form-control" id="email" placeholder="fonction">
                  </div>
                 
                 <div class="form-group">
-                    <label for="Email">Telephone</label>
-                    <input type="tel" ngModel="{{editUtilisateur?.telephone}}" name="Telephone" class="form-control" id="Telephone" placeholder="Telephone">
+                    <label for="telephone">Telephone</label>
+                    <input type="tel" ngModel="{{editUser?.telephone}}" name="telephone" class="form-control" id="telephone" placeholder="telephone">
                 </div>
-               
+                <div class="form-group">
+                    <label for="password">Password </label>
+                    <input type="text" ngModel="{{editUser?.password}}" value="{{editUser?.password}}" name="password" class="form-control" id="password" placeholder="password" >
+                 </div>
                 <div class="modal-footer">
                     <button type="button" id="annuler" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     <button (click)="onUpdateUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Sauvgarder modification </button>

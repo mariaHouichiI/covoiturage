@@ -38,6 +38,7 @@ import { ParametreComponent } from './parametre/parametre.component';
 import { AuthGuard } from './auth.guard';
 import { ListeResComponent } from './liste-res/liste-res.component';
 import { DemResComponent } from './dem-res/dem-res.component';
+import { ProfilComponent } from './profil/profil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { DemResComponent } from './dem-res/dem-res.component';
     ParametreComponent,
     ListeResComponent,
     DemResComponent,
+    ProfilComponent,
  
   ],
   imports: [
@@ -84,11 +86,13 @@ import { DemResComponent } from './dem-res/dem-res.component';
     ButtonModule,
     CheckboxModule,
     
+    
    
   ],
   exports:[FormsModule],
   providers: [ConfirmationService, 
     AuthGuard,
+  
     /* {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,

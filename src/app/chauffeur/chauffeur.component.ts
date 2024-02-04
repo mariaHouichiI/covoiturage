@@ -19,73 +19,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./chauffeur.component.css']
 })
 export class ChauffeurComponent {
-affectTrajetUpdate(trajet: Trajet) {
-
-  for (const trajet of this.trajets) {
-         
-    for (const arrive of this.arrives) {
-     
-      if (trajet.id === arrive.id) { 
-       
-        const trajetInfoArriveUpdate = {
-          Wilaya: arrive.Wilaya,        // Assurez-vous que commune a une propriété Wilaya
-          Nom_Commune: arrive.Nom_Commune,  // Assurez-vous que commune a une propriété Nom_Commune
-          id: trajet.id   
-
-        };
-       
-        this.trajetUpdateDepart=trajetInfoArriveUpdate; 
-        const wil = {
-            Nom_wilaya:   this.trajetUpdateDepart.Wilaya,  
-        };
-        this.selectedwilaya3 = wil;
-      }
-    }
-  }
-  for (const trajet of this.trajets) {
-         
-    for (const depart of this.departs) {
-     
-      if (trajet.id === depart.id) { 
-       
-        const trajetInfoDepartUpdate = {
-          Wilaya: depart.Wilaya,        // Assurez-vous que commune a une propriété Wilaya
-          Nom_Commune: depart.Nom_Commune,  // Assurez-vous que commune a une propriété Nom_Commune
-          id: trajet.id   
-
-        };
-       
-        this.trajetUpdateDepart=trajetInfoDepartUpdate; 
-        const wil = {
-            Nom_wilaya:   this.trajetUpdateDepart.Wilaya,  
-        };
-        this.selectedwilaya2 = wil;
-      }
-    }
-  }
-  for (const commune of this.communes)
-  {if (trajet.Lieu_arrive===commune.id)
-      this.selectedcommune2=commune
-  }
-  for (const commune of this.communes)
-  {if (trajet.Lieu_depart===commune.id)
-      this.selectedcommune3=commune
-  }
-
-  this.dateDepart= new Date(trajet.Date_depart);
-  this.heureDepart = new Date('1970-01-01T' + trajet.Heure_depart);this.trajetUpdate=trajet
-console.log("trajet  a  ypdate ",this.trajetUpdate)
-
-
-}
 heureDepart!: Date;
-  dateDepart!: Date;
-  trajetUpdateDepart!: { Wilaya: string; Nom_Commune: string; id: number; };
+dateDepart!: Date;
+trajetUpdateDepart!: { Wilaya: string; Nom_Commune: string; id: number; };
 trajetUpdateArrive!:{ Wilaya: string, Nom_Commune: string, id: number }
-  trajetUpdate!: Trajet; 
-  selectedcommune1!: Commune;
-  selectedwilaya1!: wilaya;
-  selectedcommune2!: Commune;
+trajetUpdate!: Trajet; 
+selectedcommune1!: Commune;
+selectedwilaya1!: wilaya;
+selectedcommune2!: Commune;
   selectedwilaya2!: wilaya;
   selectedcommune3!: Commune;
   selectedwilaya3!: wilaya;
@@ -119,15 +60,17 @@ styledown = {'margin-bottom': '15%'};
   wialays!: wilaya[];
   value: string | undefined;
   selectedwilaya!: wilaya;
+  wilayaDepart!: wilaya;
+  wilayaArrivee!: wilaya;
+  communeDepart!: Commune;
+  communeArrivee!: Commune;
   communes: Commune[]= [];;
   selectedcommune!: Commune;
   isChecked: boolean = false;
   formGroup!: FormGroup;
   token = localStorage.getItem('token');
 
- 
   ngOnInit() {
- 
 
     this.formGroup = new FormGroup({
         date: new FormControl<Date | null>(null)
@@ -137,6 +80,9 @@ styledown = {'margin-bottom': '15%'};
   this.getWilaya()
  
   this.getUserCurrent()
+  }
+Array(n: number): number[] {
+   return Array.from({ length: n }, (_, index) => index + 1);
   }
 
   getUserCurrent(): void {
@@ -152,7 +98,7 @@ styledown = {'margin-bottom': '15%'};
     );
   }
   goToProfile() {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/profil']);
   }
   getTrajets(): void {
  
@@ -218,7 +164,6 @@ styledown = {'margin-bottom': '15%'};
     );
   }
 
-  
   filterWilayas() {
     if (this.selectedwilaya && this.selectedwilaya.Nom_wilaya) {
       return this.communes.filter(commune => commune.Wilaya === this.selectedwilaya.Nom_wilaya);
@@ -260,7 +205,14 @@ getCommune(): void {
     }
   );
 }
-
+/*filterTrajetsByDepart(wilayaDepart: wilaya, communeDepart: Commune, wilayaArrivee: wilaya, communeArrivee: Commune): void {
+  this.trajets = this.trajets.filter(trajet =>
+    trajet.Lieu_depart === wilayaDepart &&
+    trajet.Depart_Commune === communeDepart &&
+    trajet.Lieu_arrive === wilayaArrivee &&
+    trajet.Arrive_Commune === communeArrivee
+  );
+}*/
 
 addTrajet(addForm: NgForm) {
   console.log("tokkkkkkkkkkkkkkkkkkn",localStorage.getItem('token'))
@@ -319,6 +271,7 @@ console.log("trajet avnt envoi ",trajet)
       }
     );
   }
+
   deleteTrajet(idTrajet: number) {
     this.trajetService.deleteTrajet(this.currentUser.id, idTrajet).subscribe(
       (response: any) => {
@@ -336,9 +289,98 @@ console.log("trajet avnt envoi ",trajet)
   logout() {
     this.authService.logout();
   }
-
+  searchCriteria = {
+    date: null,
+    wilaya: null,
+    commune: null,
+    numeroChauffeur: null
+  };
+  originalTrajets!: any[];
+  public searchTrajets(key: string): void {
+    console.log(key);
+    const results: Trajet[] = [];
+    for (const trajet of this.originalTrajets) {
+      if (
+        trajet.Date_depart.toLowerCase().includes(key.toLowerCase()) ||
+        trajet.Lieu_depart.toString().toLowerCase().includes(key.toLowerCase()) ||
+        trajet.Lieu_arrive.toString().toLowerCase().includes(key.toLowerCase()) ||
+        trajet.Heure_depart.toLowerCase().includes(key.toLowerCase()) ||
+        trajet.nbr_place.toString().toLowerCase().includes(key.toLowerCase()) ||
+        trajet.hebdomadaire.toString().toLowerCase().includes(key.toLowerCase())
+      ) {
+        results.push(trajet);
+      }
+    }
+  
+    if (!key || results.length === 0) {
+      // Si la clé est vide ou si aucune correspondance n'est trouvée, réinitialisez les trajets à la liste d'origine.
+      this.trajets = this.originalTrajets;
+    } else {
+      this.trajets = results;
+    }
   }
 
+  affectTrajetUpdate(trajet: Trajet) {
+
+    for (const trajet of this.trajets) {
+           
+      for (const arrive of this.arrives) {
+       
+        if (trajet.id === arrive.id) { 
+         
+          const trajetInfoArriveUpdate = {
+            Wilaya: arrive.Wilaya,        // Assurez-vous que commune a une propriété Wilaya
+            Nom_Commune: arrive.Nom_Commune,  // Assurez-vous que commune a une propriété Nom_Commune
+            id: trajet.id   
+  
+          };
+         
+          this.trajetUpdateDepart=trajetInfoArriveUpdate; 
+          const wil = {
+              Nom_wilaya:   this.trajetUpdateDepart.Wilaya,  
+          };
+          this.selectedwilaya3 = wil;
+        }
+      }
+    }
+    for (const trajet of this.trajets) {
+           
+      for (const depart of this.departs) {
+       
+        if (trajet.id === depart.id) { 
+         
+          const trajetInfoDepartUpdate = {
+            Wilaya: depart.Wilaya,        // Assurez-vous que commune a une propriété Wilaya
+            Nom_Commune: depart.Nom_Commune,  // Assurez-vous que commune a une propriété Nom_Commune
+            id: trajet.id   
+  
+          };
+         
+          this.trajetUpdateDepart=trajetInfoDepartUpdate; 
+          const wil = {
+              Nom_wilaya:   this.trajetUpdateDepart.Wilaya,  
+          };
+          this.selectedwilaya2 = wil;
+        }
+      }
+    }
+    for (const commune of this.communes)
+    {if (trajet.Lieu_arrive===commune.id)
+        this.selectedcommune2=commune
+    }
+    for (const commune of this.communes)
+    {if (trajet.Lieu_depart===commune.id)
+        this.selectedcommune3=commune
+    }
+  
+    this.dateDepart= new Date(trajet.Date_depart);
+    this.heureDepart = new Date('1970-01-01T' + trajet.Heure_depart);this.trajetUpdate=trajet
+  console.log("trajet  a  ypdate ",this.trajetUpdate)
+  
+  
+  }
+  
+}
 
 
 

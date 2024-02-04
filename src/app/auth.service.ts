@@ -44,6 +44,7 @@ login(email: string, password: string): Observable<any> {
    logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/home']);
+  
     this.isLoggedInVar = false;
   }
   isLoggedIn(): boolean {

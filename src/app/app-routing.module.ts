@@ -9,12 +9,12 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ClientComponent } from './client/client.component';
 import { AdminComponent } from './admin/admin.component';
-import { ProfileComponent } from './profile/profile.component';
 import { GestionUserComponent } from './gestion-user/gestion-user.component';
 import { ParametreComponent } from './parametre/parametre.component';
 import { AuthGuard } from './auth.guard';
 import { ListeResComponent } from './liste-res/liste-res.component';
 import { DemResComponent } from './dem-res/dem-res.component';
+import { ProfilComponent } from './profil/profil.component';
 
 
 const routes: Routes = [
@@ -28,7 +28,7 @@ const routes: Routes = [
 
   {path: "login", component:LoginComponent},
   {path: "admin" , component:AdminComponent  ,canActivate: [AuthGuard]},
-  {path: "profile" , component:ProfileComponent ,canActivate: [AuthGuard]},
+  {path: "profil" , component:ProfilComponent,canActivate: [AuthGuard] },
   {path: "parametre" , component:ParametreComponent  ,canActivate: [AuthGuard]},
   {path: "login", component:LoginComponent },
   {path: "signup", component:SingupComponent},

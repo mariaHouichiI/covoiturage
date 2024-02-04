@@ -53,7 +53,7 @@ GoToGestionUser() {
   this.router.navigate(['/utilisateur']);
 }
 goToProfile() {
-  this.router.navigate(['/profile']);
+  this.router.navigate(['/profil']);
 }
 logout() {
   this.authService.logout();
