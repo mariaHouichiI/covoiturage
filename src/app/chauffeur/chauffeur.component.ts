@@ -205,6 +205,18 @@ getCommune(): void {
     }
   );
 }
+filterByWilayaArrive(wilaya: number): void {
+  this.trajets = [];
+  this.trajetService.getByCommune(this.selectedcommune.id,this.selectedcommune1.id).subscribe(
+    (trajets: Trajet[]) => {
+      this.trajets = trajets;
+    },
+    (error: any) => {
+      console.log(error);
+    }
+  );
+}
+
 /*filterTrajetsByDepart(wilayaDepart: wilaya, communeDepart: Commune, wilayaArrivee: wilaya, communeArrivee: Commune): void {
   this.trajets = this.trajets.filter(trajet =>
     trajet.Lieu_depart === wilayaDepart &&

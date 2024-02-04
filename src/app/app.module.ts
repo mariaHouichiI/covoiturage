@@ -39,6 +39,8 @@ import { AuthGuard } from './auth.guard';
 import { ListeResComponent } from './liste-res/liste-res.component';
 import { DemResComponent } from './dem-res/dem-res.component';
 import { ProfilComponent } from './profil/profil.component';
+import { MapComponent } from './map/map.component';
+import { LeafletService } from './map/leaflet.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +58,7 @@ import { ProfilComponent } from './profil/profil.component';
     ListeResComponent,
     DemResComponent,
     ProfilComponent,
+     MapComponent,
  
   ],
   imports: [
@@ -92,6 +95,7 @@ import { ProfilComponent } from './profil/profil.component';
   exports:[FormsModule],
   providers: [ConfirmationService, 
     AuthGuard,
+    LeafletService,
   
     /* {
     provide: HTTP_INTERCEPTORS,

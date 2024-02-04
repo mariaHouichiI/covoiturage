@@ -1,11 +1,25 @@
 <app-sidebar></app-sidebar>
 
-<div   style=" margin-left: -18%; margin-bottom: 2%; margin-top: 2%;   height: 25% ;
-width: 80%;">
+<div class="search-bar">
+  <!-- Commentez ou supprimez l'élément d'entrée de recherche -->
+  <!--<input class="classInput" type="search" (ngModelChange)="searchUtilisateurs(key.value)" #key="ngModel" ngModel name="key" id="searchName" class="form-control mr-sm-2" placeholder="Rechercher chauffeur..." required>-->
+  <div class="profile-buttons">
+      <div class="profile-button" (click)="goToProfile()">
+          <button class="round-button">
+              <i class="pi pi-user cursor-pointer"></i>
+          </button>
+      </div>
 
-    <input class="classInput" style="   height: 25% ;width: 30%;" type="text" placeholder="Rechercher chauffeur..." pInputText [(ngModel)]="value" />
-
+      <div class="logout-button" (click)="logout()">
+          <button class="round-button">
+              <i class="pi pi-sign-out cursor-pointer"></i>
+          </button>
+      </div>
+  </div>
 </div>
+
+
+
 <div style="display: flex; justify-content: space-between;">
 
 
@@ -56,59 +70,37 @@ width: 80%;">
             </ng-template>
           </p-dropdown>    </div>
 
-    <div style="flex: 1; margin-left: -30px;  ">
-        <br>
-        <form [formGroup]="formGroup">
-            <p-calendar formControlName="date"></p-calendar>
-        </form>
+   
 
-        <form [formGroup]="formGroup">
-            <p-calendar formControlName="date" [showTime]="true" [timeOnly]="true" hourFormat="24"></p-calendar>
-        </form>
-    </div>
-    <div style="display: flex; justify-content: space-between;">
-    <div style="flex: 1;  ">
-        <br><br>
-        <p > Hebdomadaire       </p>
-    </div>    
-     <div style="flex: 1; ">
-        <br><br>
-        <input class="classInput" type="checkbox" id="myCheckbox" [(ngModel)]="isChecked" name="myCheckbox">
+</div>
+<div *ngFor="let trajet of trajets">
+  <div *ngIf="trajet.Chauffeur !== currentUser.id">
+<p-card [style]="styleOBJ">
+  <ng-container *ngFor="let user of users">
+  <p   *ngIf="user.id === trajet.Chauffeur" class="name">{{user.nomUser}} {{user.prenomUser}}</p>
+  </ng-container>
+  <div style="display: flex; justify-content: space-between;">
 
-   </div>        
+    <ng-container *ngFor="let depart of departs">
+      <p class="text-card" *ngIf="depart.id === trajet.id">Départ: {{ depart.Nom_Commune }}, {{ depart.Wilaya }}</p>
+    </ng-container>
+    <ng-container *ngFor="let arrive of arrives">
+      <p class="text-card" *ngIf="arrive.id === trajet.id">Arrivé: {{ arrive.Nom_Commune }}, {{ arrive.Wilaya }}</p>
+  </ng-container>
+    <p class="text-card">Heure De Départ: {{trajet.Heure_depart}}</p>
+    <p class="text-card">Date De Départ: {{trajet.Date_depart}}</p>
+   
+    <button pButton
+    [label]="isReservationEnAttente(trajet.id) ? 'Réservation en attente' : 'Réserver'"
+    [disabled]="isReservationEnAttente(trajet.id)"
+    (click)="addRes(trajet.id, currentUser.id)"
+    pRipple
+    class="p-button-primary"
+    style="display: flex; align-items: center; justify-content: center;">
+    </button>
 
   </div>
-   
-</div>
-
-<div *ngFor="let trajet of trajets">
-    <div *ngIf="trajet.Chauffeur !== currentUser.id">
-  <p-card [style]="styleOBJ">
-    <ng-container *ngFor="let user of users">
-    <p   *ngIf="user.id === trajet.Chauffeur" class="name">{{user.nomUser}} {{user.prenomUser}}</p>
-    </ng-container>
-    <div style="display: flex; justify-content: space-between;">
-
-      <ng-container *ngFor="let depart of departs">
-        <p class="text-card" *ngIf="depart.id === trajet.id">Départ: {{ depart.Nom_Commune }}, {{ depart.Wilaya }}</p>
-      </ng-container>
-      <ng-container *ngFor="let arrive of arrives">
-        <p class="text-card" *ngIf="arrive.id === trajet.id">Arrivé: {{ arrive.Nom_Commune }}, {{ arrive.Wilaya }}</p>
-    </ng-container>
-      <p class="text-card">Heure De Départ: {{trajet.Heure_depart}}</p>
-      <p class="text-card">Date De Départ: {{trajet.Date_depart}}</p>
-     
-      <button pButton
-      [label]="isReservationEnAttente(trajet.id) ? 'Réservation en attente' : 'Réserver'"
-      [disabled]="isReservationEnAttente(trajet.id)"
-      (click)="addRes(trajet.id, currentUser.id)"
-      pRipple
-      class="p-button-primary"
-      style="display: flex; align-items: center; justify-content: center;">
-      </button>
-
-    </div>
-  </p-card></div>
+</p-card></div>
 </div>
 
 
