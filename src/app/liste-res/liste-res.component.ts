@@ -23,7 +23,7 @@ import { forkJoin } from 'rxjs';
 })
 export class ListeResComponent {
 
-
+  listeTrajets:Trajet[]=[]
 
 heureDepart!: Date;
   dateDepart!: Date;
@@ -42,7 +42,7 @@ trajetUpdateArrive!:{ Wilaya: string, Nom_Commune: string, id: number }
   communes1:Commune[] = [];
   communes2:Commune[] = [];
   communes3:Commune[] = [];
-  listeTrajets:Trajet[]=[]
+  listeRes:Reservation[]=[]
   reservations:Reservation[]=[];
   res:Reservation[]=[];
 
@@ -78,17 +78,18 @@ styledown = {'margin-bottom': '15%'};
   token = localStorage.getItem('token');
 
  
-  ngOnInit() { 
-   this.newListe()
+  ngOnInit() {
      this.getUserCurrent()
     this.formGroup = new FormGroup({
         date: new FormControl<Date | null>(null)
-    }); 
+    });   
+    this.getTrajets()
+     
     this.getUsers()
    this.getCommune()
-  this.getTrajets()
+
   this.getWilaya()
- this.getRes()
+ 
   }
 
   isReservationEnAttente(trajetId: number): boolean {
@@ -123,6 +124,33 @@ styledown = {'margin-bottom': '15%'};
       }
     );
   }    
+  
+  getListeRes(): void {
+    this.resService.getListeRes(this.currentUser.id).subscribe(
+      (data: Reservation[]) => {
+        this.listeRes = data; 
+        console.log("recepereeeee  rese   ont 1 ",this.listeRes); 
+        this.success = 'successful retrieval of the list';
+
+        for (const reservation  of this.listeRes as any ) {
+          for (const trajet of this.trajets) {
+            console.log('test', trajet.id,reservation.Trajet)
+           
+            if (trajet.id === reservation[1]) {
+              // Check if user with the same id already exists in this.users
+              this.listeTrajets.push(trajet);
+            }
+          }
+        }
+        console.log('test',this.listeTrajets)
+      },
+      (error) => {
+        this.error = 'Error retrieving wilayas: ' + error;
+      }
+    );
+
+
+  }
   getUsers(): void {
     this.utilisateurService.getAll().subscribe(
       (data: User1[]) => {
@@ -143,7 +171,7 @@ styledown = {'margin-bottom': '15%'};
     this.getUser.getUser(this.token).subscribe(
       (data: Utilisateur) => {
         this.currentUser = data;
-       
+        this.getListeRes()
         console.log("useeeeeeeeeeer",this.currentUser)
         this.success = 'successful retrieval of the list';
       },
@@ -246,18 +274,8 @@ console.log("useeeeeeeeers",this.users)
       }
     );
   }
-  getRes(): void {
-    this.resService.getAll().subscribe(
-      (data: Reservation[]) => {
-        this.reservations = data; 
-        console.log("les reeeeeeeees",this.reservations); 
-        this.success = 'successful retrieval of the list';
-      },
-      (error) => {
-        this.error = 'Error retrieving wilayas: ' + error;
-      }
-    );
-  }
+
+
 
   
   filterWilayas() {
@@ -303,42 +321,6 @@ getCommune(): void {
 }
  
 
-newListe() {
-  forkJoin([
-    this.trajetService.getAll(),
-    this.resService.getAll()
-  ]).subscribe(
-    ([trajets, reservations]: [Trajet[], Reservation[]]) => {
-      this.tr = trajets;
-      this.res = reservations;
-
-      // Rest of the newListe logic
-      console.log("liste resss", this.res);
-      console.log("liste trrrrrrrrrrr", this.tr);
-
-      for (const res of this.res) {
-        console.log("mes2");
-        if (res.Passagere === this.currentUser.id && res.Approuver === "1") {
-          console.log("mes3");  this.listeIdTrajets.push(res.Trajet);
-        }
-      }
-      console.log("listeIDD", this.listeIdTrajets);
-
-      for (const trajet of this.tr) {
-        console.log("mes1");
-        for (const idT of this.listeIdTrajets) {
-          if (trajet.id === idT) {
-            this.listeTrajets.push(trajet);
-          }
-        }
-      }
-      console.log("listettra", this.listeTrajets);
-    },
-    error => {
-      console.error('Error fetching data:', error);
-    }
-  );
-}
 
 
   }

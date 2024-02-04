@@ -81,10 +81,10 @@ width: 80%;">
 </div>
 
 <div *ngFor="let trajet of listeTrajets">
-    <div *ngIf="trajet.Chauffeur !== currentUser.id">
+    <div *ngIf="trajet.Chauffeur !== currentUser?.id">
   <p-card [style]="styleOBJ">
     <ng-container *ngFor="let user of users">
-    <p   *ngIf="user.id === trajet.Chauffeur" class="name">{{user.nomUser}} {{user.prenomUser}}</p>
+    <p   *ngIf="user?.id === trajet.Chauffeur" class="name">{{user.nomUser}} {{user.prenomUser}}</p>
     </ng-container>
     <div style="display: flex; justify-content: space-between;">
 
@@ -97,14 +97,8 @@ width: 80%;">
       <p class="text-card">Heure De Départ: {{trajet.Heure_depart}}</p>
       <p class="text-card">Date De Départ: {{trajet.Date_depart}}</p>
      
-      <button pButton
-      [label]="isReservationEnAttente(trajet.id) ? 'Réservation en attente' : 'Réserver'"
-      [disabled]="isReservationEnAttente(trajet.id)"
-      (click)="addRes(trajet.id, currentUser.id)"
-      pRipple
-      class="p-button-primary"
-      style="display: flex; align-items: center; justify-content: center;">
-      </button>
+      <button   style="height: 1cm; width: 1cm;" pButton pRipple icon="pi pi-times" class="p-button-danger" ></button>
+
 
     </div>
   </p-card></div>

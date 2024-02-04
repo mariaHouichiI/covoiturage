@@ -40,4 +40,14 @@ export class ReservationService {
     return this.http.get(`${this.apiUrll}/reservation/liste_reservation.php`);
   }
   
+  getListeRes(idChauf: number): Observable<any> {
+    const url = `${this.apiUrll}/api/reservation/approved/index.php?id=${idChauf}`;
+  
+    return this.http.get<any>(url).pipe(
+      catchError((error: any) => {
+        console.error('Erreur lors de la suppression du trajet :', error);
+        throw error;  // Propagez l'erreur pour la gestion côté composant
+      })
+    );
+  }
 }

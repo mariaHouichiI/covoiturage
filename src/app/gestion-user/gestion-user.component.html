@@ -36,22 +36,22 @@
 
             <div class="text-card" style="flex: 1;">
                 <p style="font-weight: bold; font-size: 1em;">Nom :</p>
-                <p>{{utilisateur.nom}}</p>
+                <p>{{utilisateur.Nom}}</p>
             </div>
 
             <div class="text-card" style="flex: 1;">
                 <p style="font-weight: bold; font-size: 1em;">Prénom :</p>
-                <p>{{utilisateur.prenom}}</p>
+                <p>{{utilisateur.Prenom}}</p>
             </div>
 
             <div class="text-card" style="flex: 1;">
                 <p style="font-weight: bold; font-size: 1em;">Email :</p>
-                <p>{{utilisateur.email}}</p>
+                <p>{{utilisateur.Email}}</p>
             </div>
 
             <div class="text-card" style="flex: 1;">
                 <p style="font-weight: bold; font-size: 1em;">Téléphone :</p>
-                <p>{{utilisateur.telephone}}</p>
+                <p>{{utilisateur.Telephone}}</p>
             </div>
 
             <div class="text-card" style="flex: 1;">
@@ -196,26 +196,26 @@
              
                 <div class="form-group">
                    <label for="nom">Nom</label>
-                   <input type="text" ngModel="{{editUser?.nom}}" value="{{editUser?.nom}}" name="nom" class="form-control" id="nom"  placeholder="nom" >
+                   <input type="text" ngModel="{{editUser?.nom}}" value="{{editUser?.Nom}}" name="nom" class="form-control" id="nom"  placeholder="nom" >
                 </div>
   
                 <div class="form-group">
                    <label for="prenom">prenom </label>
-                   <input type="text" ngModel="{{editUser?.prenom}}" value="{{editUser?.prenom}}" name="prenom" class="form-control" id="prenom" placeholder="prenom" >
+                   <input type="text" ngModel="{{editUser?.prenom}}" value="{{editUser?.Prenom}}" name="prenom" class="form-control" id="prenom" placeholder="prenom" >
                 </div>
   
                  <div class="form-group">
                    <label for="Email">Email </label>
-                   <input type="text" ngModel="{{editUser?.email}}" value="{{editUser?.email}}" name="email" class="form-control" id="email" placeholder="fonction">
+                   <input type="text" ngModel="{{editUser?.email}}" value="{{editUser?.Email}}" name="email" class="form-control" id="email" placeholder="fonction">
                  </div>
                 
                 <div class="form-group">
                     <label for="telephone">Telephone</label>
-                    <input type="tel" ngModel="{{editUser?.telephone}}" name="telephone" class="form-control" id="telephone" placeholder="telephone">
+                    <input type="tel" ngModel="{{editUser?.Telephone}}" name="telephone" class="form-control" id="telephone" placeholder="telephone">
                 </div>
                 <div class="form-group">
                     <label for="password">Password </label>
-                    <input type="text" ngModel="{{editUser?.password}}" value="{{editUser?.password}}" name="password" class="form-control" id="password" placeholder="password" >
+                    <input type="text" ngModel="{{editUser?.password}}"  name="password" class="form-control" id="password" placeholder="password" >
                  </div>
                 <div class="modal-footer">
                     <button type="button" id="annuler" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>

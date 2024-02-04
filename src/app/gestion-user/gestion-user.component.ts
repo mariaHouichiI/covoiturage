@@ -18,6 +18,7 @@ import { ToastModule } from 'primeng/toast';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 import { GetUserService } from '../get-user.service';
+import { User1 } from '../user1';
 
 @Component({
   selector: 'app-gestion-user',
@@ -96,7 +97,7 @@ export class GestionUserComponent {
       password: this.editUtilisateur.password,
     });
   }*/
-      utilisateurs : Utilisateur[] = [];
+      utilisateurs : User1[] = [];
      
     
       
@@ -181,7 +182,7 @@ export class GestionUserComponent {
       }
      getUsers(): void {
         this.utilisateurService.getAll().subscribe(
-          (data: Utilisateur[]) => {
+          (data: User1[]) => {
             console.log(data);
             this.utilisateurs = data;
             for (const trajet of this.utilisateurs) {
@@ -199,19 +200,19 @@ export class GestionUserComponent {
   
       public searchUtilisateurs(key: string): void {
         console.log(key);
-        const results: Utilisateur[] = [];
+        const results: User1[] = [];
       
         for (const utilisateur of this.utilisateurs) {
-          if (utilisateur.nom.toLowerCase().includes(key.toLowerCase()) ||
-              utilisateur.prenom.toLowerCase().includes(key.toLowerCase()) ||
-              utilisateur.email.toLowerCase().includes(key.toLowerCase()) ||
-              utilisateur.telephone.toLowerCase().includes(key.toLowerCase())) {
+          if (utilisateur.Nom.toLowerCase().includes(key.toLowerCase()) ||
+              utilisateur.Prenom.toLowerCase().includes(key.toLowerCase()) ||
+              utilisateur.Email.toLowerCase().includes(key.toLowerCase()) ||
+              utilisateur.Telephone.toLowerCase().includes(key.toLowerCase())) {
             results.push(utilisateur);
           }
         }
         if (!key || results.length === 0) {
           this.utilisateurService.getAll().subscribe(
-            (data: Utilisateur[]) => {
+            (data: User1[]) => {
               this.utilisateurs = data;
             },
             (error) => {
