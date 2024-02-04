@@ -1,8 +1,9 @@
 
 <app-sidebar></app-sidebar>
 <div class="search-bar">
-     <input class="classInput"(click)="searchTrajets(key.value)"#key="ngModel"  style="   height: 25% ;width: 30%;" type="text" placeholder="Rechercher ..." pInputText [(ngModel)]="value" />
-<div class="profile-buttons">
+  <!-- Commentez ou supprimez l'élément d'entrée de recherche -->
+  <!--<input class="classInput" type="search" (ngModelChange)="searchUtilisateurs(key.value)" #key="ngModel" ngModel name="key" id="searchName" class="form-control mr-sm-2" placeholder="Rechercher chauffeur..." required>-->
+  <div class="profile-buttons">
       <div class="profile-button" (click)="goToProfile()">
           <button class="round-button">
               <i class="pi pi-user cursor-pointer"></i>
@@ -16,6 +17,7 @@
       </div>
   </div>
 </div>
+
 <div   style=" margin-left: -18%; margin-bottom: 2%; margin-top: 2%;   height: 25% ;
 width: 80%;margin-right : 65%;">
     <input class="classInput" style="   height: 25% ;width: 30%;" type="text" placeholder="Rechercher..." pInputText [(ngModel)]="value" />
