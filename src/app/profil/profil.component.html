@@ -1,0 +1,119 @@
+<app-sidebar></app-sidebar>
+<div style=" size: 10cm;margin-left: 70%;"   class="card">
+    <p-messages style="position: fixed;" [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false"></p-messages>
+  </div>
+
+<div class="logout-button" (click)="logout()">
+    <button class="round-button">
+        <i class="pi pi-sign-out cursor-pointer">  </i> 
+    </button>
+  </div>
+
+
+<div class="page-content">
+    <div class="card user-card-full">
+        <div class="user-profile bg-c-lite-blue">
+            <div class="card-block text-center text-white">
+                <div class="m-b-25">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="none" viewBox="0 0 24 24" id="User">
+                        <path fill="#9815cf" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Zm3-12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 7a7.489 7.489 0 0 1 6-3 7.489 7.489 0 0 1 6 3 7.489 7.489 0 0 1-6 3 7.489 7.489 0 0 1-6-3Z"
+                            clip-rule="evenodd" class="color000000 svgShape"></path>
+                    </svg>
+                </div>
+                <h6 class="f-w-600">{{ currentUser?.nom }} {{ currentUser?.prenom }}</h6>
+                <p style="padding: 2em;">Chauffeur N° {{ currentUser?.id }}</p>
+                <button (click)="initEditUser(utilisateur)" data-bs-toggle="modal" data-bs-target="#updateUserModal" class="edit-btn mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16">
+                   <i>
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0,0,256,256">
+                            <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                style="mix-blend-mode: normal">
+                                <g transform="scale(5.12,5.12)">
+                                    <path
+                                        d="M43.125,2c-1.24609,0 -2.48828,0.48828 -3.4375,1.4375l-0.8125,0.8125l6.875,6.875c-0.00391,0.00391 0.8125,-0.8125 0.8125,-0.8125c1.90234,-1.90234 1.89844,-4.97656 0,-6.875c-0.95312,-0.94922 -2.19141,-1.4375 -3.4375,-1.4375zM37.34375,6.03125c-0.22656,0.03125 -0.4375,0.14453 -0.59375,0.3125l-32.4375,32.46875c-0.12891,0.11719 -0.22656,0.26953 -0.28125,0.4375l-2,7.5c-0.08984,0.34375 0.01172,0.70703 0.26172,0.95703c0.25,0.25 0.61328,0.35156 0.95703,0.26172l7.5,-2c0.16797,-0.05469 0.32031,-0.15234 0.4375,-0.28125l32.46875,-32.4375c0.39844,-0.38672 0.40234,-1.02344 0.01563,-1.42187c-0.38672,-0.39844 -1.02344,-0.40234 -1.42187,-0.01562l-32.28125,32.28125l-4.0625,-4.0625l32.28125,-32.28125c0.30078,-0.28906 0.39063,-0.73828 0.22266,-1.12109c-0.16797,-0.38281 -0.55469,-0.62109 -0.97266,-0.59766c-0.03125,0 -0.0625,0 -0.09375,0z">
+                                    </path>
+                                </g>
+                            </g>
+                        </svg>
+                    </i>
+                </button>
+            </div>
+        </div>
+        <div style="margin-left: 2em;" class="card-block">
+            <h6 style="margin-bottom: 2em; margin-top: 2em;" class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">Nom</p>
+                    <h6 class="text-muted f-w-400">{{ currentUser?.nom }}</h6>
+                </div>
+                <div class="col-sm-6">
+                    <p id="Prenom" class="m-b-10 f-w-600">Prénom</p>
+                    <h6 class="text-muted f-w-400">{{ currentUser?.prenom }}</h6>
+                </div>
+                <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">Email</p>
+                    <h6 class="text-muted f-w-400">{{ currentUser?.email }}</h6>
+                </div>
+                <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">Telephone</p>
+                    <h6 class="text-muted f-w-400" id="Telephone">{{ currentUser?.telephone }}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--edit-->
+<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="updateEmployeeModalLabel">Modifier mes informations</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            
+             </button>
+          </div>
+          <div class="modal-body">
+             <form #editForm="ngForm">
+                <div class="form-group">
+                    <label for="id">Identifiant</label>
+                    <input type="text" ngModel="{{currentUser?.id}}" value="{{currentUser?.id}}" name="id" class="form-control" id="id"  placeholder="id" >
+                 </div>
+                <div class="form-group">
+                   <label for="nom">Nom</label>
+                   <input type="text" ngModel="{{currentUser?.nom}}" value="{{currentUser?.nom}}" name="nom" class="form-control" id="nom"  placeholder="nom" >
+                </div>
+               
+  
+                <div class="form-group">
+                   <label for="prenom">prenom </label>
+                   <input type="text" ngModel="{{currentUser?.prenom}}" value="{{currentUser?.prenom}}" name="prenom" class="form-control" id="prenom" placeholder="prenom" >
+                </div>
+  
+                 <div class="form-group">
+                   <label for="email">Email </label>
+                   <input type="text" ngModel="{{currentUser?.email}}" value="{{currentUser?.email}}" name="email" class="form-control" id="email" placeholder="fonction">
+                 </div>
+                
+                <div class="form-group">
+                    <label for="telephone">Telephone</label>
+                    <input type="tel" ngModel="{{currentUser?.telephone}}" value="{{currentUser?.telephone}}"name="telephone" class="form-control" id="Telephone" placeholder="Telephone">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" ngModel="{{currentUser?.password}}" class="form-control" id="password" placeholder="Password">
+                </div>
+                
+               
+                <div class="modal-footer">
+                    <button type="button" id="annuler" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button (click)="onUpdateUser(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Sauvgarder modification </button>
+                </div>
+             </form>
+          </div>
+       </div>
+    </div> 
+
+
+</div>

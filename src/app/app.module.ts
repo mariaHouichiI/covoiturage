@@ -33,6 +33,7 @@ import { DatePipe } from '@angular/common';
 import {CheckboxModule} from 'primeng/checkbox';
 import { ParametreComponent } from './parametre/parametre.component';  
 import { AuthGuard } from './auth.guard';
+import { ProfilComponent } from './profil/profil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { AuthGuard } from './auth.guard';
     AdminComponent,
     GestionUserComponent,
     ParametreComponent,
+    ProfilComponent,
  
   ],
   imports: [
@@ -76,11 +78,13 @@ import { AuthGuard } from './auth.guard';
     ButtonModule,
     CheckboxModule,
     
+    
    
   ],
   exports:[FormsModule],
   providers: [ConfirmationService, 
     AuthGuard,
+  
     /* {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,

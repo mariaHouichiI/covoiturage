@@ -8,10 +8,10 @@ import { ChauffeurComponent } from './chauffeur/chauffeur.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AdminComponent } from './admin/admin.component';
-import { ProfileComponent } from './profile/profile.component';
 import { GestionUserComponent } from './gestion-user/gestion-user.component';
 import { ParametreComponent } from './parametre/parametre.component';
 import { AuthGuard } from './auth.guard';
+import { ProfilComponent } from './profil/profil.component';
 
 
 const routes: Routes = [
@@ -19,7 +19,7 @@ const routes: Routes = [
   {path : "home" , component:HomeComponent},
   {path: "logo" , component:LogoComponent},
   {path: "admin" , component:AdminComponent  ,canActivate: [AuthGuard]},
-  {path: "profile" , component:ProfileComponent ,canActivate: [AuthGuard]},
+  {path: "profil" , component:ProfilComponent,canActivate: [AuthGuard] },
   {path: "parametre" , component:ParametreComponent  ,canActivate: [AuthGuard]},
   {path: "login", component:LoginComponent },
   {path: "signup", component:SingupComponent},

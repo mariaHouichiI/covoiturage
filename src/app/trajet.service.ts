@@ -4,7 +4,10 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Trajet } from './trajet';
 
-
+ const httpOptions = {
+      Headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      responseType: 'text' as 'json'
+    };
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +21,7 @@ export class TrajetService {
     return this.http.get(`${this.apiUrl}/trajet/liste_trajet.php`);
   }
   addTrajet(newTrajet: Trajet): Observable<any> {
+   
     const formData = new FormData();
     formData.append('chauffeur', `${newTrajet.Chauffeur}`);
     formData.append('heure_depart', `${newTrajet.Heure_depart}`);
@@ -42,4 +46,60 @@ export class TrajetService {
         })
     );
   }
+  getNombrePlaces(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/trajet/getNbplace.php`);
+  }
+ /* updateNombrePlaces(nbr_place: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('nbr_place', `${nbr_place}`);
+    return this.http.post(`${this.apiUrl}/trajet/nbr_place.php`, formData).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Erreur lors de la mise à jour côté client : ', error);
+        return throwError('Mise à jour du nombre de places échouée');
+      }),
+      tap((response: any) => {
+        console.log('Réponse du service :', response);
+        if (response && !response.success) {
+          console.error('Erreur côté serveur :', response);
+        }
+      })
+    );
+  }*/
+  updateNombrePlaces(nbr_place: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('nbr_place', `${nbr_place}`);
+    
+    return this.http.post(`${this.apiUrl}/trajet/nbr_place.php`, formData).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Erreur lors de la mise à jour côté client : ', error);
+  
+        let errorMessage = 'Mise à jour du nombre de places échouée';
+  
+        // Vérifiez si la réponse est au format JSON
+        if (error.error instanceof ErrorEvent) {
+          console.error('Erreur côté client :', error.error.message);
+        } else if (error.status === 0) {
+          errorMessage = 'Impossible de se connecter au serveur';
+        } else if (error.status === 500 && error.error && error.error.message) {
+          errorMessage = error.error.message;
+        }
+  
+        return throwError(errorMessage);
+      }),
+      tap((response: any) => {
+        console.log('Réponse du service :', response);
+        if (response && response.success) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+          console.log('Mise à jour réussie');
+        }
+      })
+    );
+  }
+  public updateTrajet (trajet:Trajet): Observable<any>{
+    return this.http.put<Trajet>(this.apiUrll,trajet,httpOptions);
+  }
+  
+  
 }

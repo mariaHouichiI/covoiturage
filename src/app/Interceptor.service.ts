@@ -1,7 +1,8 @@
 // auth.interceptor.ts
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor  {/*
@@ -20,4 +21,5 @@ implements HttpInterceptor
     }
     return next.handle(req);
   }*/
+ 
 }
