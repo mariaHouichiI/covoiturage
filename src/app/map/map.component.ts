@@ -17,7 +17,7 @@ export class MapComponent implements OnInit {
 
   initializeMap(): void {
     const initialCoordinates: L.LatLngExpression = [0, 0];
-    //this.leafletService.initializeMap(this.mapElement.nativeElement, initialCoordinates);
+    this.leafletService.initializeMap(this.mapElement.nativeElement, initialCoordinates);
   }
 
   onMapClick(event: L.LeafletMouseEvent): void {

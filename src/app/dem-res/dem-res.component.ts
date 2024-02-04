@@ -24,13 +24,21 @@ import { ReservationService } from '../reservation.service';
     styleUrls: ['./dem-res.component.css']
   })
   export class DemResComponent {
-  affectResUpdate(trajet: Trajet) {
-  
-   this.resUpdate={
-    Passagere: 1,
-    Trajet: trajet.id,
-    Approuver : "1"
-   }
+
+
+
+  affectResUpdate(idPass:number, idTraj: number) {
+
+    this.resService.approuve(idPass,idTraj).subscribe(
+      (data: boolean) => {
+       
+        this.success = 'successful retrieval of the list';
+      },
+      (error) => {
+        this.error = 'Error retrieving communes: ' + error;
+      }
+    );
+
   
   
   }
@@ -43,7 +51,7 @@ import { ReservationService } from '../reservation.service';
   trajetUpdateArrive!:{ Wilaya: string, Nom_Commune: string, id: number }
     resUpdate!: Reservation; 
     listeIdTrajets: number[]=[]
-
+    listRes:any[]=[]
     selectedcommune1!: Commune;
     selectedwilaya1!: wilaya;
     selectedcommune2!: Commune;
@@ -93,7 +101,6 @@ import { ReservationService } from '../reservation.service';
           date: new FormControl<Date | null>(null)
       });
      this.getCommune()
-    this.getTrajets()
     this.getWilaya()
     this.getUserCurrent()
     this.getRes()
@@ -106,7 +113,7 @@ import { ReservationService } from '../reservation.service';
       this.getUser.getUser(this.token).subscribe(
         (data: Utilisateur) => {
           this.currentUser = data;
-         
+          this.getTrajets();
           console.log("useeeeeeeeeeer",this.currentUser)
           this.success = 'successful retrieval of the list';
         },
@@ -128,6 +135,23 @@ import { ReservationService } from '../reservation.service';
         }
       );
     }
+    getListeRes(){
+      this.resService.demRes(this.currentUser.id).subscribe(
+        (data: Reservation[]) => {
+          this.listRes = data; 
+          console.log(this.listRes); 
+          this.success = 'successful retrieval of the list';
+          this.listRes.map(res => {
+            res[1] = this.trajets.find(trajet => trajet.id === res[1])
+            return res;
+          });
+        },
+        (error) => {
+          this.error = 'Error retrieving wilayas: ' + error;
+        }
+      );
+
+    }
   
     getTrajets(): void {
    
@@ -135,6 +159,7 @@ import { ReservationService } from '../reservation.service';
       
         (data: Trajet[]) => {
           this.trajets = data;
+          this.getListeRes()
   
           for (const trajet of this.trajets) {
            

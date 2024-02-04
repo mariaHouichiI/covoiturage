@@ -64,17 +64,13 @@
               <div>{{commune?.Nom_Commune}} </div>
             </ng-template>
           </p-dropdown>    </div>
-
-         
-        
-        
-        
+     
 
    
 </div>
 
-<div  *ngFor="let trajet of trajets">
-  <div *ngIf="trajet.Chauffeur === currentUser?.id">
+<div  *ngFor="let trajet of listRes">
+  <div *ngIf="trajet[1].Chauffeur === currentUser?.id">
   <p-card [style]="styleOBJ">
     <p class="name" *ngIf="currentUser && currentUser.nom && currentUser.prenom">
       {{ currentUser.nom }} {{ currentUser.prenom }}
@@ -83,16 +79,16 @@
     <div style="display: flex; justify-content: space-between;">
 
       <ng-container *ngFor="let depart of departs">
-        <p class="text-card" *ngIf="depart.id === trajet.id">Départ: {{ depart.Nom_Commune }}, {{ depart.Wilaya }}</p>
+        <p class="text-card" *ngIf="depart.id === trajet[1].id">Départ: {{ depart.Nom_Commune }}, {{ depart.Wilaya }}</p>
       </ng-container>
       <ng-container *ngFor="let arrive of arrives">
-        <p class="text-card" *ngIf="arrive.id === trajet.id">Arrivé: {{ arrive.Nom_Commune }}, {{ arrive.Wilaya }}</p>
+        <p class="text-card" *ngIf="arrive.id === trajet[1].id">Arrivé: {{ arrive.Nom_Commune }}, {{ arrive.Wilaya }}</p>
     </ng-container>
-      <p class="text-card">Heure De Départ: {{trajet.Heure_depart}}</p>
-      <p class="text-card">Date De Départ: {{trajet.Date_depart}}</p>
+      <p class="text-card">Heure De Départ: {{trajet[1].Heure_depart}}</p>
+      <p class="text-card">Date De Départ: {{trajet[1].Date_depart}}</p>
 
-      <button pButton pRipple icon="pi pi-check" data-bs-toggle="modal" (click)="affectResUpdate(trajet)" data-bs-target="#updateModal" class="p-button-success"></button>    
-        <button style="margin-right: 10px;" pButton pRipple icon="pi pi-times" (click)="deleteRes(trajet.id)" class="p-button-danger"></button>
+      <button pButton pRipple icon="pi pi-check" data-bs-toggle="modal" (click)="affectResUpdate(trajet[0], trajet[1].id)" data-bs-target="#updateModal" class="p-button-success"></button>    
+        <button style="margin-right: 10px;" pButton pRipple icon="pi pi-times" (click)="deleteRes(trajet[1].id)" class="p-button-danger"></button>
     </div>
   </p-card></div>
 </div>

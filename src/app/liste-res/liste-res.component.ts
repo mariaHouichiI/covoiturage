@@ -80,14 +80,12 @@ styledown = {'margin-bottom': '15%'};
 
  
   ngOnInit() {
-     this.getUserCurrent()
     this.formGroup = new FormGroup({
         date: new FormControl<Date | null>(null)
     });   
-    this.getTrajets()
      
     this.getUsers()
-   this.getCommune()
+    this.getCommune()
 
   this.getWilaya()
  
@@ -140,7 +138,6 @@ styledown = {'margin-bottom': '15%'};
 
         for (const reservation  of this.listeRes as any ) {
           for (const trajet of this.trajets) {
-            console.log('test', trajet.id,reservation.Trajet)
            
             if (trajet.id === reservation[1]) {
               // Check if user with the same id already exists in this.users
@@ -223,11 +220,11 @@ styledown = {'margin-bottom': '15%'};
         }
         
         
-console.log("useeeeeeeeers",this.users)
+        console.log("useeeeeeeeers",this.users) 
+        console.log("message",this.trajets)
+        console.log("messsage",this.communes)
         for (const trajet of this.trajets) {
-         
           for (const commune of this.communes) {
-           
             if (trajet.Lieu_depart === commune.id) { 
              
               const trajetInfoDepart = {
@@ -256,7 +253,7 @@ console.log("useeeeeeeeers",this.users)
             }
           }
         }
-        
+        this.getUserCurrent();
         console.log("deeeeeeeeeeeeeeeep",this.departs);
         this.success = 'successful retrieval of the list';
       },
@@ -319,6 +316,7 @@ getCommune(): void {
       this.communes = data; 
       console.log(this.communes); 
       this.success = 'successful retrieval of the list';
+      this.getTrajets()
     },
     (error) => {
       this.error = 'Error retrieving communes: ' + error;

@@ -19,6 +19,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./chauffeur.component.css']
 })
 export class ChauffeurComponent {
+GoTomap() {
+this.router.navigate(['/map'])
+}
 heureDepart!: Date;
 dateDepart!: Date;
 trajetUpdateDepart!: { Wilaya: string; Nom_Commune: string; id: number; };

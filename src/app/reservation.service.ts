@@ -50,4 +50,37 @@ export class ReservationService {
       })
     );
   }
+
+   demRes(idChauf: number): Observable<any> {
+    const url = `${this.apiUrll}/api/reservation/pending/chauffeur/index.php?id=${idChauf}`;
+  
+    return this.http.get<any>(url).pipe(
+      catchError((error: any) => {
+        console.error('Erreur lors de la suppression du trajet :', error);
+        throw error;  // Propagez l'erreur pour la gestion côté composant
+      })
+    );
+  }
+  approuve(userid:number,trajetid: number): Observable<any> {
+   
+    const formData = new FormData();
+    formData.append('trajet_id', `${trajetid}`);
+    formData.append('user_id', `${userid}`);
+   
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+  });
+
+    return this.http.post(`${this.apiUrll}/api/reservation/pending/chauffeur/index.php`, formData).pipe(
+        catchError((error: HttpErrorResponse) => {
+            console.error(error);
+            return throwError('ajout faild');
+        }),
+        tap((response: any) => {
+            if (response.success) {
+                console.log('ajout successful');
+            }
+        })
+    );
+  }
 }

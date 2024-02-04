@@ -67,28 +67,7 @@
             </ng-template>
           </p-dropdown>    </div>
 
-    <div style="flex: 1; margin-left: -30px;  ">
-        <br>
-        <form [formGroup]="formGroup">
-            <p-calendar formControlName="date"></p-calendar>
-        </form>
 
-        <form [formGroup]="formGroup">
-            <p-calendar formControlName="date" [showTime]="true" [timeOnly]="true" hourFormat="24"></p-calendar>
-        </form>
-    </div>
-    <div style="display: flex; justify-content: space-between;">
-    <div style="flex: 1;  ">
-        <br><br>
-        <p > Hebdomadaire       </p>
-    </div>    
-     <div style="flex: 1; ">
-        <br><br>
-        <input class="classInput" type="checkbox" id="myCheckbox" [(ngModel)]="isChecked" name="myCheckbox">
-
-   </div>        
-
-  </div>
    
 </div>
 
@@ -101,13 +80,13 @@
     <div style="display: flex; justify-content: space-between;">
 
       <ng-container *ngFor="let depart of departs">
-        <p class="text-card" *ngIf="depart.id === trajet.id">Départ: {{ depart.Nom_Commune }}, {{ depart.Wilaya }}</p>
+        <p class="text-card" *ngIf="depart.id === trajet.id">Départ:<br> {{ depart.Nom_Commune }}, {{ depart.Wilaya }}</p>
       </ng-container>
       <ng-container *ngFor="let arrive of arrives">
-        <p class="text-card" *ngIf="arrive.id === trajet.id">Arrivé: {{ arrive.Nom_Commune }}, {{ arrive.Wilaya }}</p>
+        <p class="text-card" *ngIf="arrive.id === trajet.id">Arrivé:<br>  {{ arrive.Nom_Commune }}, {{ arrive.Wilaya }}</p>
     </ng-container>
-      <p class="text-card">Heure De Départ: {{trajet.Heure_depart}}</p>
-      <p class="text-card">Date De Départ: {{trajet.Date_depart}}</p>
+      <p class="text-card">Heure De Départ: <br> {{trajet.Heure_depart}}</p>
+      <p class="text-card">Date De Départ: <br> {{trajet.Date_depart}}</p>
      
       <button   style="height: 1cm; width: 1cm;" pButton pRipple icon="pi pi-times" class="p-button-danger" ></button>
 
