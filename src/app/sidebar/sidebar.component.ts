@@ -60,6 +60,14 @@ success = '';
     );
     
   }
+  
+  goToListeRes(){
+    this.router.navigate(["/listeRes"])
+  }
+  goTooDemRes(){
+    console.log("apllll")
+    this.router.navigate(["/demReser"])
+  }
   goToListeTrajet(){
     this.router.navigate(["/client"])
   }

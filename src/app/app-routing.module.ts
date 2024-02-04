@@ -13,6 +13,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { GestionUserComponent } from './gestion-user/gestion-user.component';
 import { ParametreComponent } from './parametre/parametre.component';
 import { AuthGuard } from './auth.guard';
+import { ListeResComponent } from './liste-res/liste-res.component';
+import { DemResComponent } from './dem-res/dem-res.component';
 
 
 const routes: Routes = [
@@ -21,6 +23,8 @@ const routes: Routes = [
   {path: "logo" , component:LogoComponent},
 
   {path: "client", component:ClientComponent},
+  {path: "listeRes", component:ListeResComponent},
+  {path: "demReser", component:DemResComponent},
 
   {path: "login", component:LoginComponent},
   {path: "admin" , component:AdminComponent  ,canActivate: [AuthGuard]},

@@ -8,32 +8,31 @@ width: 80%;">
 </div>
 <div style="display: flex; justify-content: space-between;">
 
-
     <div style="flex: 1; margin-left: 22%;">
-      <p>Depart:</p>
+        <p>Depart:</p>
 
 
-      <p-dropdown [options]="wilayas"  [(ngModel)]="selectedwilaya" id="drop" [filter]="true" placeholder=" Wilaya...">
-          <ng-template  let-wilaya pTemplate="selectedItem">
-            <div>{{selectedwilaya.Nom_wilaya}}</div>
-          </ng-template>
-          <ng-template  let-wilaya pTemplate="item">
-            <div  >{{wilaya.Nom_wilaya}}</div>
-          </ng-template>
-        </p-dropdown>
-      
-      <br>
+        <p-dropdown [options]="wilayas"  [(ngModel)]="selectedwilaya" id="drop" [filter]="true" placeholder=" Wilaya...">
+            <ng-template  let-wilaya pTemplate="selectedItem">
+              <div>{{selectedwilaya.Nom_wilaya}}</div>
+            </ng-template>
+            <ng-template  let-wilaya pTemplate="item">
+              <div  >{{wilaya.Nom_wilaya}}</div>
+            </ng-template>
+          </p-dropdown>
+        
+        <br>
 
-      <p-dropdown [options]="filterWilayas()" optionLabel="wilaya"   [(ngModel)]="selectedcommune" id="drop" [filter]="true" placeholder="Commune...">
-          <ng-template let-commune pTemplate="selectedItem">
-            <div>{{selectedcommune.Nom_Commune}}</div>
-          </ng-template>
-          <ng-template let-commune pTemplate="item">
-            <div>{{commune.Nom_Commune}} </div>
-          </ng-template>
-        </p-dropdown>
+        <p-dropdown [options]="filterWilayas()"  [(ngModel)]="selectedcommune" id="drop" [filter]="true" placeholder="Commune...">
+            <ng-template let-commune pTemplate="selectedItem">
+              <div>{{selectedcommune.Nom_Commune}}</div>
+            </ng-template>
+            <ng-template let-commune pTemplate="item">
+              <div>{{commune?.Nom_Commune}} </div>
+            </ng-template>
+          </p-dropdown>
 
-  </div>
+    </div>
 
     <div style="flex: 1; margin-left: -30px; ">
         <p>Arrivé:</p>
@@ -47,7 +46,7 @@ width: 80%;">
           </p-dropdown>       
            <br>
 
-   <p-dropdown [options]="filterWilayas1()"  (onChange)="filterByWilayaArrive($event.value.wilaya)"  [(ngModel)]="selectedcommune1" id="drop" [filter]="true" placeholder="Commune...">
+   <p-dropdown [options]="filterWilayas1()"  [(ngModel)]="selectedcommune1" id="drop" [filter]="true" placeholder="Commune...">
             <ng-template let-commune pTemplate="selectedItem">
               <div>{{selectedcommune1.Nom_Commune}}</div>
             </ng-template>
@@ -81,7 +80,7 @@ width: 80%;">
    
 </div>
 
-<div *ngFor="let trajet of trajets">
+<div *ngFor="let trajet of listeTrajets">
     <div *ngIf="trajet.Chauffeur !== currentUser.id">
   <p-card [style]="styleOBJ">
     <ng-container *ngFor="let user of users">

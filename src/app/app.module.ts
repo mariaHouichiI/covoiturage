@@ -36,6 +36,8 @@ import { ClientComponent } from './client/client.component';
 import {CheckboxModule} from 'primeng/checkbox';
 import { ParametreComponent } from './parametre/parametre.component';  
 import { AuthGuard } from './auth.guard';
+import { ListeResComponent } from './liste-res/liste-res.component';
+import { DemResComponent } from './dem-res/dem-res.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +52,8 @@ import { AuthGuard } from './auth.guard';
     AdminComponent,
     GestionUserComponent,
     ParametreComponent,
+    ListeResComponent,
+    DemResComponent,
  
   ],
   imports: [

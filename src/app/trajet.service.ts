@@ -4,6 +4,10 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Trajet } from './trajet';
 
+const httpOptions = {
+  Headers: new HttpHeaders({'Content-Type': 'application/json'}),
+  responseType: 'text' as 'json'
+};
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +55,22 @@ export class TrajetService {
       })
     );
   }
+  public updateTrajet (trajet:Trajet): Observable<any>{
+    return this.http.put<Trajet>(this.apiUrll,trajet,httpOptions);
+  }
+
+  getByCommune(idComdep: number,idComAr: number): Observable<any> {
+    const url = `${this.apiUrl}/trajet/index.php?communeDep=${idComdep}&communeAr=${idComAr}`;
+    return this.http.get<any>(url).pipe(
+      catchError((error: any) => {
+        console.error('Erreur lors de la suppression du trajet :', error);
+        throw error;  // Propagez l'erreur pour la gestion côté composant
+      })
+    );
+  }
+
+
+
   
+
 }

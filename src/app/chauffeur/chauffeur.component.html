@@ -103,7 +103,7 @@ width: 80%;margin-right : 65%;">
 </div>
 
 <div  *ngFor="let trajet of trajets">
-  <div *ngIf="trajet.Chauffeur === currentUser.id">
+  <div *ngIf="trajet.Chauffeur === currentUser?.id">
   <p-card [style]="styleOBJ">
     <p class="name" *ngIf="currentUser && currentUser.nom && currentUser.prenom">
       {{ currentUser.nom }} {{ currentUser.prenom }}

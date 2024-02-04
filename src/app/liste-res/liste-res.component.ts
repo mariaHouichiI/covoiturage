@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { wilaya } from '../wilaya';
 import { Commune } from '../commune';
@@ -14,13 +15,13 @@ import { UtilisateurService } from '../utilisateur.service';
 import { ReservationService } from '../reservation.service';
 import { Reservation } from '../reservation';
 import { User1 } from '../user1';
-
+import { forkJoin } from 'rxjs';
 @Component({
-  selector: 'app-client',
-  templateUrl: './client.component.html',
-  styleUrls: ['./client.component.css']
+  selector: 'app-liste-res',
+  templateUrl: './liste-res.component.html',
+  styleUrls: ['./liste-res.component.css']
 })
-export class ClientComponent {
+export class ListeResComponent {
 
 
 
@@ -41,15 +42,21 @@ trajetUpdateArrive!:{ Wilaya: string, Nom_Commune: string, id: number }
   communes1:Commune[] = [];
   communes2:Commune[] = [];
   communes3:Commune[] = [];
+  listeTrajets:Trajet[]=[]
   reservations:Reservation[]=[];
+  res:Reservation[]=[];
+
   utilisateurs : User1[] = [];
   currentUser!: Utilisateur;
   deleteError: string | undefined;
+  listeIdTrajets: number[]=[]
 constructor(private resService: ReservationService,private getUser :GetUserService,private datePipe: DatePipe, private authService: AuthService,private utilisateurService:UtilisateurService,private trajetService: TrajetService, private commune_wilayaServive: WilayaCommuneService) {
  
 }
   wilayas: wilaya[] = [];
   trajets: Trajet[]=[];
+  tr: Trajet[]=[];
+
   error = '';
   success = '';
   
@@ -71,7 +78,8 @@ styledown = {'margin-bottom': '15%'};
   token = localStorage.getItem('token');
 
  
-  ngOnInit() {
+  ngOnInit() { 
+   this.newListe()
      this.getUserCurrent()
     this.formGroup = new FormGroup({
         date: new FormControl<Date | null>(null)
@@ -82,6 +90,7 @@ styledown = {'margin-bottom': '15%'};
   this.getWilaya()
  this.getRes()
   }
+
   isReservationEnAttente(trajetId: number): boolean {
     console.log("Current User ID:", this.currentUser.id);
     console.log("Reservations:", this.reservations);
@@ -100,7 +109,9 @@ styledown = {'margin-bottom': '15%'};
       return false;
     }
   }
-  
+
+
+
   addRes(idTrajet: number, passagere: number) {
     this.resService.ajouterRes(idTrajet, passagere).subscribe(
       response => {
@@ -111,21 +122,7 @@ styledown = {'margin-bottom': '15%'};
         this.getTrajets();
       }
     );
-  } 
-
-  filterByWilayaArrive(wilaya: number): void {
-    this.trajets = [];
-    this.trajetService.getByCommune(this.selectedcommune.id,this.selectedcommune1.id).subscribe(
-      (trajets: Trajet[]) => {
-        this.trajets = trajets;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  }
-  
-     
+  }    
   getUsers(): void {
     this.utilisateurService.getAll().subscribe(
       (data: User1[]) => {
@@ -172,6 +169,7 @@ styledown = {'margin-bottom': '15%'};
     
       (data: Trajet[]) => {
         this.trajets = data;
+        console.log(this.trajets,"trajetsListe")
         for (const trajet of this.trajets) {
           for (const user of this.utilisateurs) {
             if (trajet.Chauffeur === user.id) {
@@ -252,7 +250,7 @@ console.log("useeeeeeeeers",this.users)
     this.resService.getAll().subscribe(
       (data: Reservation[]) => {
         this.reservations = data; 
-        console.log(this.reservations); 
+        console.log("les reeeeeeeees",this.reservations); 
         this.success = 'successful retrieval of the list';
       },
       (error) => {
@@ -303,11 +301,48 @@ getCommune(): void {
     }
   );
 }
+ 
 
+newListe() {
+  forkJoin([
+    this.trajetService.getAll(),
+    this.resService.getAll()
+  ]).subscribe(
+    ([trajets, reservations]: [Trajet[], Reservation[]]) => {
+      this.tr = trajets;
+      this.res = reservations;
 
+      // Rest of the newListe logic
+      console.log("liste resss", this.res);
+      console.log("liste trrrrrrrrrrr", this.tr);
+
+      for (const res of this.res) {
+        console.log("mes2");
+        if (res.Passagere === this.currentUser.id && res.Approuver === "1") {
+          console.log("mes3");  this.listeIdTrajets.push(res.Trajet);
+        }
+      }
+      console.log("listeIDD", this.listeIdTrajets);
+
+      for (const trajet of this.tr) {
+        console.log("mes1");
+        for (const idT of this.listeIdTrajets) {
+          if (trajet.id === idT) {
+            this.listeTrajets.push(trajet);
+          }
+        }
+      }
+      console.log("listettra", this.listeTrajets);
+    },
+    error => {
+      console.error('Error fetching data:', error);
+    }
+  );
+}
 
 
   }
+
 
 
 

@@ -293,22 +293,42 @@ addTrajet(addForm: NgForm) {
   
   
   }
-  updateTrajet(updateForm: NgForm){}
+  updateTrajet(updateForm: NgForm){
+
+    updateForm.value.date = this.datePipe.transform(updateForm.value.date, 'yyyy-MM-dd');
+    updateForm.value.heure = this.datePipe.transform(updateForm.value.heure, 'HH:mm:ss');
+    
+     const trajet:any ={
+       id: this.trajetUpdate.id,
+       Chauffeur:this.trajetUpdate.Chauffeur ,
+       commune_depart:this.selectedcommune2.id,
+       commune_arrive: this.selectedcommune3.id,
+       heure_depart:updateForm.value.heure,
+       date_depart: updateForm.value.date,
+       nbr_place: updateForm.value.nbr_place,
+       hebdomadaire:1 ,
+      }
+console.log("trajet avnt envoi ",trajet)
+    this.trajetService.updateTrajet(trajet).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.getTrajets();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
   deleteTrajet(idTrajet: number) {
     this.trajetService.deleteTrajet(this.currentUser.id, idTrajet).subscribe(
-      response => {
-        // Gérer la réponse de l'API ici
+      (response: any) => {
         console.log(response);
         // Supprimer le trajet du tableau trajets
         this.trajets = this.trajets.filter(trajet => trajet.id !== idTrajet);
-        // Réinitialiser l'erreur en cas de succès
       
       },
-      error => {
-        // Gérer les erreurs ici
-        console.error(error);
-        // Afficher l'erreur à l'utilisateur
-        this.deleteError = 'Erreur lors de la suppression du trajet.';
+      (error: HttpErrorResponse) => {
+        alert(error.message);
       }
     );
   }
